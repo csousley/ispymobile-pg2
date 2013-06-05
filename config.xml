@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns     = 'http://www.w3.org/ns/widgets'
         xmlns:gap = 'http://phonegap.com/ns/1.0'
-        id        = "org.devgirl.pgb-push-app2"
+        id        = "com.ispyfire.iSpyMobile"
         version   = "0.0.1">
-    <name>Push Plugin Sample</name>
+    <name>iSpyMobile</name>
 
     <description>
         Push Plugin Sample for PhoneGap Build
     </description>
 
-    <author href="http://devgirl.org" email="hschinsk@adobe.com">
-        Holly Schinsky
+    <author href="http://www.ispyfire.com" email="cy@ispyfire.com">
+        Cy Sousley
     </author>
 
     <feature name="http://api.phonegap.com/1.0/device" />
