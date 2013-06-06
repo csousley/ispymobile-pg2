@@ -11,10 +11,9 @@
         <div class="app">
             <img src="img/fullLogo_small.png">
             <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
+                <p class="event listening">Checking Device</p>
                 <p class="event received">Device is Ready</p>
             </div>
-            <div id="deviceStatus" style="margin-top: 5px;">Starting</div>
         </div>
         
         <div id="deviceID" style="width: 100%; text-align: center; margin-top: 50px;">
@@ -30,10 +29,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                setTimeout( function()
-                {
-                    app.initialize();
-                }, 2000);
+                app.initialize();
             });
         </script>
         

@@ -1,7 +1,6 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        updateStatus("Checking device");
         this.bindEvents();
     },
     // Bind any events that are required on startup. Common events are:
@@ -15,11 +14,10 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        updateStatus("Device ready");
         iSpySetup();
     },
     tokenHandler:function(msg) {
-        console.log("Token Handler " + msg);
+        alert("Token Handler " + msg);
         setDeviceID(msg);
     },
     errorHandler:function(error) {
@@ -100,16 +98,7 @@ var app = {
 };
 
 function iSpySetup() {
-    
-}
-
-function test() {
-    updateStatus("doing the test");
-}
-
-function updateStatus(newStatus) {
-    $("#deviceStatus").html(newStatus);
-    console.log("SU: " + newStatus);
+    $("#deviceID").html("device: " + device.uuid);
 }
 
 function setDeviceID(id) {
