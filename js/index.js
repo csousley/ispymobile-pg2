@@ -31,6 +31,7 @@ var app = {
         alert('Success! Result = '+result);
     },
     unregister: function() {
+        console.log("unreg starting");
         var pushNotification = window.plugins.pushNotification;
         pushNotification.unregister(
                 function(data){
@@ -108,6 +109,7 @@ var app = {
 };
 
 function unReg() {
+    console.log("unreg method call");
     app.unregister();
     $("#deviceID").html("device: unregistered");
 }
