@@ -1,4 +1,4 @@
-var pushNotification = window.plugins.pushNotification;
+//var pushNotification = window.plugins.pushNotification;
 
 var app = {
     // Application Constructor
@@ -30,9 +30,13 @@ var app = {
     successHandler: function(result) {
         alert('Success! Result = '+result);
     },
+    unregister: function() {
+        var pushNotification = window.plugins.pushNotification;
+        pushNotification.unregister();
+    },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        //var pushNotification = window.plugins.pushNotification;
+        var pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
         }
@@ -50,7 +54,7 @@ var app = {
     },
     // iOS
     onNotificationAPN: function(event) {
-        //var pushNotification = window.plugins.pushNotification;
+        var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
         console.log("event badge " + event.badge);
@@ -98,8 +102,8 @@ var app = {
 };
 
 function unReg() {
-    pushNotification.unregister(successHandler, errorHandler);
-    navigator.app.exitApp();
+    app.unregister();
+    $("#deviceID").html("device: unregistered");
 }
 
 function iSpySetup() {
