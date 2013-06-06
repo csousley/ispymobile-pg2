@@ -31,6 +31,7 @@ var app = {
         alert('Success! Result = '+result);
     },
     unregister: function() {
+        try {
         console.log("unreg starting");
         var pushNotification = window.plugins.pushNotification;
         pushNotification.unregister(
@@ -40,6 +41,9 @@ var app = {
                 function(data){
                     console.log("unreg bad: " + data);
                 });
+        } catch(e) {
+            console.log("unreg error: " + e);
+        }
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
