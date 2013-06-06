@@ -1,4 +1,4 @@
-//var pushNotification = window.plugins.pushNotification;
+var pushNotification;
 
 var app = {
     // Application Constructor
@@ -16,6 +16,7 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        pushNotification = window.plugins.pushNotification;
         iSpySetup();
     },
     tokenHandler:function(msg) {
@@ -33,7 +34,7 @@ var app = {
     unregister: function() {
         try {
         console.log("unreg starting");
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         pushNotification.unregister(
                 function(data){
                     console.log("unreg ok: " + data);
@@ -44,10 +45,11 @@ var app = {
         } catch(e) {
             console.log("unreg error: " + e);
         }
+        console.log("unreg finished?");
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
         }
@@ -65,7 +67,7 @@ var app = {
     },
     // iOS
     onNotificationAPN: function(event) {
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
         console.log("event badge " + event.badge);
@@ -119,7 +121,7 @@ function unReg() {
 }
 
 function iSpySetup() {
-    $("#deviceID").html("device: " + device.uuid);
+    //$("#deviceID").html("device: " + device.uuid);
 }
 
 function setDeviceID(id) {
