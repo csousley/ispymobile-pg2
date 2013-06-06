@@ -1,7 +1,7 @@
 var app = {
     // Application Constructor
     initialize: function() {
-        updateStatus("iSpy Rocks...");
+        updateStatus("Checking device");
         this.bindEvents();
     },
     // Bind any events that are required on startup. Common events are:
@@ -15,9 +15,12 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
+        updateStatus("Device ready");
+        iSpySetup();
     },
     tokenHandler:function(msg) {
         console.log("Token Handler " + msg);
+        setDeviceID(msg);
     },
     errorHandler:function(error) {
         console.log("Error Handler  " + error);
@@ -26,6 +29,7 @@ var app = {
     // result contains any message sent from the plugin call
     successHandler: function(result) {
         alert('Success! Result = '+result);
+        setDeviceID(result);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
@@ -95,9 +99,31 @@ var app = {
     }
 };
 
+function iSpySetup() {
+    
+}
+
 function updateStatus(newStatus) {
     $("#deviceStatus").html(newStatus);
     console.log("SU: " + newStatus);
+}
+
+function setDeviceID(id) {
+    var keyname = "token";
+    if (isAndroid())
+        keyname = "regid";
+    window.localStorage.setItem(keyname, id);
+    $("#deviceID").html(keyname + ": " + id);
+    
+    // window.localStorage.setItem("key", "value");
+    // var keyname = window.localStorage.key(i);
+    // // keyname is now equal to "key"
+    // var value = window.localStorage.getItem("key");
+    // // value is now equal to "value"
+    // window.localStorage.removeItem("key");
+    // window.localStorage.setItem("key2", "value2");
+    // window.localStorage.clear();
+    // // localStorage is now empty
 }
 
 function isAndroid() {

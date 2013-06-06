@@ -12,7 +12,6 @@ body {
     height:100%;
     margin:0px;
     padding:0px;
-    text-transform:uppercase;
     width:100%;
 }
 
@@ -49,6 +48,7 @@ h1 {
     background-color: #888;
     height: 20px;
     line-height: 20px;
+    text-transform:uppercase;
 }
 
 @keyframes fade {
