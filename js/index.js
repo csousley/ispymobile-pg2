@@ -32,7 +32,13 @@ var app = {
     },
     unregister: function() {
         var pushNotification = window.plugins.pushNotification;
-        pushNotification.unregister();
+        pushNotification.unregister(
+                function(data){
+                    console.log("unreg ok: " + data);
+                },
+                function(data){
+                    console.log("unreg bad: " + data);
+                });
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
