@@ -49,22 +49,27 @@ function unregister() {
 }
 // Update DOM on a Received Event
 function receivedEvent(id) {
-    pushNotification = window.plugins.pushNotification;
-    if (isAndroid()) {
-        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
-    }
-    else {
-        pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
-    }
-    var parentElement = document.getElementById(id);
-    var listeningElement = parentElement.querySelector('.listening');
-    var receivedElement = parentElement.querySelector('.received');
-
-    listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');
-
-    console.log('Received Event: ' + id);
     setTimeout(function() {
+        pushNotification = window.plugins.pushNotification;
+        console.log(">>Push set");
+        if (isAndroid()) {
+            console.log(">>Android");
+            pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
+        } else {
+            console.log(">>IOS");
+            pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
+        }
+        console.log(">>Step 1");
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+    
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');
+        
+        console.log(">>Step 2");
+        console.log('Received Event: ' + id);
+        
         $("#deviceID").html("Token Test: " + token);
     }, 2000);
 }
