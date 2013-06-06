@@ -1,4 +1,4 @@
-//var pushNotification = window.plugins.pushNotification;
+var pushNotification = null;
 
 
 
@@ -71,7 +71,7 @@
     function unregister() {
         try {
         console.log("unreg starting");
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         pushNotification.unregister(
                 function(data){
                     console.log("unreg ok: " + data);
@@ -86,7 +86,7 @@
     }
     // Update DOM on a Received Event
     function receivedEvent(id) {
-        var pushNotification = window.plugins.pushNotification;
+        pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
         }
@@ -104,7 +104,7 @@
     }
     // iOS
     function onNotificationAPN(event) {
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
         console.log("event badge " + event.badge);
@@ -174,7 +174,7 @@
 
 function unReg() {
     console.log("unreg method call");
-    app.unregister();
+    unregister();
     $("#deviceID").html("device: unregistered");
 }
 
