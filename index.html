@@ -9,17 +9,12 @@
     </head>
     <body>
         <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
-            </div>
+            <img src="img/fullLogo_small.png">
+            <div id="deviceStatus" class="blink">Starting</div>
         </div>
-        <!-- Add in the following line for testing manually via XCode and remove the phonegap.js reference -->
-        <!--<script type="text/javascript" src="cordova-2.3.0.js"></script>-->
-        <!-- The following reference is required for PhoneGap Build use only - the file is injected at build time -->
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" src="PushNotification.js"></script>
+        <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             app.initialize();
