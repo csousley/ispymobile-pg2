@@ -1,36 +1,74 @@
 //var pushNotification = window.plugins.pushNotification;
 
-var app = {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Application Constructor
-    initialize: function() {
-        this.bindEvents();
-    },
+    function initialize() {
+        bindEvents();
+    }
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
-        document.addEventListener('deviceready', this.onDeviceReady, false);
-    },
+    function bindEvents() {
+        document.addEventListener('deviceready', onDeviceReady, false);
+    }
     // deviceready Event Handler
     //
     // The scope of 'this' is the event. In order to call the 'receivedEvent'
     // function, we must explicity call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
-        app.receivedEvent('deviceready');
+    function onDeviceReady() {
+        receivedEvent('deviceready');
         iSpySetup();
-    },
-    tokenHandler:function(msg) {
+    }
+    function tokenHandler(msg) {
         alert("Token Handler " + msg);
         setDeviceID(msg);
-    },
-    errorHandler:function(error) {
+    }
+    function errorHandler(error) {
         console.log("Error Handler  " + error);
         alert(error);
-    },
+    }
     // result contains any message sent from the plugin call
-    successHandler: function(result) {
+    function successHandler(result) {
         alert('Success! Result = '+result);
-    },
-    unregister: function() {
+    }
+    function unregister() {
         try {
         console.log("unreg starting");
         var pushNotification = window.plugins.pushNotification;
@@ -45,9 +83,9 @@ var app = {
             console.log("unreg error: " + e);
         }
         console.log("unreg finished?");
-    },
+    }
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
+    function receivedEvent(id) {
         var pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
@@ -63,9 +101,9 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
-    },
+    }
     // iOS
-    onNotificationAPN: function(event) {
+    function onNotificationAPN(event) {
         var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
@@ -82,9 +120,9 @@ var app = {
             var snd = new Media(event.sound);
             snd.play();
         }
-    },
+    }
     // Android
-    onNotificationGCM: function(e) {
+    function onNotificationGCM(e) {
         switch( e.event )
         {
             case 'registered':
@@ -111,7 +149,28 @@ var app = {
               break;
         }
     }
-};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 function unReg() {
     console.log("unreg method call");
