@@ -103,6 +103,10 @@ function iSpySetup() {
     
 }
 
+function test() {
+    updateStatus("doing the test");
+}
+
 function updateStatus(newStatus) {
     $("#deviceStatus").html(newStatus);
     console.log("SU: " + newStatus);
