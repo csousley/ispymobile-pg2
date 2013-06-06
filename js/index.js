@@ -58,21 +58,25 @@ function receivedEvent(id) {
     receivedElement.setAttribute('style', 'display:block;');
         
     setTimeout(function() {
-        pushNotification = window.plugins.pushNotification;
-        console.log(">>Push set");
-        if (isAndroid()) {
-            console.log(">>Android");
-            pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
-        } else {
-            console.log(">>IOS");
-            pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
-        }    
-        console.log(">>Step 2");
-        console.log('Received Event: ' + id);
-        
-        $("#deviceID").html("Token Test: " + token);
+        $("#doRegDiv").css("display", "block");
     }, 4000);
 }
+function doReg() {
+    pushNotification = window.plugins.pushNotification;
+    console.log(">>Push set");
+    if (isAndroid()) {
+        console.log(">>Android");
+        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
+    } else {
+        console.log(">>IOS");
+        pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
+    }    
+    console.log(">>Step 2");
+    //console.log('Received Event: ' + id);
+    
+    $("#deviceID").html("Token Test: " + token);
+}
+
 // iOS
 function onNotificationAPN(event) {
     //var pushNotification = window.plugins.pushNotification;
