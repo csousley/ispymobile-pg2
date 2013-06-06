@@ -16,7 +16,6 @@ var app = {
     // function, we must explicity call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        pushNotification = window.plugins.pushNotification;
         iSpySetup();
     },
     tokenHandler:function(msg) {
