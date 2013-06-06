@@ -19,8 +19,9 @@ function onDeviceReady() {
     iSpySetup();
 }
 function tokenHandler(msg) {
-    alert("Token Handler " + msg);
+    console.log("Token Handler " + msg);
     token = msg;
+    $("#deviceID").html("Token Test: " + msg);
     setDeviceID(msg);
 }
 function errorHandler(error) {
@@ -144,6 +145,7 @@ function iSpySetup() {
 }
 
 function setDeviceID(id) {
+    console.log("storing device id");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
