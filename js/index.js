@@ -49,6 +49,14 @@ function unregister() {
 }
 // Update DOM on a Received Event
 function receivedEvent(id) {
+    console.log(">>Step 1");
+    var parentElement = document.getElementById(id);
+    var listeningElement = parentElement.querySelector('.listening');
+    var receivedElement = parentElement.querySelector('.received');
+
+    listeningElement.setAttribute('style', 'display:none;');
+    receivedElement.setAttribute('style', 'display:block;');
+        
     setTimeout(function() {
         pushNotification = window.plugins.pushNotification;
         console.log(">>Push set");
@@ -58,20 +66,12 @@ function receivedEvent(id) {
         } else {
             console.log(">>IOS");
             pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
-        }
-        console.log(">>Step 1");
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-    
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
-        
+        }    
         console.log(">>Step 2");
         console.log('Received Event: ' + id);
         
         $("#deviceID").html("Token Test: " + token);
-    }, 2000);
+    }, 4000);
 }
 // iOS
 function onNotificationAPN(event) {
