@@ -1,3 +1,5 @@
+var pushNotification = window.plugins.pushNotification;
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -27,12 +29,10 @@ var app = {
     // result contains any message sent from the plugin call
     successHandler: function(result) {
         alert('Success! Result = '+result);
-        setDeviceID(result);
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        var pushNotification = window.plugins.pushNotification;
-        // TODO: Enter your own GCM Sender ID in the register call for Android
+        //var pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
         }
@@ -50,7 +50,7 @@ var app = {
     },
     // iOS
     onNotificationAPN: function(event) {
-        var pushNotification = window.plugins.pushNotification;
+        //var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
         console.log("event badge " + event.badge);
@@ -96,6 +96,11 @@ var app = {
         }
     }
 };
+
+function unReg() {
+    pushNotification.unregister(successHandler, errorHandler);
+    navigator.app.exitApp();
+}
 
 function iSpySetup() {
     $("#deviceID").html("device: " + device.uuid);
