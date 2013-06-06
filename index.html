@@ -7,7 +7,23 @@
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>iSpyMobile</title>
     </head>
-    <body>
+    <body>        
+        <div class="app">
+            <img src="img/fullLogo_small.png">
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+            <div id="deviceStatus" style="margin-top: 5px;">Starting</div>
+        </div>
+        
+        <div id="deviceID" style="width: 100%; text-align: center; margin-top: 50px;">
+            Holding for device id
+        </div>
+        
+        <div><a href="#" onClick="test();">Do it now!</a></div>
+        
+        
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>  
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
         <script type="text/javascript" src="PushNotification.js"></script>
@@ -20,17 +36,6 @@
                 }, 2000);
             });
         </script>
-        
-        <div class="app">
-            <img src="img/fullLogo_small.png">
-            <div id="deviceStatus" class="blink">Starting</div>
-        </div>
-        
-        <div id="deviceID" style="width: 100%; text-align: center; margin-top: 50px;">
-            Holding for device id
-        </div>
-        
-        <div><a href="#" onClick="test();">Do it now!</a></div>
         
     </body>
 </html>
