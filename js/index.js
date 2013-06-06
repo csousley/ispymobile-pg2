@@ -1,4 +1,4 @@
-var pushNotification;
+//var pushNotification = window.plugins.pushNotification;
 
 var app = {
     // Application Constructor
@@ -33,7 +33,7 @@ var app = {
     unregister: function() {
         try {
         console.log("unreg starting");
-        //var pushNotification = window.plugins.pushNotification;
+        var pushNotification = window.plugins.pushNotification;
         pushNotification.unregister(
                 function(data){
                     console.log("unreg ok: " + data);
@@ -48,7 +48,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function(id) {
-        //var pushNotification = window.plugins.pushNotification;
+        var pushNotification = window.plugins.pushNotification;
         if (isAndroid()) {
             pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
         }
@@ -66,7 +66,7 @@ var app = {
     },
     // iOS
     onNotificationAPN: function(event) {
-        //var pushNotification = window.plugins.pushNotification;
+        var pushNotification = window.plugins.pushNotification;
         console.log("Received a notification! " + event.alert);
         console.log("event sound " + event.sound);
         console.log("event badge " + event.badge);
