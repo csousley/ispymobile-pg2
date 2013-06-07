@@ -17,7 +17,7 @@ PushNotification.prototype.register = function(successCallback, errorCallback, o
         return
     }
     $("#ol").append("<li>REG CONT...</li>");
-    cordova.exec(successCallback, errorCallback, "PushPlugin", "register", [options]);
+    cordova.exec(successCallback, errorCallback, "GenericPush", "register", [options]);
 };
 
 // Call this to unregister for push notifications
@@ -34,7 +34,7 @@ PushNotification.prototype.unregister = function(successCallback, errorCallback)
         return
     }
 
-     cordova.exec(successCallback, errorCallback, "PushPlugin", "unregister", []);
+     cordova.exec(successCallback, errorCallback, "GenericPush", "unregister", []);
 };
  
  
@@ -52,7 +52,7 @@ PushNotification.prototype.setApplicationIconBadgeNumber = function(successCallb
         return
     }
 
-    cordova.exec(successCallback, successCallback, "PushPlugin", "setApplicationIconBadgeNumber", [{badge: badge}]);
+    cordova.exec(successCallback, successCallback, "GenericPush", "setApplicationIconBadgeNumber", [{badge: badge}]);
 };
 
 //-------------------------------------------------------------------
