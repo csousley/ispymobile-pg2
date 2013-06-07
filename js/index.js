@@ -77,11 +77,11 @@ function doReg() {
     if (isAndroid()) {
         console.log(">>Android");
         $("#ol").append("<li>Android</li>");
-        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
+        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
     } else {
         console.log(">>IOS");
         $("#ol").append("<li>IOS</li>");
-        pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
+        pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
     }    
     console.log(">>Step 2");
     $("#ol").append("<li>step 2</li>");
