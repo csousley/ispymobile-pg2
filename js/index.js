@@ -20,28 +20,34 @@ function onDeviceReady() {
 }
 function tokenHandler(msg) {
     console.log("Token Handler " + msg);
+    $("#ol").append("<li>Token Handler: "+msg+"</li>");
     token = msg;
     $("#deviceID").html("Token Test: " + msg);
     setDeviceID(msg);
 }
 function errorHandler(error) {
     console.log("Error Handler  " + error);
+    $("#ol").append("<li>Error Handle: "+error+"</li>");
     alert(error);
 }
 // result contains any message sent from the plugin call
 function successHandler(result) {
-    alert('Success! Result = '+result);
+    //alert('Success! Result = '+result);
+    $("#ol").append("<li>Success: "+result+"</li>");
 }
 function unregister() {
     try {
     console.log("unreg starting");
+    $("#ol").append("<li>Unreg</li>");
     //var pushNotification = window.plugins.pushNotification;
     pushNotification.unregister(
             function(data){
                 console.log("unreg ok: " + data);
+                $("#ol").append("<li>unreg ok</li>");
             },
             function(data){
                 console.log("unreg bad: " + data);
+                $("#ol").append("<li>unreg bad</li>");
             });
     } catch(e) {
         console.log("unreg error: " + e);
@@ -51,6 +57,7 @@ function unregister() {
 // Update DOM on a Received Event
 function receivedEvent(id) {
     console.log(">>Step 1");
+    $("#ol").append("<li>step 1</li>");
     var parentElement = document.getElementById(id);
     var listeningElement = parentElement.querySelector('.listening');
     var receivedElement = parentElement.querySelector('.received');
@@ -65,14 +72,18 @@ function receivedEvent(id) {
 function doReg() {
     pushNotification = window.plugins.pushNotification;
     console.log(">>Push set");
+    $("#ol").append("<li>push set</li>");
     if (isAndroid()) {
         console.log(">>Android");
+        $("#ol").append("<li>Android</li>");
         pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"app.onNotificationGCM"});
     } else {
         console.log(">>IOS");
+        $("#ol").append("<li>IOS</li>");
         pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
     }    
     console.log(">>Step 2");
+    $("#ol").append("<li>step 2</li>");
     //console.log('Received Event: ' + id);
     
     $("#deviceID").html("Token Test: " + token);
