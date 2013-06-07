@@ -31,5 +31,5 @@
     <icon src="res/icon/ios/iSpyLogo_iPhone114.png" gap:platform="ios"        width="114" height="114" />
     <icon src="res/icon/ios/iSpyLogo_iPhone144.png" gap:platform="ios"        width="144" height="144" />
     
-	<gap:plugin name="PushPlugin"/>
+	<gap:plugin name="GenericPush"/>
 </widget>
