@@ -33,6 +33,7 @@ function errorHandler(error) {
 // result contains any message sent from the plugin call
 function successHandler(result) {
     //alert('Success! Result = '+result);
+    console.log("Success: "+result);
     $("#ol").append("<li>Success: "+result+"</li>");
 }
 function unregister() {
@@ -136,14 +137,6 @@ function onNotificationGCM(e) {
           break;
     }
 }
-
-
-
-
-
-
-
-
 
 function unReg() {
     console.log("unreg method call");

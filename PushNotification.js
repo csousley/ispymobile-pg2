@@ -17,6 +17,7 @@ PushNotification.prototype.register = function(successCallback, errorCallback, o
         return
     }
     $("#ol").append("<li>REG CONT...</li>");
+    console.log("Cordova", JSON.stringify(cordova));
     cordova.exec(successCallback, errorCallback, "PushPlugin", "register", [options]);
 };
 
