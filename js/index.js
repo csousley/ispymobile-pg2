@@ -42,20 +42,19 @@ function unregister() {
     }
     log("unreg finished?");
 }
-// Update DOM on a Received Event
+
 function receivedEvent(id) {
-    log("Step 1");
+    log("Device Ready Event");
     var parentElement = document.getElementById(id);
     var listeningElement = parentElement.querySelector('.listening');
     var receivedElement = parentElement.querySelector('.received');
 
     listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');
-        
-    setTimeout(function() {
-        $("#doRegDiv").css("display", "block");
-    }, 4000);
+    receivedElement.setAttribute('style', 'display:block;');   
+    
+    doReg();
 }
+
 function doReg() {
     pushNotification = window.plugins.pushNotification;
     log("Do Reg");
@@ -66,9 +65,7 @@ function doReg() {
         log(">>IOS");
         pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
     }    
-    log("Step 2");
-    
-    $("#deviceID").html("Token Test: " + token);
+    log("Reg Complete");
 }
 
 // iOS
@@ -89,6 +86,7 @@ function onNotificationAPN(event) {
         snd.play();
     }
 }
+
 // Android
 function onNotificationGCM(e) {
     switch( e.event )
@@ -137,6 +135,10 @@ function setDeviceID(id) {
     if (isAndroid())
         keyname = "regid";
     window.localStorage.setItem(keyname, id);
+    window.localStorage.setItem("deviceid", device.uuid);
+    
+    log(keyname + ": " + window.localStorage.getItem(keyname));
+    log("device: " + window.localStorage.getItem("deviceid"));
     
     // window.localStorage.setItem("key", "value");
     // var keyname = window.localStorage.key(i);
