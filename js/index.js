@@ -1,5 +1,23 @@
 var pushNotification = null;
 var customers = null;
+var agency = null;
+
+$(document).ready(function() {
+    $.ajaxSetup({cache:false});
+
+    getCustomers();
+    
+    $("#agencySelect").change(function() {
+        var val = $("#agencySelect").val();
+        if (uCheck(val)) {
+            agency = val;
+            $("#regOptions").css("display", "block");
+        }else{
+            agency = null;
+            $("#regOptions").css("display", "none");
+        }
+    });
+});
 
 function initialize() {
     bindEvents();
@@ -11,7 +29,6 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
-    getCustomers();
 }
 
 function tokenHandler(msg) {
@@ -181,8 +198,7 @@ function uCheck(a) {
 }
 
 function getCustomers() {
-    var jsonURL = 'http://test.ispyfire.com';
-    jsonURL += '/fireapp/getCustomerList';
+    var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
         customers = data.result.results;
         log("Customers: " + customers.length);
