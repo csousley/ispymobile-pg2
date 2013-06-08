@@ -127,7 +127,7 @@ function onNotificationGCM(e) {
           // of the intermediary push server which must also be reflected in GCMIntentService.java
           //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
           $("#ol").append("<li>Message Received Android: "+JSON.stringify(e.payload)+"</li>");
-          $("#ol").append("<li>Message Received Android: "+JSON.stringify(e.payload.dashboard)+"</li>");
+          $("#ol").append("<li>Message Received Dashboard Key: "+e.payload.dashboard+"</li>");
           alert("whooaa");
         break;
 
