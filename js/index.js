@@ -1,64 +1,50 @@
 var pushNotification = null;
 var token = null;
 
-// Application Constructor
 function initialize() {
     bindEvents();
 }
-// Bind any events that are required on startup. Common events are:
-// 'load', 'deviceready', 'offline', and 'online'.
+
 function bindEvents() {
     document.addEventListener('deviceready', onDeviceReady, false);
 }
-// deviceready Event Handler
-//
-// The scope of 'this' is the event. In order to call the 'receivedEvent'
-// function, we must explicity call 'app.receivedEvent(...);'
+
 function onDeviceReady() {
     receivedEvent('deviceready');
     iSpySetup();
 }
 function tokenHandler(msg) {
-    console.log("Token Handler " + msg);
-    $("#ol").append("<li>Token Handler: "+msg+"</li>");
+    log("Token Handler: " + msg);
     token = msg;
-    $("#deviceID").html("Token Test: " + msg);
     setDeviceID(msg);
 }
 function errorHandler(error) {
-    console.log("Error Handler  " + error);
-    $("#ol").append("<li>Error Handle: "+error+"</li>");
+    log("Error Handle: " + error);
     alert(error);
 }
-// result contains any message sent from the plugin call
+
 function successHandler(result) {
-    //alert('Success! Result = '+result);
-    console.log("Success: "+result);
-    $("#ol").append("<li>Success: "+result+"</li>");
+    log("Success: " + result);
 }
+
 function unregister() {
     try {
-    console.log("unreg starting");
-    $("#ol").append("<li>Unreg</li>");
-    //var pushNotification = window.plugins.pushNotification;
+    log("Starting unreg");
     pushNotification.unregister(
             function(data){
-                console.log("unreg ok: " + data);
-                $("#ol").append("<li>unreg ok</li>");
+                log("unreg ok");
             },
             function(data){
-                console.log("unreg bad: " + data);
-                $("#ol").append("<li>unreg bad</li>");
+                log("unreg bad");
             });
     } catch(e) {
-        console.log("unreg error: " + e);
+        log("unreg error: " + e);
     }
-    console.log("unreg finished?");
+    log("unreg finished?");
 }
 // Update DOM on a Received Event
 function receivedEvent(id) {
-    console.log(">>Step 1");
-    $("#ol").append("<li>step 1</li>");
+    log("Step 1");
     var parentElement = document.getElementById(id);
     var listeningElement = parentElement.querySelector('.listening');
     var receivedElement = parentElement.querySelector('.received');
@@ -72,28 +58,22 @@ function receivedEvent(id) {
 }
 function doReg() {
     pushNotification = window.plugins.pushNotification;
-    console.log(">>Push set");
-    $("#ol").append("<li>push set</li>");
+    log("Do Reg");
     if (isAndroid()) {
-        console.log(">>Android");
-        $("#ol").append("<li>Android</li>");
+        log(">>Android");
         pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
     } else {
-        console.log(">>IOS");
-        $("#ol").append("<li>IOS</li>");
+        log(">>IOS");
         pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
     }    
-    console.log(">>Step 2");
-    $("#ol").append("<li>step 2</li>");
-    //console.log('Received Event: ' + id);
+    log("Step 2");
     
     $("#deviceID").html("Token Test: " + token);
 }
 
 // iOS
 function onNotificationAPN(event) {
-    //var pushNotification = window.plugins.pushNotification;
-    console.log("Received a notification! " + event.alert);
+    log("Received a notification! " + event.alert);
     console.log("event sound " + event.sound);
     console.log("event badge " + event.badge);
     console.log("event " + event);
@@ -101,7 +81,7 @@ function onNotificationAPN(event) {
         navigator.notification.alert(event.alert);
     }
     if (event.badge) {
-        console.log("Set badge on  " + pushNotification);
+        log("Set badge on  " + pushNotification);
         pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
     }
     if (event.sound) {
@@ -128,7 +108,7 @@ function onNotificationGCM(e) {
           //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
           $("#ol").append("<li>Message Received Android: "+JSON.stringify(e.payload)+"</li>");
           $("#ol").append("<li>Message Received Dashboard Key: "+JSON.stringify(e.payload.dashboard.message)+"</li>");
-          alert(e.payload.dashboard.message);
+          alert(JSON.parse(e.payload.dashboard).message);
         break;
 
         case 'error':
@@ -142,7 +122,7 @@ function onNotificationGCM(e) {
 }
 
 function unReg() {
-    console.log("unreg method call");
+    log("unreg method call");
     unregister();
     $("#deviceID").html("device: unregistered");
 }
@@ -152,7 +132,7 @@ function iSpySetup() {
 }
 
 function setDeviceID(id) {
-    console.log("storing device id");
+    log("storing device id");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
@@ -169,6 +149,11 @@ function setDeviceID(id) {
     // // localStorage is now empty
 }
 
+function log(logMessage) {
+    $("#ol").append("<li>" + logMessage + "</li>");
+    console.log(logMessage);
+}
+
 function isAndroid() {
     if (device.platform == 'android' || device.platform == 'Android')
         return true;
@@ -179,4 +164,14 @@ function isIOS() {
     if (!isAndroid())
         return true;
     return false;
+}
+
+
+function getCustomers() {
+    var jsonURL = 'http://test.ispyfire.com';
+    jsonURL += '/fireapp/getCustomerList';
+    $.getJSON(jsonURL, function(data) {
+        customers = data.result;
+        //showLogin();
+    });  
 }
