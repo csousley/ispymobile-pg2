@@ -1,6 +1,7 @@
 var pushNotification = null;
 var customers = null;
 var agency = null;
+var isiSpyRegistered = false;
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
@@ -11,7 +12,9 @@ $(document).ready(function() {
         var val = $("#agencySelect").val();
         if (uCheck(val)) {
             agency = val;
+            log(agency);
             $("#regOptions").css("display", "block");
+            testReg();
         }else{
             agency = null;
             $("#regOptions").css("display", "none");
@@ -220,23 +223,49 @@ function showLogin() {
     }
 }
 
+function showRegButtons() {
+    if (isiSpyRegistered) {
+        $("#unregButton").css("display", "block");
+        $("#regButton").css("display", "none");
+    }else{
+        $("#unregButton").css("display", "none");
+        $("#regButton").css("display", "block");
+    }
+}
+
 function testReg() {
-    var jsonURL = window.location.protocol + '//' + window.location.host;
-    jsonURL += '/firedb/@@DB@@/calls/';
-    $.ajax({
-        type: "PUT",
-        url: jsonURL,
-        contentType: "application/json",
-        data: json
-    })
-    .fail(function() {
-        alert("Error Promoting Call...");
-    })
-    .done(function(data) {
-        if (data.results[0]._id) {
-            isPromote = true;
-            getCallByID(data.results[0]._id);
-            emitPromotedCallNotice();
-        }
-    });
+    if (uCheck(agency)) {
+        var lastURL = "iostestreg";
+        if (isAndroid())
+            lastURL = "gcmtestreg";
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        log("Check URL: " + jsonURL);
+        $.ajax({
+            type: "PUT",
+            url: jsonURL,
+            contentType: "application/json",
+            data: "\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\""
+        })
+        .fail(function() {
+            log("Fail on testreg");
+        })
+        .done(function(data) {
+            if (uCheck(data)) {
+                var result = data.results[0].result;
+                if (uCheck(result)) {
+                    if (result == "Registered") {
+                        log ("already registered");
+                        isiSpyRegistered = true;
+                        showRegButtons();
+                    }else{
+                        log("needs registered");
+                        isiSpyRegistered = false;
+                        showRegButtons();
+                    }
+                }
+            }
+        });
+    }else{
+        log("Can't test reg, no agency");
+    }
 }
