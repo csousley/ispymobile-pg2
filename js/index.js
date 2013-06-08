@@ -1,5 +1,5 @@
 var pushNotification = null;
-var token = null;
+var customers = null;
 
 function initialize() {
     bindEvents();
@@ -11,20 +11,26 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
-    iSpySetup();
+    getCustomers();
 }
+
 function tokenHandler(msg) {
-    log("Token Handler: " + msg);
-    token = msg;
-    setDeviceID(msg);
+    log("APN push ready");
+    setRegID(msg);
 }
-function errorHandler(error) {
-    log("Error Handle: " + error);
-    alert(error);
+
+function regHandler(result) {
+    log("GCM push ready");
+    setRegID(result);
 }
 
 function successHandler(result) {
     log("Success: " + result);
+}
+
+function errorHandler(error) {
+    log("Error Handle: " + error);
+    alert(error);
 }
 
 function unregister() {
@@ -60,7 +66,7 @@ function doReg() {
     log("Do Reg");
     if (isAndroid()) {
         log(">>Android");
-        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
+        pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
     } else {
         log(">>IOS");
         pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
@@ -122,33 +128,29 @@ function onNotificationGCM(e) {
 function unReg() {
     log("unreg method call");
     unregister();
-    $("#deviceID").html("device: unregistered");
 }
 
 function iSpySetup() {
     //$("#deviceID").html("device: " + device.uuid);
 }
 
-function setDeviceID(id) {
-    log("storing device id");
+function setRegID(id) {
+    log("storing reg id");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
     window.localStorage.setItem(keyname, id);
-    window.localStorage.setItem("deviceid", device.uuid);
+    
+    if (!uCheck(window.localStorage.getItem("deviceid")))
+        setDeviceID();
     
     log(keyname + ": " + window.localStorage.getItem(keyname));
     log("device: " + window.localStorage.getItem("deviceid"));
-    
-    // window.localStorage.setItem("key", "value");
-    // var keyname = window.localStorage.key(i);
-    // // keyname is now equal to "key"
-    // var value = window.localStorage.getItem("key");
-    // // value is now equal to "value"
-    // window.localStorage.removeItem("key");
-    // window.localStorage.setItem("key2", "value2");
-    // window.localStorage.clear();
-    // // localStorage is now empty
+}
+
+function setDeviceID() {
+    log("storing device id");
+    window.localStorage.setItem("deviceid", device.uuid);
 }
 
 function log(logMessage) {
@@ -168,12 +170,57 @@ function isIOS() {
     return false;
 }
 
+function uCheck(a) {
+    if (typeof a == "undefined")
+        return false;
+    if (a === null)
+        return false;
+    if (a.length === 0)
+        return false;
+    return true;
+}
 
 function getCustomers() {
     var jsonURL = 'http://test.ispyfire.com';
     jsonURL += '/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
-        customers = data.result;
-        //showLogin();
+        customers = data.result.results;
+        log("Customers: " + customers.length);
+        showLogin();
     });  
+}
+
+function showLogin() {
+    if (uCheck(customers)) {
+        for(var i = 0; i<customers.length; i++) {
+             $('#agencySelect')
+                .append($("<option></option>")
+                .attr("value", customers[i].subdomain)
+                .text(customers[i].name)); 
+        }
+        $("#login").css("display", "block");
+    }else{
+        log("No Customer List!?");
+    }
+}
+
+function testReg() {
+    var jsonURL = window.location.protocol + '//' + window.location.host;
+    jsonURL += '/firedb/@@DB@@/calls/';
+    $.ajax({
+        type: "PUT",
+        url: jsonURL,
+        contentType: "application/json",
+        data: json
+    })
+    .fail(function() {
+        alert("Error Promoting Call...");
+    })
+    .done(function(data) {
+        if (data.results[0]._id) {
+            isPromote = true;
+            getCallByID(data.results[0]._id);
+            emitPromotedCallNotice();
+        }
+    });
 }
