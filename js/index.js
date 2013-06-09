@@ -132,7 +132,7 @@ function onNotificationGCM(e) {
           //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
           $("#ol").append("<li>Message Received Android: "+JSON.stringify(e.payload)+"</li>");
           $("#ol").append("<li>Message Received Dashboard Key: "+JSON.stringify(e.payload.dashboard.message)+"</li>");
-          alert(JSON.parse(e.payload.dashboard).message);
+          alert(e.payload.dashboard.message);
         break;
 
         case 'error':
