@@ -257,6 +257,7 @@ function testReg() {
         .done(function(data) {
             log("DATA 1: " + data);
             log("DATA 2: " + data.results);
+            log("DATA 2b: " + data.result);
             log("DATA 3: " + data.results[0]);
             log("DATA 4: " + data.results[0].result);
             if (uCheck(data)) {
