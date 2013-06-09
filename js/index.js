@@ -255,13 +255,9 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            log("DATA 1: " + data);
-            log("DATA 2: " + data.results);
-            log("DATA 2b: " + data.result);
-            log("DATA 3: " + data.results[0]);
-            log("DATA 4: " + data.results[0].result);
-            if (uCheck(data)) {
-                var result = data.results[0].result;
+            log("DATA: " + data.result);
+            if (uCheck(data) && uCheck(data.result)) {
+                var result = data.result;
                 if (uCheck(result)) {
                     if (result == "Registered") {
                         log ("already registered");
