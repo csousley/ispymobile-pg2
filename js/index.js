@@ -32,6 +32,7 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
+    $("#deviceready").css("display", "none");
 }
 
 function tokenHandler(msg) {
@@ -238,12 +239,14 @@ function testReg() {
         if (isAndroid())
             lastURL = "gcmtestreg";
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
+        log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
             contentType: "application/json",
-            data: "\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\""
+            data: jsonString
         })
         .fail(function() {
             log("Fail on testreg");
