@@ -263,12 +263,12 @@ function testReg() {
                         log ("already registered");
                         isiSpyRegistered = true;
                         showRegButtons();
-                    }else{
-                        log("needs registered");
-                        isiSpyRegistered = false;
-                        showRegButtons();
+                        return false;
                     }
                 }
+                log("needs registered");
+                isiSpyRegistered = false;
+                showRegButtons();
             }else{
                 log("no data returned");
             }
