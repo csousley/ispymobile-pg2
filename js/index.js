@@ -256,7 +256,7 @@ function testReg() {
         })
         .done(function(data) {
             log("DATA: " + data.result);
-            if (uCheck(data) && uCheck(data.result)) {
+            if (uCheck(data)) {
                 var result = data.result;
                 if (uCheck(result)) {
                     if (result == "Registered") {
@@ -269,6 +269,8 @@ function testReg() {
                         showRegButtons();
                     }
                 }
+            }else{
+                log("no data returned");
             }
         });
     }else{
