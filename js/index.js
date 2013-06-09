@@ -130,9 +130,8 @@ function onNotificationGCM(e) {
           // this is the actual push notification. its format depends on the data model
           // of the intermediary push server which must also be reflected in GCMIntentService.java
           //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-          $("#ol").append("<li>Message Received Android: "+JSON.stringify(e.payload)+"</li>");
-          $("#ol").append("<li>Message Received Dashboard Key: "+JSON.stringify(e.payload.dashboard.message)+"</li>");
-          alert(e.payload.dashboard.message);
+          $("#ol").append("<li>Message Received Android: "+e.payload.dashboard.message+"</li>");
+          alert(e.payload.dashboard.message.toString());
         break;
 
         case 'error':
