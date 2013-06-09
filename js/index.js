@@ -232,7 +232,9 @@ function showLogin() {
 }
 
 function showRegButtons() {
+    log("show reg buttons");
     $("#deviceready").css("display", "none");
+    $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
         $("#unregButton").css("display", "block");
         $("#regButton").css("display", "none");
