@@ -301,10 +301,6 @@ function testReg() {
             log("DATA: " + data);
             if (uCheck(data)) {
                 
-                var jsonparse = $.parseJSON(data);
-                log("jsonparse: " + jsonparse);
-                var jsonstring = JSON.stringify(jsonparse);
-                log("jsonstring: " + jsonstring);
                 var datastring = JSON.stringify(data);
                 log("datastring: " + datastring);
                 
