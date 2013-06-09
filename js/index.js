@@ -255,7 +255,10 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            log("DATA: " + data);
+            log("DATA 1: " + data);
+            log("DATA 2: " + data.results);
+            log("DATA 3: " + data.results[0]);
+            log("DATA 4: " + data.results[0].result);
             if (uCheck(data)) {
                 var result = data.results[0].result;
                 if (uCheck(result)) {
