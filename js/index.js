@@ -123,7 +123,8 @@ function onNotificationGCM(e) {
             {
                 // Your GCM push server needs to know the regID before it can push to this device
                 // here is where you might want to send it the regID for later use.
-                alert('registration id = '+e.regid);
+                //alert('registration id = '+e.regid);
+                $("#ol").append("<li>Android regID: "+e.regid+"</li>");
             }
         break;
 
@@ -131,16 +132,18 @@ function onNotificationGCM(e) {
           // this is the actual push notification. its format depends on the data model
           // of the intermediary push server which must also be reflected in GCMIntentService.java
           //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-          $("#ol").append("<li>Message Received Android: "+e.message+"</li>");
-          alert(e.message);
+          $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
+          //alert(e.message);
         break;
 
         case 'error':
-          alert('GCM error = '+e.msg);
+          $("#ol").append("<li>Android GCM Error: "+e.msg+"</li>");
+          //alert('GCM error = '+e.msg);
         break;
 
         default:
-          alert('An unknown GCM event has occurred');
+          $("#ol").append("<li>Android Unknown GCM Event</li>");
+          //alert('An unknown GCM event has occurred');
           break;
     }
 }
