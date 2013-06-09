@@ -249,6 +249,7 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
+            log("DATA: " + data);
             if (uCheck(data)) {
                 var result = data.results[0].result;
                 if (uCheck(result)) {
