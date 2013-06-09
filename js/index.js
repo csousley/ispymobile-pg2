@@ -5,14 +5,19 @@ var isiSpyRegistered = false;
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
-
-    getCustomers();
     
+    agency = window.localStorage.getItem("agency");
+    
+    if (!uCheck(agency))
+        getCustomers();
+    else
+        testReg();
+        
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
         if (uCheck(val)) {
             agency = val;
-            //log(agency);
+            window.localStorage.setItem("agency", val);
             $("#regOptions").css("display", "block");
             testReg();
         }else{
@@ -32,7 +37,6 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
-    $("#deviceready").css("display", "none");
 }
 
 function tokenHandler(msg) {
@@ -227,6 +231,7 @@ function showLogin() {
 }
 
 function showRegButtons() {
+    $("#deviceready").css("display", "none");
     if (isiSpyRegistered) {
         $("#unregButton").css("display", "block");
         $("#regButton").css("display", "none");
@@ -256,15 +261,13 @@ function iSpyReg() {
         })
         .fail(function() {
             log("Fail on testreg");
+            isiSpyRegistered = false;
+            showRegButtons();
         })
         .done(function(data) {
-            log("DATA: " + data);
-            if (uCheck(data)) {
-                var result = data.data;
-                log("RESULT: "+ result);
-            }else{
-                log("no data returned");
-            }
+            //log("DATA: " + data);
+            isiSpyRegistered = true;
+            showRegButtons();
         });
     }else{
         log("Can't test reg, no agency");

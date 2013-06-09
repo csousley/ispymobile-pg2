@@ -51,6 +51,10 @@ h1 {
     text-transform:uppercase;
 }
 
+#regButton, #unregButton {
+    margin: 0 auto;
+}
+
 .event {
     border-radius:4px;
     -webkit-border-radius:4px;
