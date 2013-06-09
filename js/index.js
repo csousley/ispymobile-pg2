@@ -286,8 +286,8 @@ function testReg() {
             lastURL = "gcmtestreg";
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        //log("json: " + jsonString);
-        //log("Check URL: " + jsonURL);
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
         $.ajax({
             type: "POST",
             url: jsonURL,
