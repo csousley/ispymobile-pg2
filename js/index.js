@@ -225,6 +225,7 @@ function showLogin() {
                 .text(customers[i].name)); 
         }
         $("#login").css("display", "block");
+        $("#deviceready").css("display", "none");
     }else{
         //log("No Customer List!?");
     }
@@ -297,9 +298,10 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            //log("DATA: " + data.result);
+            log("DATA: " + data.result);
             if (uCheck(data)) {
                 var result = data.result;
+                log("RESULT: " + result);
                 if (uCheck(result)) {
                     if (result == "Registered") {
                         log ("already registered");
@@ -308,11 +310,13 @@ function testReg() {
                         return false;
                     }
                 }
-                //log("needs registered");
+                log("needs registered");
                 isiSpyRegistered = false;
                 showRegButtons();
             }else{
-                //log("no data returned");
+                log("no data returned");
+                isiSpyRegistered = false;
+                showRegButtons();
             }
         });
     }else{
