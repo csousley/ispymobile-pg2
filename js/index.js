@@ -46,7 +46,7 @@ function tokenHandler(msg) {
 
 function regHandler(result) {
     //log("GCM push ready");
-    setRegID(result);
+    //setRegID(result);
 }
 
 function successHandler(result) {
@@ -128,6 +128,7 @@ function onNotificationGCM(e) {
                 // Your GCM push server needs to know the regID before it can push to this device
                 // here is where you might want to send it the regID for later use.
                 //alert('registration id = '+e.regid);
+                setRegID(e.regid);
                 $("#ol").append("<li>Android regID: "+e.regid+"</li>");
             }
         break;
