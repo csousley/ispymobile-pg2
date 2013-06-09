@@ -239,12 +239,15 @@ function showRegButtons() {
 function iSpyReg() {
     if (uCheck(agency)) {
         var lastURL = "iosReg";
-        if (isAndroid())
+        var keyname = "token";
+        if (isAndroid()) {
             lastURL = "gcmReg";
+            keyname = "regid";
+        }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
-        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        //log("json: " + jsonString);
-        //log("Check URL: " + jsonURL);
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
         $.ajax({
             type: "POST",
             url: jsonURL,
@@ -255,26 +258,16 @@ function iSpyReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            //log("DATA: " + data.result);
+            log("DATA: " + data);
             if (uCheck(data)) {
-                var result = data.result;
-                if (uCheck(result)) {
-                    if (result == "Registered") {
-                        log ("already registered");
-                        isiSpyRegistered = true;
-                        showRegButtons();
-                        return false;
-                    }
-                }
-                //log("needs registered");
-                isiSpyRegistered = false;
-                showRegButtons();
+                var result = data.data;
+                log("RESULT: "+ result);
             }else{
-                //log("no data returned");
+                log("no data returned");
             }
         });
     }else{
-        //log("Can't test reg, no agency");
+        log("Can't test reg, no agency");
     }
 }
 
