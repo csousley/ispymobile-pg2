@@ -278,7 +278,36 @@ function iSpyReg() {
 }
 
 function iSpyUnReg() {
-    
+    if (uCheck(agency)) {
+        var lastURL = "iosUnReg";
+        var keyname = "token";
+        if (isAndroid()) {
+            lastURL = "gcmUnReg";
+            keyname = "regid";
+        }
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
+        $.ajax({
+            type: "PUT",
+            url: jsonURL,
+            contentType: "application/json",
+            data: jsonString
+        })
+        .fail(function() {
+            log("Fail on unreg");
+            isiSpyRegistered = false;
+            showRegButtons();
+        })
+        .done(function(data) {
+            //log("DATA: " + data);
+            isiSpyRegistered = false;
+            showRegButtons();
+        });
+    }else{
+        log("Can't test reg, no agency");
+    }    
 }
 
 function testReg() {
