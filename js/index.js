@@ -298,8 +298,16 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            log("DATA: " + data.result);
+            log("DATA: " + data);
             if (uCheck(data)) {
+                
+                var jsonparse = $.parseJSON(data);
+                log("jsonparse: " + jsonparse);
+                var jsonstring = JSON.stringify(jsonparse);
+                log("jsonstring: " + jsonstring);
+                var datastring = JSON.stringify(data);
+                log("datastring: " + datastring);
+                
                 var result = data.result;
                 log("RESULT: " + result);
                 if (uCheck(result)) {
