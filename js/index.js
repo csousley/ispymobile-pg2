@@ -255,7 +255,7 @@ function iSpyReg() {
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: jsonURL,
             contentType: "application/json",
             data: jsonString
@@ -289,7 +289,7 @@ function testReg() {
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: jsonURL,
             contentType: "application/json",
             data: jsonString
