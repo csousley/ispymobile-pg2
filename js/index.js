@@ -243,7 +243,7 @@ function testReg() {
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
-            type: "PUT",
+            type: "POST",
             url: jsonURL,
             contentType: "application/json",
             data: jsonString
