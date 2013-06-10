@@ -55,23 +55,23 @@ function successHandler(result) {
 
 function errorHandler(error) {
     log("Error Handle: " + error);
-    alert(error);
+    //alert(error);
 }
 
 function unregister() {
     try {
-    log("Starting unreg");
+    //log("Starting unreg");
     pushNotification.unregister(
             function(data){
-                log("unreg ok");
+                //log("unreg ok");
             },
             function(data){
-                log("unreg bad");
+                //log("unreg bad");
             });
     } catch(e) {
         log("unreg error: " + e);
     }
-    log("unreg finished?");
+    //log("unreg finished?");
 }
 
 function receivedEvent(id) {
@@ -102,9 +102,9 @@ function doReg() {
 // iOS
 function onNotificationAPN(event) {
     log("Received a notification! " + event.alert);
-    console.log("event sound " + event.sound);
-    console.log("event badge " + event.badge);
-    console.log("event " + event);
+    // console.log("event sound " + event.sound);
+    // console.log("event badge " + event.badge);
+    // console.log("event " + event);
     if (event.alert) {
         navigator.notification.alert(event.alert);
     }
@@ -233,7 +233,7 @@ function showLogin() {
 }
 
 function showRegButtons() {
-    log("show reg buttons");
+    //log("show reg buttons");
     $("#deviceready").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
@@ -256,8 +256,8 @@ function iSpyReg() {
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
-        log("json: " + jsonString);
-        log("Check URL: " + jsonURL);
+        //log("json: " + jsonString);
+        //log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -265,7 +265,7 @@ function iSpyReg() {
             data: jsonString
         })
         .fail(function() {
-            log("Fail on testreg");
+            log("Fail on reg");
             isiSpyRegistered = false;
             showRegButtons();
         })
@@ -275,7 +275,7 @@ function iSpyReg() {
             showRegButtons();
         });
     }else{
-        log("Can't test reg, no agency");
+        //log("Can't test reg, no agency");
     }
 }
 
@@ -289,8 +289,8 @@ function iSpyUnReg() {
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        log("json: " + jsonString);
-        log("Check URL: " + jsonURL);
+        //log("json: " + jsonString);
+        //log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -304,11 +304,12 @@ function iSpyUnReg() {
         })
         .done(function(data) {
             //log("DATA: " + data);
+            //unregister(); // to unreg for apn and gcm service
             isiSpyRegistered = false;
             showRegButtons();
         });
     }else{
-        log("Can't test reg, no agency");
+        //log("Can't test reg, no agency");
     }    
 }
 
@@ -319,8 +320,8 @@ function testReg() {
             lastURL = "gcmtestreg";
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        log("json: " + jsonString);
-        log("Check URL: " + jsonURL);
+        //log("json: " + jsonString);
+        //log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -331,23 +332,23 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            log("DATA: " + data);
+            //log("DATA: " + data);
             if (uCheck(data)) {
                 
                 var datastring = JSON.stringify(data);
-                log("datastring: " + datastring);
+                //log("datastring: " + datastring);
                 
                 var result = data.result;
-                log("RESULT: " + result);
+                //log("RESULT: " + result);
                 if (uCheck(result)) {
                     if (result == "Registered") {
-                        log ("already registered");
+                        //log ("already registered");
                         isiSpyRegistered = true;
                         showRegButtons();
                         return false;
                     }
                 }
-                log("needs registered");
+                //log("needs registered");
                 isiSpyRegistered = false;
                 showRegButtons();
             }else{
