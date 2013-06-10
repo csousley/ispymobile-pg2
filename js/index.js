@@ -33,12 +33,13 @@ function initialize() {
 
 function bindEvents() {
     document.addEventListener('deviceready', onDeviceReady, false);
-    document.addEventListener("resume", onResume, false);
 }
 
 function onDeviceReady() {
     receivedEvent('deviceready');
     log("Event: deviceready");
+    
+    document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
