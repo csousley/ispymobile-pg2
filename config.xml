@@ -32,4 +32,12 @@
     <icon src="res/icon/ios/iSpyLogo_iPhone144.png" gap:platform="ios"        width="144" height="144" />
     
 	<gap:plugin name="GenericPush"/>
+    
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/notification"/>
+    
+    <access origin="http://ispyfire.com" subdomains="true" />
+    <access origin="https://ispyfire.com" subdomains="true" />
+    
 </widget>
