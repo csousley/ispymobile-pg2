@@ -245,6 +245,51 @@ function showRegButtons() {
     }
 }
 
+function testReg() {
+    if (uCheck(agency)) {
+        $("#deviceID").val(window.localStorage.getItem("deviceid"));
+        
+        var lastURL = "iostestreg";
+        if (isAndroid())
+            lastURL = "gcmtestreg";
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var data = $('#regForm').serialize();
+        
+        $.post(jsonURL, data)
+        .fail(function() {
+            log("Fail on testreg");
+        })
+        .done(function(data) {
+        log("DATA: " + data);
+            if (uCheck(data)) {
+                
+                var datastring = JSON.stringify(data);
+                log("datastring: " + datastring);
+                
+                var result = data.result;
+                log("RESULT: " + result);
+                if (uCheck(result)) {
+                    if (result == "Registered") {
+                        log ("already registered");
+                        isiSpyRegistered = true;
+                        showRegButtons();
+                        return false;
+                    }
+                }
+                log("needs registered");
+                isiSpyRegistered = false;
+                showRegButtons();
+            }else{
+                log("no data returned");
+                isiSpyRegistered = false;
+                showRegButtons();
+            }
+        });
+    }else{
+        //log("Can't test reg, no agency");
+    }
+}
+
 function iSpyReg() {
     if (uCheck(agency)) {
         var lastURL = "iosReg";
@@ -253,7 +298,49 @@ function iSpyReg() {
             lastURL = "gcmReg";
             keyname = "regid";
         }
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID="+window.localStorage.getItem("deviceid")+"&regID="+window.localStorage.getItem(keyname);
+        $("#deviceID").val(window.localStorage.getItem("deviceid"));
+        $("#regID").val(window.localStorage.getItem(keyname));
+        
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var data = $('#regForm').serialize();
+        
+        $.post(jsonURL, data)
+        .fail(function() {
+            log("Fail on reg");
+            isiSpyRegistered = false;
+            showRegButtons();
+        })
+        .done(function(data) {
+            //log("DATA: " + data);
+            isiSpyRegistered = true;
+            showRegButtons();
+        });
+    }else{
+        log("Can't test reg, no agency");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+function iSpyRegOld() {
+    if (uCheck(agency)) {
+        var lastURL = "iosReg";
+        var keyname = "token";
+        if (isAndroid()) {
+            lastURL = "gcmReg";
+            keyname = "regid";
+        }
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
@@ -278,7 +365,7 @@ function iSpyReg() {
     }
 }
 
-function iSpyUnReg() {
+function iSpyUnRegOld() {
     if (uCheck(agency)) {
         var lastURL = "iosUnReg";
         var keyname = "token";
@@ -286,7 +373,7 @@ function iSpyUnReg() {
             lastURL = "gcmUnReg";
             keyname = "regid";
         }
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID="+window.localStorage.getItem("deviceid");
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
@@ -311,12 +398,12 @@ function iSpyUnReg() {
     }    
 }
 
-function testReg() {
+function testRegOld() {
     if (uCheck(agency)) {
         var lastURL = "iostestreg";
         if (isAndroid())
             lastURL = "gcmtestreg";
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID=" + window.localStorage.getItem("deviceid");
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
