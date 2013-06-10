@@ -33,10 +33,17 @@ function initialize() {
 
 function bindEvents() {
     document.addEventListener('deviceready', onDeviceReady, false);
+    document.addEventListener("resume", onResume, false);
 }
 
 function onDeviceReady() {
     receivedEvent('deviceready');
+    log("Event: deviceready");
+}
+
+function onResume() {
+    receivedEvent('resume');
+    log("Event: resume");
 }
 
 function tokenHandler(msg) {
