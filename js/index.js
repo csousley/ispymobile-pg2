@@ -316,7 +316,7 @@ function testReg() {
         var lastURL = "iostestreg";
         if (isAndroid())
             lastURL = "gcmtestreg";
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID=" + window.localStorage.getItem("deviceid");
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
