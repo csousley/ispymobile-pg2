@@ -253,7 +253,7 @@ function iSpyReg() {
             lastURL = "gcmReg";
             keyname = "regid";
         }
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID="+window.localStorage.getItem("deviceid")+"&regID="+window.localStorage.getItem(keyname);
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
@@ -286,7 +286,7 @@ function iSpyUnReg() {
             lastURL = "gcmUnReg";
             keyname = "regid";
         }
-        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL + "?deviceID="+window.localStorage.getItem("deviceid");
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
