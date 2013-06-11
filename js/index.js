@@ -39,12 +39,14 @@ function onDeviceReady() {
     receivedEvent('deviceready');
     log("Event: deviceready");
     
-    //document.addEventListener("resume", onResume, false);
+    document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
     receivedEvent('resume');
     log("Event: resume");
+    
+    showRegButtons()
 }
 
 function tokenHandler(msg) {
