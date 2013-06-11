@@ -37,14 +37,14 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
-    log("Event: deviceready");
+    log("After Event: deviceready");
     
     document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
     receivedEvent('resume');
-    log("Event: resume");
+    log("After Event: resume");
     
     showRegButtons()
 }
@@ -85,7 +85,7 @@ function unregister() {
 }
 
 function receivedEvent(id) {
-    log("Device Ready Event");
+    log("EVENT HIT: " + id);
     var parentElement = document.getElementById(id);
     var listeningElement = parentElement.querySelector('.listening');
     var receivedElement = parentElement.querySelector('.received');
