@@ -1,3 +1,9 @@
+var longLog = true;
+var logCount = 0;
+var logCountUpTo = 4;
+var isLogStatusShowing = false;
+var logStatusInterval = null;
+
 var pushNotification = null;
 var customers = null;
 var agency = null;
@@ -30,19 +36,13 @@ $(document).ready(function() {
 });
 
 function initialize() {
-    log("init");
+    logStatus("Initialize");
     document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
     document.addEventListener("resume", onResume, false);
-    log("deviceready register()");
-    var parentElement = document.getElementById("deviceready");
-    var listeningElement = parentElement.querySelector('.listening');
-    var receivedElement = parentElement.querySelector('.received');
-
-    listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');  
+    logStatus("Device Ready");
     
     if (uCheck(window.localStorage.getItem("deviceid"))) {
         //unregister(true);
@@ -53,6 +53,7 @@ function onDeviceReady() {
 }
 
 function onResume() {
+    logStatus("Device Resume");
     if (uCheck(window.localStorage.getItem("deviceid"))) {
         log("resume testreg()");
         testReg();
@@ -63,13 +64,12 @@ function onResume() {
 }
 
 function tokenHandler(msg) {
-    log("APN push ready");
+    logStatus("APN Push Ready");
     setRegID(msg);
 }
 
 function regHandler(result) {
-    log("GCM push ready");
-    //setRegID(result);
+    logStatus("GCM Push Ready");
 }
 
 function successHandler(result) {
@@ -83,14 +83,14 @@ function errorHandler(error) {
 
 function unregister(isReregister) {
     try {
-    log("Starting unreg");
+    logStatus("Starting Unreg");
     pushNotification.unregister(
             function(data){
-                log("unreg ok");
+                logStatus("unreg ok");
                 iSpyUnReg(isReregister);
             },
             function(data){
-                log("unreg bad");
+                logStatus("unreg bad");
             });
     } catch(e) {
         log("unreg error: " + e);
@@ -99,7 +99,7 @@ function unregister(isReregister) {
 
 function register() {
     pushNotification = window.plugins.pushNotification;
-    log("Do Reg");
+    logStatus("Do Reg");
     if (isAndroid()) {
         log(">>Android");
         pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
@@ -167,7 +167,7 @@ function onNotificationGCM(e) {
 }
 
 function setRegID(id) {
-    log("storing reg id");
+    logStatus("Storing IDs");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
@@ -185,9 +185,32 @@ function setDeviceID() {
     window.localStorage.setItem("deviceid", device.uuid);
 }
 
+
+function logIntTimer() {
+    logCount++;
+    if (logCount > logCountUpTo) {
+        isLogStatusShowing = false;
+        $("#deviceStatus").css("opacity", "0.4");
+    }
+}
+
+function logStatus(logMessage) {
+    if (!uCheck(logStatusInterval))
+        logStatusInterval = setInterval(logIntTimer, 1000);
+        
+    if (!isLogStatusShowing) {
+        isLogStatusShowing = true;
+        $("#deviceStatus").css("opacity", "1");
+    }
+    logCount = 0;
+    $("#deviceStatus").html(logMessage);
+    log(logMessage);
+}
+
 function log(logMessage) {
-    $("#ol").append("<li>" + logMessage + "</li>");
     console.log(logMessage);
+    if (longLog)
+        $("#ol").append("<li>" + logMessage + "</li>");
 }
 
 function isAndroid() {
@@ -213,6 +236,7 @@ function uCheck(a) {
 }
 
 function getCustomers() {
+    logStatus("Get Customer List")
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
         customers = data.result.results;
@@ -222,6 +246,7 @@ function getCustomers() {
 }
 
 function showLogin() {
+    logStatus("Show Login");
     if (uCheck(customers)) {
         for(var i = 0; i<customers.length; i++) {
              $('#agencySelect')
@@ -237,7 +262,7 @@ function showLogin() {
 }
 
 function showRegButtons() {
-    log("show reg buttons");
+    logStatus("Show Buttons");
     $("#deviceready").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
@@ -262,6 +287,7 @@ function iSpyReg() {
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
+        logStatus("iSpy Registration");
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -269,11 +295,12 @@ function iSpyReg() {
             data: jsonString
         })
         .fail(function() {
-            log("Fail on reg");
+            logStatus("Fail on reg");
             isiSpyRegistered = false;
             showRegButtons();
         })
         .done(function(data) {
+            logStatus("iSpy Reg Complete");
             log("DATA: " + data);
             isiSpyRegistered = true;
             showRegButtons();
@@ -295,6 +322,7 @@ function iSpyUnReg(isReregister) {
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
+        logStatus("iSpy UnRegister");
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -308,6 +336,7 @@ function iSpyUnReg(isReregister) {
         })
         .done(function(data) {
             log("DATA: " + data);
+            logStatus("iSpy UnReg Complete");
             //unregister(); // to unreg for apn and gcm service
             isiSpyRegistered = false;
             showRegButtons();
@@ -331,6 +360,7 @@ function testReg() {
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
+        logStatus("iSpy Test Registration");
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -342,6 +372,7 @@ function testReg() {
         })
         .done(function(data) {
             log("DATA: " + data);
+            logStatus("iSpy Test Reg Complete");
             if (uCheck(data)) {
                 
                 var datastring = JSON.stringify(data);
