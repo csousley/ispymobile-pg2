@@ -274,9 +274,17 @@ function showRegButtons() {
     }
 }
 
+function hideRegButtons() {
+    logStatus("Hide Buttons");
+    $("#regOptions").css("display", "none");
+    $("#regButton").css("display", "none");
+    $("#unregButton").css("display", "none");
+}
+
 
 function iSpyReg() {
     if (uCheck(agency)) {
+        hideRegButtons();
         var lastURL = "iosReg";
         var keyname = "token";
         if (isAndroid()) {
@@ -312,6 +320,7 @@ function iSpyReg() {
 
 function iSpyUnReg(isReregister) {
     if (uCheck(agency)) {
+        hideRegButtons();
         var lastURL = "iosUnReg";
         var keyname = "token";
         if (isAndroid()) {
@@ -350,6 +359,7 @@ function iSpyUnReg(isReregister) {
 
 function testReg() {
     if (uCheck(agency)) {
+        hideRegButtons();
         var lastURL = "iostestreg";
         var keyname = "token";
         if (isAndroid()) {
