@@ -187,16 +187,18 @@ function setDeviceID() {
 
 
 function logIntTimer() {
-    logCount++;
-    if (logCount > logCountUpTo) {
-        isLogStatusShowing = false;
-        $("#deviceStatus").css("opacity", "0.4");
-    }
+    // logCount++;
+    // if (logCount > logCountUpTo) {
+    //     isLogStatusShowing = false;
+    //     $("#deviceStatus").css("opacity", "0.4");
+    //     clearInterval(logStatusInterval);
+    //     logStatusInterval = null;
+    // }
 }
 
 function logStatus(logMessage) {
-    if (!uCheck(logStatusInterval))
-        logStatusInterval = setInterval(logIntTimer, 1000);
+    // if (!uCheck(logStatusInterval))
+    //     logStatusInterval = setInterval(logIntTimer, 1000);
         
     if (!isLogStatusShowing) {
         isLogStatusShowing = true;
