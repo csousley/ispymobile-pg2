@@ -19,6 +19,8 @@ $(document).ready(function() {
             agency = val;
             window.localStorage.setItem("agency", val);
             $("#regOptions").css("display", "block");
+            $("#agencySelect").css("display", "none");
+            $("#focusHref").focus();
             testReg();
         }else{
             agency = null;
@@ -37,16 +39,11 @@ function bindEvents() {
 
 function onDeviceReady() {
     receivedEvent('deviceready');
-    log("After Event: deviceready");
-    
     document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
     receivedEvent('resume');
-    log("After Event: resume");
-    
-    showRegButtons()
 }
 
 function tokenHandler(msg) {
@@ -93,7 +90,15 @@ function receivedEvent(id) {
     listeningElement.setAttribute('style', 'display:none;');
     receivedElement.setAttribute('style', 'display:block;');   
     
-    doReg();
+    if (id.equals("deviceready"))
+        doReg();
+    else if (id.equals("resume")) {
+        if (uCheck(window.localStorage.getItem("deviceid"))) {
+            testReg();
+        }else{
+            doReg();
+        }
+    }
 }
 
 function doReg() {
