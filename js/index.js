@@ -35,12 +35,16 @@ function initialize() {
 }
 
 function bindEvents() {
-    document.addEventListener('deviceready', onDeviceReady, false);
+    //document.addEventListener('deviceready', onDeviceReady, false);
+     document.addEventListener("deviceready", function(){
+          receivedEvent('deviceready');
+          document.addEventListener("resume", onResume, false);
+     },true);
 }
 
 function onDeviceReady() {
-    receivedEvent('deviceready');
-    document.addEventListener("resume", onResume, false);
+    //receivedEvent('deviceready');
+    //document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
