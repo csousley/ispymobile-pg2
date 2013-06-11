@@ -30,6 +30,7 @@ $(document).ready(function() {
 });
 
 function initialize() {
+    log("init");
     bindEvents();
 }
 
