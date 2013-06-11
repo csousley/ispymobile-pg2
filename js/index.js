@@ -44,6 +44,10 @@ function onDeviceReady() {
     listeningElement.setAttribute('style', 'display:none;');
     receivedElement.setAttribute('style', 'display:block;');  
     
+    if (uCheck(window.localStorage.getItem("deviceid"))) {
+        unregister(true);
+    }
+    
     register();
 }
 
@@ -76,12 +80,13 @@ function errorHandler(error) {
     //alert(error);
 }
 
-function unregister() {
+function unregister(isReregister) {
     try {
     log("Starting unreg");
     pushNotification.unregister(
             function(data){
                 log("unreg ok");
+                iSpyUnReg(isReregister);
             },
             function(data){
                 log("unreg bad");
@@ -89,7 +94,6 @@ function unregister() {
     } catch(e) {
         log("unreg error: " + e);
     }
-    log("unreg finished?");
 }
 
 function register() {
@@ -278,7 +282,7 @@ function iSpyReg() {
     }
 }
 
-function iSpyUnReg() {
+function iSpyUnReg(isReregister) {
     if (uCheck(agency)) {
         var lastURL = "iosUnReg";
         var keyname = "token";
@@ -306,6 +310,8 @@ function iSpyUnReg() {
             //unregister(); // to unreg for apn and gcm service
             isiSpyRegistered = false;
             showRegButtons();
+            if (isReregister)
+                register();
         });
     }else{
         log("Can't test reg, no agency");
