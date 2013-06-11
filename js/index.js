@@ -82,16 +82,15 @@ function unregister() {
 }
 
 function receivedEvent(id) {
-    log("EVENT HIT: " + id);
-    var parentElement = document.getElementById(id);
-    var listeningElement = parentElement.querySelector('.listening');
-    var receivedElement = parentElement.querySelector('.received');
-
-    listeningElement.setAttribute('style', 'display:none;');
-    receivedElement.setAttribute('style', 'display:block;');   
-    
+    log("EVENT HIT: " + id);    
     if (id == "deviceready") {
         log("deviceready doreg()");
+        var parentElement = document.getElementById(id);
+        var listeningElement = parentElement.querySelector('.listening');
+        var receivedElement = parentElement.querySelector('.received');
+    
+        listeningElement.setAttribute('style', 'display:none;');
+        receivedElement.setAttribute('style', 'display:block;');  
         doReg();
     } else if (id == "resume") {
         if (uCheck(window.localStorage.getItem("deviceid"))) {
