@@ -255,7 +255,7 @@ function showLogin() {
                 .text(customers[i].name)); 
         }
         $("#login").css("display", "block");
-        $("#deviceready").css("display", "none");
+        //$("#deviceready").css("display", "none");
     }else{
         log("No Customer List!?");
     }
@@ -263,7 +263,7 @@ function showLogin() {
 
 function showRegButtons() {
     logStatus("Show Buttons");
-    $("#deviceready").css("display", "none");
+    //$("#deviceready").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
         $("#unregButton").css("display", "block");
