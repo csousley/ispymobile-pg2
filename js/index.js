@@ -90,16 +90,20 @@ function receivedEvent(id) {
     listeningElement.setAttribute('style', 'display:none;');
     receivedElement.setAttribute('style', 'display:block;');   
     
-    if (id == "deviceready")
+    if (id == "deviceready") {
+        log("deviceready doreg()");
         doReg();
-    else if (id == "resume") {
+    } else if (id == "resume") {
         if (uCheck(window.localStorage.getItem("deviceid"))) {
+            log("resume testreg()");
             testReg();
         }else{
+            log("resume doreg()");
             doReg();
         }
-    } else 
+    } else {
         log("unknown event hit...");
+    }
 }
 
 function doReg() {
