@@ -50,12 +50,12 @@ function onResume() {
 }
 
 function tokenHandler(msg) {
-    //log("APN push ready");
+    log("APN push ready");
     setRegID(msg);
 }
 
 function regHandler(result) {
-    //log("GCM push ready");
+    log("GCM push ready");
     //setRegID(result);
 }
 
@@ -70,22 +70,22 @@ function errorHandler(error) {
 
 function unregister() {
     try {
-    //log("Starting unreg");
+    log("Starting unreg");
     pushNotification.unregister(
             function(data){
-                //log("unreg ok");
+                log("unreg ok");
             },
             function(data){
-                //log("unreg bad");
+                log("unreg bad");
             });
     } catch(e) {
         log("unreg error: " + e);
     }
-    //log("unreg finished?");
+    log("unreg finished?");
 }
 
 function receivedEvent(id) {
-    //log("Device Ready Event");
+    log("Device Ready Event");
     var parentElement = document.getElementById(id);
     var listeningElement = parentElement.querySelector('.listening');
     var receivedElement = parentElement.querySelector('.received');
@@ -98,15 +98,15 @@ function receivedEvent(id) {
 
 function doReg() {
     pushNotification = window.plugins.pushNotification;
-    //log("Do Reg");
+    log("Do Reg");
     if (isAndroid()) {
-        //log(">>Android");
+        log(">>Android");
         pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
     } else {
-        //log(">>IOS");
+        log(">>IOS");
         pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
     }    
-    //log("Reg Complete");
+    log("Reg Complete");
 }
 
 // iOS
@@ -119,7 +119,7 @@ function onNotificationAPN(event) {
         navigator.notification.alert(event.alert);
     }
     if (event.badge) {
-        //log("Set badge on  " + pushNotification);
+        log("Set badge on  " + pushNotification);
         pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
     }
     if (event.sound) {
@@ -164,7 +164,7 @@ function onNotificationGCM(e) {
 }
 
 // function unReg() {
-//     //log("unreg method call");
+//     log("unreg method call");
 //     unregister();
 // }
 
@@ -173,7 +173,7 @@ function iSpySetup() {
 }
 
 function setRegID(id) {
-    //log("storing reg id");
+    log("storing reg id");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
@@ -182,12 +182,12 @@ function setRegID(id) {
     if (!uCheck(window.localStorage.getItem("deviceid")))
         setDeviceID();
     
-    //log(keyname + ": " + window.localStorage.getItem(keyname));
-    //log("device: " + window.localStorage.getItem("deviceid"));
+    log(keyname + ": " + window.localStorage.getItem(keyname));
+    log("device: " + window.localStorage.getItem("deviceid"));
 }
 
 function setDeviceID() {
-    //log("storing device id");
+    log("storing device id");
     window.localStorage.setItem("deviceid", device.uuid);
 }
 
@@ -222,7 +222,7 @@ function getCustomers() {
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
         customers = data.result.results;
-        //log("Customers: " + customers.length);
+        log("Customers: " + customers.length);
         showLogin();
     });  
 }
@@ -238,12 +238,12 @@ function showLogin() {
         $("#login").css("display", "block");
         $("#deviceready").css("display", "none");
     }else{
-        //log("No Customer List!?");
+        log("No Customer List!?");
     }
 }
 
 function showRegButtons() {
-    //log("show reg buttons");
+    log("show reg buttons");
     $("#deviceready").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
@@ -266,8 +266,8 @@ function iSpyReg() {
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
-        //log("json: " + jsonString);
-        //log("Check URL: " + jsonURL);
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -280,12 +280,12 @@ function iSpyReg() {
             showRegButtons();
         })
         .done(function(data) {
-            //log("DATA: " + data);
+            log("DATA: " + data);
             isiSpyRegistered = true;
             showRegButtons();
         });
     }else{
-        //log("Can't test reg, no agency");
+        log("Can't test reg, no agency");
     }
 }
 
@@ -299,8 +299,8 @@ function iSpyUnReg() {
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        //log("json: " + jsonString);
-        //log("Check URL: " + jsonURL);
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -313,13 +313,13 @@ function iSpyUnReg() {
             showRegButtons();
         })
         .done(function(data) {
-            //log("DATA: " + data);
+            log("DATA: " + data);
             //unregister(); // to unreg for apn and gcm service
             isiSpyRegistered = false;
             showRegButtons();
         });
     }else{
-        //log("Can't test reg, no agency");
+        log("Can't test reg, no agency");
     }    
 }
 
@@ -330,8 +330,8 @@ function testReg() {
             lastURL = "gcmtestreg";
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
         var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
-        //log("json: " + jsonString);
-        //log("Check URL: " + jsonURL);
+        log("json: " + jsonString);
+        log("Check URL: " + jsonURL);
         $.ajax({
             type: "PUT",
             url: jsonURL,
@@ -342,23 +342,23 @@ function testReg() {
             log("Fail on testreg");
         })
         .done(function(data) {
-            //log("DATA: " + data);
+            log("DATA: " + data);
             if (uCheck(data)) {
                 
                 var datastring = JSON.stringify(data);
-                //log("datastring: " + datastring);
+                log("datastring: " + datastring);
                 
                 var result = data.result;
-                //log("RESULT: " + result);
+                log("RESULT: " + result);
                 if (uCheck(result)) {
                     if (result == "Registered") {
-                        //log ("already registered");
+                        log ("already registered");
                         isiSpyRegistered = true;
                         showRegButtons();
                         return false;
                     }
                 }
-                //log("needs registered");
+                log("needs registered");
                 isiSpyRegistered = false;
                 showRegButtons();
             }else{
@@ -368,6 +368,6 @@ function testReg() {
             }
         });
     }else{
-        //log("Can't test reg, no agency");
+        log("Can't test reg, no agency");
     }
 }
