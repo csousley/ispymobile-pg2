@@ -43,6 +43,7 @@ function onDeviceReady() {
 
     listeningElement.setAttribute('style', 'display:none;');
     receivedElement.setAttribute('style', 'display:block;');  
+    
     register();
 }
 
@@ -106,6 +107,7 @@ function register() {
 
 // iOS
 function onNotificationAPN(event) {
+    log("GOT IT");
     log("Received a notification! " + event.alert);
     // console.log("event sound " + event.sound);
     // console.log("event badge " + event.badge);
@@ -139,11 +141,12 @@ function onNotificationGCM(e) {
         break;
 
         case 'message':
-          // this is the actual push notification. its format depends on the data model
-          // of the intermediary push server which must also be reflected in GCMIntentService.java
-          //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-          $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
-          //alert(e.message);
+            log("GOT IT");
+            // this is the actual push notification. its format depends on the data model
+            // of the intermediary push server which must also be reflected in GCMIntentService.java
+            //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
+            $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
+            //alert(e.message);
         break;
 
         case 'error':
@@ -156,15 +159,6 @@ function onNotificationGCM(e) {
           //alert('An unknown GCM event has occurred');
           break;
     }
-}
-
-// function unReg() {
-//     log("unreg method call");
-//     unregister();
-// }
-
-function iSpySetup() {
-    //$("#deviceID").html("device: " + device.uuid);
 }
 
 function setRegID(id) {
