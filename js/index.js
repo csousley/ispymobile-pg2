@@ -45,10 +45,11 @@ function onDeviceReady() {
     receivedElement.setAttribute('style', 'display:block;');  
     
     if (uCheck(window.localStorage.getItem("deviceid"))) {
-        unregister(true);
+        //unregister(true);
+        testReg();
+    }else{
+        register();
     }
-    
-    register();
 }
 
 function onResume() {
@@ -291,7 +292,7 @@ function iSpyUnReg(isReregister) {
             keyname = "regid";
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
-        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
@@ -321,10 +322,13 @@ function iSpyUnReg(isReregister) {
 function testReg() {
     if (uCheck(agency)) {
         var lastURL = "iostestreg";
-        if (isAndroid())
+        var keyname = "token";
+        if (isAndroid()) {
             lastURL = "gcmtestreg";
+            var keyname = "regid";
+        }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
-        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\"}";
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         $.ajax({
