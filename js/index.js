@@ -31,24 +31,29 @@ $(document).ready(function() {
 
 function initialize() {
     log("init");
-    bindEvents();
-}
-
-function bindEvents() {
-    //document.addEventListener('deviceready', onDeviceReady, false);
-     document.addEventListener("deviceready", function(){
-          receivedEvent('deviceready');
-          document.addEventListener("resume", onResume, false);
-     },true);
+    document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
-    //receivedEvent('deviceready');
-    //document.addEventListener("resume", onResume, false);
+    document.addEventListener("resume", onResume, false);
+    log("deviceready register()");
+    var parentElement = document.getElementById("deviceready");
+    var listeningElement = parentElement.querySelector('.listening');
+    var receivedElement = parentElement.querySelector('.received');
+
+    listeningElement.setAttribute('style', 'display:none;');
+    receivedElement.setAttribute('style', 'display:block;');  
+    register();
 }
 
 function onResume() {
-    receivedEvent('resume');
+    if (uCheck(window.localStorage.getItem("deviceid"))) {
+        log("resume testreg()");
+        testReg();
+    }else{
+        log("resume register()");
+        register();
+    }
 }
 
 function tokenHandler(msg) {
@@ -86,31 +91,7 @@ function unregister() {
     log("unreg finished?");
 }
 
-function receivedEvent(id) {
-    log("EVENT HIT: " + id);    
-    if (id == "deviceready") {
-        log("deviceready doreg()");
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-    
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');  
-        doReg();
-    } else if (id == "resume") {
-        if (uCheck(window.localStorage.getItem("deviceid"))) {
-            log("resume testreg()");
-            testReg();
-        }else{
-            log("resume doreg()");
-            doReg();
-        }
-    } else {
-        log("unknown event hit...");
-    }
-}
-
-function doReg() {
+function register() {
     pushNotification = window.plugins.pushNotification;
     log("Do Reg");
     if (isAndroid()) {
