@@ -38,8 +38,9 @@
     
     <gap:splash src="res/screen/ios/screen-iphone-portrait.jpg"    gap:platform="ios" width="320" height="480"  />
     <gap:splash src="res/screen/ios/screen-iphone-portrait-2x.jpg" gap:platform="ios" width="640" height="960"  />
-    <gap:splash src="res/screen/ios/screen-iphone-portrait5.jpg"    gap:platform="ios" width="640" height="1136" />
+    <gap:splash src="res/screen/ios/screen-iphone-portrait5.jpg"   gap:platform="ios" width="640" height="1136" />
     <gap:splash src="res/screen/ios/screen-ipad-portrait.jpg"      gap:platform="ios" width="768" height="1024" />
+    <gap:splash src="res/screen/ios/screen-ipad-portrait.jpg"      gap:platform="ios" width="1536" height="2008" />
     
 	<gap:plugin name="GenericPush"/>
     
