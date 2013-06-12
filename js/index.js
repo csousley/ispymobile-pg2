@@ -13,6 +13,7 @@ $(document).ready(function() {
         
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
+        logStatus("Agency Changed: " + val);
         if (uCheck(val)) {
             agency = val;
             window.localStorage.setItem("agency", val);
