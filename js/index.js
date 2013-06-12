@@ -42,9 +42,8 @@ function initialize() {
 
 function onDeviceReady() {
     logStatus("Device Ready");
-    document.addEventListener("resume", onResume, false);
-    
     register();
+    document.addEventListener("resume", onResume, false);
 }
 
 function onResume() {
@@ -86,8 +85,8 @@ function unregister(isReregister) {
 }
 
 function register() {
-    pushNotification = window.plugins.pushNotification;
     logStatus("Do Reg");
+    pushNotification = window.plugins.pushNotification;
     if (isAndroid()) {
         log(">>Android");
         pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
