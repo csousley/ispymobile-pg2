@@ -29,9 +29,6 @@ $(document).ready(function() {
         }
     });
     
-    if (!uCheck(agency))
-        getCustomers();
-    
     initialize();
 });
 
@@ -48,6 +45,8 @@ function onDeviceReady() {
     
     if (uCheck(agency))
         iSpyReg();
+    else
+        getCustomers();
 }
 
 function onResume() {
