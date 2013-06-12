@@ -25,6 +25,13 @@ $(document).ready(function() {
             $("#regOptions").css("display", "none");
         }
     });
+    
+    agency = window.localStorage.getItem("agency");
+    
+    if (!uCheck(agency))
+        getCustomers();
+    else
+        iSpyReg();
 });
 
 function initialize() {
@@ -294,6 +301,7 @@ function iSpyReg() {
             lastURL = "gcmReg";
             keyname = "regid";
         }
+        logStatus("PreReg");
         if (uCheck(window.localStorage.getItem("deviceid")) && uCheck(window.localStorage.getItem(keyname))) {
             hideRegButtons();
             var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
