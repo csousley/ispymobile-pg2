@@ -8,6 +8,8 @@ var customers = null;
 var agency = null;
 var isiSpyRegistered = false;
 
+setTimeout(function(){alert("Hello")},3000);
+
 function initialize() {
     logStatus("Initialize");    
     document.addEventListener('deviceready', onDeviceReady, false);
