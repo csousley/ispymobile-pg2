@@ -44,7 +44,9 @@ function onDeviceReady() {
     logStatus("Device Ready");
     
     register();
-    iSpyReg();
+    
+    if (uCheck(agency))
+        iSpyReg();
 }
 
 function onResume() {
