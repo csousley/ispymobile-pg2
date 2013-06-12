@@ -36,6 +36,11 @@ var isiSpyRegistered = false;
 function initialize() {
     logStatus("Initialize");    
     document.addEventListener('deviceready', onDeviceReady, false);
+}
+
+function onDeviceReady() {
+    document.addEventListener("resume", onResume, false);
+    logStatus("Device Ready");
     
     $.ajaxSetup({cache:false});
     
@@ -58,11 +63,6 @@ function initialize() {
             $("#regOptions").css("display", "none");
         }
     });
-}
-
-function onDeviceReady() {
-    document.addEventListener("resume", onResume, false);
-    logStatus("Device Ready");
     
     register();
     iSpyReg();
