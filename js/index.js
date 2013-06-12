@@ -42,8 +42,8 @@ function initialize() {
 
 function onDeviceReady() {
     logStatus("Device Ready");
-    register();
     document.addEventListener("resume", onResume, false);
+    register();
 }
 
 function onResume() {
@@ -296,6 +296,8 @@ function iSpyReg() {
             keyname = "regid";
         }
         logStatus("PreReg");
+        log(keyname + ": " + window.localStorage.getItem(keyname));
+        log("device: " + window.localStorage.getItem("deviceid"));
         if (uCheck(window.localStorage.getItem("deviceid")) && uCheck(window.localStorage.getItem(keyname))) {
             hideRegButtons();
             var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
