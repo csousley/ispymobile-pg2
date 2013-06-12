@@ -244,7 +244,7 @@ function uCheck(a) {
 }
 
 function getCustomers() {
-    logStatus("Get Customer List")
+    logStatus("Get Customer List");
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
         customers = data.result.results;
