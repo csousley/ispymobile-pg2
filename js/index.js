@@ -193,7 +193,7 @@ function logIntTimer() {
     logCount++;
     if (logCount > logCountUpTo) {
         isLogStatusShowing = false;
-        $("#deviceStatus").fadeOut(500);
+        $("#deviceStatus").fadeTo(500, 0.1);
         clearInterval(logStatusInterval);
         logStatusInterval = null;
     }
@@ -205,7 +205,7 @@ function logStatus(logMessage) {
         
     if (!isLogStatusShowing) {
         isLogStatusShowing = true;
-        $("#deviceStatus").fadeIn(500);
+        $("#deviceStatus").fadeTo(500, 1);
     }
     logCount = 0;
     $("#deviceStatus").html(logMessage);
