@@ -41,16 +41,10 @@ function initialize() {
 }
 
 function onDeviceReady() {
-    document.addEventListener("resume", onResume, false);
     logStatus("Device Ready");
+    document.addEventListener("resume", onResume, false);
     
-    agency = window.localStorage.getItem("agency");
     register();
-    
-    if (uCheck(agency))
-        iSpyReg();
-    else
-        getCustomers();
 }
 
 function onResume() {
