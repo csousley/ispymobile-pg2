@@ -9,12 +9,10 @@ var agency = null;
 var isiSpyRegistered = false;
 
 $(document).ready(function() {
+    
     $.ajaxSetup({cache:false});
     
     agency = window.localStorage.getItem("agency");
-    
-    if (!uCheck(agency))
-        getCustomers();
         
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
@@ -30,6 +28,9 @@ $(document).ready(function() {
             $("#regOptions").css("display", "none");
         }
     });
+    
+    if (!uCheck(agency))
+        getCustomers();
     
     initialize();
 });
