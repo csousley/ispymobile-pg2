@@ -8,7 +8,9 @@ var customers = null;
 var agency = null;
 var isiSpyRegistered = false;
 
-setTimeout(function(){alert("From Javascript")},3000);
+$(document).ready(function() {
+    initialize();
+});
 
 function initialize() {
     logStatus("Initialize");    
@@ -287,14 +289,14 @@ function hideRegButtons() {
 
 
 function iSpyReg() {
-    if (uCheck(agency))) {
+    if (uCheck(agency)) {
         var lastURL = "iosReg";
         var keyname = "token";
         if (isAndroid()) {
             lastURL = "gcmReg";
             keyname = "regid";
         }
-        if (uCheck(window.localStorage.getItem("deviceid") && uCheck(window.localStorage.getItem(keyname)) {
+        if (uCheck(window.localStorage.getItem("deviceid")) && uCheck(window.localStorage.getItem(keyname))) {
             hideRegButtons();
             var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
             var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
