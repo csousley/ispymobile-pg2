@@ -8,7 +8,7 @@ var customers = null;
 var agency = null;
 var isiSpyRegistered = false;
 
-setTimeout(function(){alert("Hello")},3000);
+setTimeout(function(){alert("From Javascript")},3000);
 
 function initialize() {
     logStatus("Initialize");    
