@@ -268,7 +268,7 @@ function showLogin() {
 
 function showRegButtons() {
     logStatus("Show Buttons");
-    //$("#deviceready").css("display", "none");
+    $("#loading").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
         $("#unregButton").css("display", "block");
@@ -281,6 +281,7 @@ function showRegButtons() {
 
 function hideRegButtons() {
     logStatus("Hide Buttons");
+    $("#loading").css("display", "block");
     $("#regOptions").css("display", "none");
     $("#regButton").css("display", "none");
     $("#unregButton").css("display", "none");
