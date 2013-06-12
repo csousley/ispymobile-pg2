@@ -9,18 +9,6 @@ var agency = null;
 var isiSpyRegistered = false;
 
 $(document).ready(function() {
-    initialize();
-});
-
-function initialize() {
-    logStatus("Initialize");    
-    document.addEventListener('deviceready', onDeviceReady, false);
-}
-
-function onDeviceReady() {
-    document.addEventListener("resume", onResume, false);
-    logStatus("Device Ready");
-    
     $.ajaxSetup({cache:false});
     
     agency = window.localStorage.getItem("agency");
@@ -42,6 +30,18 @@ function onDeviceReady() {
             $("#regOptions").css("display", "none");
         }
     });
+    
+    initialize();
+});
+
+function initialize() {
+    logStatus("Initialize");    
+    document.addEventListener('deviceready', onDeviceReady, false);
+}
+
+function onDeviceReady() {
+    document.addEventListener("resume", onResume, false);
+    logStatus("Device Ready");
     
     register();
     iSpyReg();
