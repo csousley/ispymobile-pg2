@@ -19,7 +19,6 @@
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
 
-
     <icon src="res/icon/android/iSpyLogo_android36.png" gap:platform="android" gap:density="ldpi"  />
     <icon src="res/icon/android/iSpyLogo_android48.png" gap:platform="android" gap:density="mdpi"  />
     <icon src="res/icon/android/iSpyLogo_android72.png" gap:platform="android" gap:density="hdpi"  />

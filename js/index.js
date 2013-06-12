@@ -3,35 +3,10 @@ var logCount = 0;
 var logCountUpTo = 4;
 var isLogStatusShowing = false;
 var logStatusInterval = null;
-
 var pushNotification = null;
 var customers = null;
 var agency = null;
 var isiSpyRegistered = false;
-
-//$(document).ready(function() {
-    // $.ajaxSetup({cache:false});
-    
-    // agency = window.localStorage.getItem("agency");
-    
-    // if (!uCheck(agency))
-    //     getCustomers();
-        
-    // $("#agencySelect").change(function() {
-    //     var val = $("#agencySelect").val();
-    //     if (uCheck(val)) {
-    //         agency = val;
-    //         window.localStorage.setItem("agency", val);
-    //         $("#regOptions").css("display", "block");
-    //         $("#agencySelect").css("display", "none");
-    //         $("#focusHref").focus();
-    //         iSpyReg();
-    //     }else{
-    //         agency = null;
-    //         $("#regOptions").css("display", "none");
-    //     }
-    // });
-//});
 
 function initialize() {
     logStatus("Initialize");    
@@ -66,24 +41,10 @@ function onDeviceReady() {
     
     register();
     iSpyReg();
-    
-    // if (uCheck(window.localStorage.getItem("deviceid"))) {
-    //     //unregister(true);
-    //     testReg();
-    // }else{
-    //     register();
-    // }
 }
 
 function onResume() {
     logStatus("Device Resume");
-    // if (uCheck(window.localStorage.getItem("deviceid"))) {
-    //     log("resume testreg()");
-    //     testReg();
-    // }else{
-    //     log("resume register()");
-    //     register();
-    // }
 }
 
 function tokenHandler(msg) {
