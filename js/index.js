@@ -16,8 +16,6 @@ $(document).ready(function() {
     
     if (!uCheck(agency))
         getCustomers();
-    else
-        testReg();
         
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
@@ -27,7 +25,7 @@ $(document).ready(function() {
             $("#regOptions").css("display", "block");
             $("#agencySelect").css("display", "none");
             $("#focusHref").focus();
-            testReg();
+            iSpyReg();
         }else{
             agency = null;
             $("#regOptions").css("display", "none");
@@ -174,6 +172,9 @@ function setRegID(id) {
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
+        
+    if (!uCheck(window.localStorage.getItem("deviceid")))
+        setDeviceID();
     
     var needSet = false;
     if (uCheck(window.localStorage.getItem(keyname))) {
@@ -191,9 +192,6 @@ function setRegID(id) {
         window.localStorage.setItem(keyname, id);
         iSpyReg();
     }
-    
-    if (!uCheck(window.localStorage.getItem("deviceid")))
-        setDeviceID();
     
     log(keyname + ": " + window.localStorage.getItem(keyname));
     log("device: " + window.localStorage.getItem("deviceid"));
