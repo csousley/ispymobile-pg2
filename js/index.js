@@ -9,7 +9,34 @@ var customers = null;
 var agency = null;
 var isiSpyRegistered = false;
 
-$(document).ready(function() {
+//$(document).ready(function() {
+    // $.ajaxSetup({cache:false});
+    
+    // agency = window.localStorage.getItem("agency");
+    
+    // if (!uCheck(agency))
+    //     getCustomers();
+        
+    // $("#agencySelect").change(function() {
+    //     var val = $("#agencySelect").val();
+    //     if (uCheck(val)) {
+    //         agency = val;
+    //         window.localStorage.setItem("agency", val);
+    //         $("#regOptions").css("display", "block");
+    //         $("#agencySelect").css("display", "none");
+    //         $("#focusHref").focus();
+    //         iSpyReg();
+    //     }else{
+    //         agency = null;
+    //         $("#regOptions").css("display", "none");
+    //     }
+    // });
+//});
+
+function initialize() {
+    logStatus("Initialize");    
+    document.addEventListener('deviceready', onDeviceReady, false);
+    
     $.ajaxSetup({cache:false});
     
     agency = window.localStorage.getItem("agency");
@@ -31,11 +58,6 @@ $(document).ready(function() {
             $("#regOptions").css("display", "none");
         }
     });
-});
-
-function initialize() {
-    logStatus("Initialize");
-    document.addEventListener('deviceready', onDeviceReady, false);
 }
 
 function onDeviceReady() {
