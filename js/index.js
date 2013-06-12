@@ -28,6 +28,7 @@ $(document).ready(function() {
     });
     
     agency = window.localStorage.getItem("agency");
+    log("AGENCY: " + agency);
     
     if (!uCheck(agency))
         getCustomers();
@@ -168,6 +169,8 @@ function setRegID(id) {
         if (key != id) {
             // regid or token don't match, reg with new one now
             needSet = true;
+        }else{
+            log("matching new id and old");
         }
         // we're already registered with ispy using this regid or token, no need to do it again
     }else{
