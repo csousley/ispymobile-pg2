@@ -313,6 +313,7 @@ function showLogin() {
         }
         $("#login").css("display", "block");
         $("#agencySelect").css("display", "block");
+        $("#loading").css("display", "none");
     }else{
         log("No Customer List!?");
     }
