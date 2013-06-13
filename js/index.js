@@ -132,6 +132,9 @@ function register() {
 function onNotificationAPN(event) {
     log("GOT IT");
     log("Received a notification! " + event.alert);
+    if (uCheck(event.callIDs)) {
+        log("PASSED CALL IDS: " + e.callIDs);
+    }
     // console.log("event sound " + event.sound);
     // console.log("event badge " + event.badge);
     // console.log("event " + event);
@@ -169,6 +172,9 @@ function onNotificationGCM(e) {
             // of the intermediary push server which must also be reflected in GCMIntentService.java
             //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
             $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
+            if (uCheck(e.callIDs)) {
+                log("PASSED CALL IDS: " + e.callIDs);
+            }
             //alert(e.message);
         break;
 
