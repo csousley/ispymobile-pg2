@@ -312,6 +312,7 @@ function showLogin() {
             $('#agencySelect').append($("<option></option>").attr("value", customers[i].subdomain).text(customers[i].name)); 
         }
         $("#login").css("display", "block");
+        $("#agencySelect").css("display", "block");
     }else{
         log("No Customer List!?");
     }
