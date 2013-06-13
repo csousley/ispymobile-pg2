@@ -329,8 +329,8 @@ function iSpyReg() {
                 log("datastring: " + datastring);
                 isiSpyRegistered = true;
                 showRegButtons();
-                if(uCheck(data.results.regids[0]._id)) {
-                    setDBID(data.results.regids[0]._id);
+                if(uCheck(data.regids.results[0]._id)) {
+                    setDBID(data.regids.results[0]._id);
                 }
             });
         }else{
