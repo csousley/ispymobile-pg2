@@ -254,42 +254,16 @@ function uCheck(a) {
 function getCustomers() {
     logStatus("Get Customer List");
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
-    $.getJSON(jsonURL, function(data, status, jqXHR) {
-        log("getCustomers status: " + status);
-        log("getCustomers Data: " + data);
-        log("getCustomers jqXHR: " + JSON.stringify(jqXHR));
-        log("getCustomers responseHeaders: " + JSON.stringify((jqXHR.getAllResponseHeaders())));
-        if (data) {
-            customers = data.result.results;
-            log("Customers: " + customers.length);
-            showLogin();
-        } else {
-            log("ERROR! Customer List Not Returned");
-        }
-    });
-}
-
-// ///////////////////////////////////////////////
-function testget() {
-    logStatus("testget");
-    var jsonURL = 'http://test.ispyfire.com/fireapp/testget';
     $.getJSON(jsonURL, function() {
         log("testget back");
     })
-    .done(function(data) { log( "done: " + JSON.stringify(data) ); })
-    .fail(function(data) { log( "error: " + JSON.stringify(data) ); });
-}
-
-function getCustomersNew() {
-    logStatus("Get Customer List New");
-    var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
-    $.getJSON(jsonURL, function() {
-        log("customers back");
+    .done(function(data) {
+        customers = data.result.results;
+        log("Customers: " + customers.length);
+        showLogin();
     })
-    .done(function(data) { log( "done: " + JSON.stringify(data) ); })
-    .fail(function(data) { log( "error: " + JSON.stringify(data) ); });
+    .fail(function(data) { log( "customer error: " + JSON.stringify(data) ); });
 }
-// ///////////////////////////////////////////////
 
 function showLogin() {
     logStatus("Show Login");
