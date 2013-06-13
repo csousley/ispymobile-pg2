@@ -191,6 +191,11 @@ function setDeviceID() {
     window.localStorage.setItem("deviceid", device.uuid);
 }
 
+function setDBID(id) {
+    log("dbid: "+ id);
+    window.localStorage.setItem("dbid", id);
+}
+
 
 function logIntTimer() {
     logCount++;
@@ -320,9 +325,13 @@ function iSpyReg() {
             })
             .done(function(data) {
                 logStatus("iSpy Reg Complete");
-                //log("DATA: " + data);
+                var datastring = JSON.stringify(data);
+                log("datastring: " + datastring);
                 isiSpyRegistered = true;
                 showRegButtons();
+                if(uCheck(data.results.regids[0]._id)) {
+                    setDBID(data.results.regids[0]._id);
+                }
             });
         }else{
             logStatus("NO REG: Missing " + keyname);
@@ -334,6 +343,11 @@ function iSpyReg() {
 
 function iSpyUnReg(isReregister) {
     if (uCheck(agency)) {
+        var dbid = window.localStorage.getItem("dbid");
+        if(!uCheck(dbid)) {
+            log("No DBID, can't unreg");
+            return false;
+        }
         hideRegButtons();
         var lastURL = "iosUnReg";
         var keyname = "token";
@@ -342,7 +356,7 @@ function iSpyUnReg(isReregister) {
             keyname = "regid";
         }
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
-        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
+        var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\", \"id\": \"" + dbid + "\"}";
         log("json: " + jsonString);
         log("Check URL: " + jsonURL);
         logStatus("iSpy UnRegister");
