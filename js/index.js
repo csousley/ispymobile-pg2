@@ -198,11 +198,17 @@ function getAppOptionsHTML() {
 }
 
 function clearAll() {
+    var keyname = "token";
+    if (isAndroid())
+        keyname = "regid";
+        
+    var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
     $("#menuOptions").html("Options");
     hideRegButtons();
     documentReady();
+    setRegID(skipRegID);
 }
 
 function setRegID(id) {
