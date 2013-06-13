@@ -10,8 +10,8 @@
         <div id="menu">
             <table style="width: 100%;">
                 <tr>
-                    <td class="menuItem"><a onClick="showOptions();">Options</a></td>
-                    <td class="menuItem"><a onClick="showOptions();">Web App</a></td>
+                    <td class="menuItem" id="menuOptions"><a onClick="showOptions();">Options</a></td>
+                    <td class="menuItem" id="menuAppSelect"><a onClick="showOptions();">Web App</a></td>
                 </tr>
             </table>
         </div>
@@ -37,6 +37,12 @@
                 <input type="button" value="Un-Register" id="unregButton" onClick="iSpyUnReg();" style="display: none;">
             </div>
             
+            <div>
+                <input type="button" value="getJSON testget" onClick="testget();">
+                <input type="button" value="getJSON customers" onClick="getCustomersNew();">
+                <input type="button" value="initialize" onClick="initialize();">
+            </div>
+            
         </div>
         
         <div style="color: white;">
@@ -49,7 +55,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                initialize();
+                //initialize();
             });
         </script>
         

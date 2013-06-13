@@ -17,7 +17,7 @@ body {
 .app {
     width:225px;                   /* text area width */
     text-align:center;
-    margin: 5% auto;
+    margin: 10px auto;
 }
 
 /* Landscape layout (with min-width) */
@@ -55,16 +55,16 @@ h1 {
 
 #menu {
     border: 1px solid #777;
-    margin: 5px;
     background-color: #333;
     color: white;
-    margin: 0 auto;
+    margin: 5px auto;
     max-width: 500px;
 }
 
 .menuItem {
     text-align: center;
     line-height: 25px;
+    width: 50%;
 }
 
 .menuItem:hover {

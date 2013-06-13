@@ -10,7 +10,9 @@ var isiSpyRegistered = false;
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
-        
+});
+
+function documentReady() {
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
         logStatus("Agency Changed: " + val);
@@ -34,9 +36,10 @@ $(document).ready(function() {
         getCustomers();
     else
         iSpyReg();
-});
+}
 
 function initialize() {
+    documentReady();
     logStatus("Initialize");    
     document.addEventListener('deviceready', onDeviceReady, false);
 }
@@ -265,6 +268,28 @@ function getCustomers() {
         }
     });
 }
+
+// ///////////////////////////////////////////////
+function testget() {
+    logStatus("testget");
+    var jsonURL = 'http://test.ispyfire.com/fireapp/testget';
+    $.getJSON(jsonURL, function() {
+        log("testget back");
+    })
+    .done(function(data) { log( "done: " + JSON.stringify(data) ); })
+    .fail(function(data) { log( "error: " + JSON.stringify(data) ); });
+}
+
+function getCustomersNew() {
+    logStatus("Get Customer List New");
+    var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
+    $.getJSON(jsonURL, function() {
+        log("customers back");
+    })
+    .done(function(data) { log( "done: " + JSON.stringify(data) ); })
+    .fail(function(data) { log( "error: " + JSON.stringify(data) ); });
+}
+// ///////////////////////////////////////////////
 
 function showLogin() {
     logStatus("Show Login");
