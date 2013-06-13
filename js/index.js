@@ -59,6 +59,16 @@ function initialize() {
     documentReady();
     logStatus("Initialize");    
     document.addEventListener('deviceready', onDeviceReady, false);
+    document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
+    document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
+}
+
+function onTouch_menuOptions() {
+    $("#menuOptions").addClass("menuItemTouch");
+}
+
+function onStopTouch_menuOptions() {
+    $("#menuOptions").removeClass("menuItemTouch");
 }
 
 function onDeviceReady() {
