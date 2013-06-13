@@ -250,7 +250,7 @@ function uCheck(a) {
 
 function getCustomers() {
     logStatus("Get Customer List 2.0");
-    var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
+    var jsonURL = 'http://cfd.ispyfire.com/fireapp/getCustomerList';
     $.get(jsonURL, function(data, status, jqXHR) {
         log("getCustomers status: " + status);
         log("getCustomers Data: " + data);
