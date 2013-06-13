@@ -249,7 +249,7 @@ function uCheck(a) {
 }
 
 function getCustomers() {
-    logStatus("Get Customer List");
+    logStatus("Get Customer List 2.0");
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.get(jsonURL, function(data) {
         log("getCustomers in!");
