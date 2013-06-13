@@ -13,6 +13,16 @@ $(document).ready(function() {
 });
 
 function documentReady() {
+    agency = window.localStorage.getItem("agency");
+    log("AGENCY: " + agency);
+    
+    if (!uCheck(agency))
+        getCustomers();
+    else
+        iSpyReg();
+}
+
+function setClicks() {
     $("#agencySelect").change(function() {
         var val = $("#agencySelect").val();
         logStatus("Agency Changed: " + val);
@@ -29,13 +39,20 @@ function documentReady() {
         }
     });
     
-    agency = window.localStorage.getItem("agency");
-    log("AGENCY: " + agency);
+    $("#menuOptions").click(function() {
+        if( $('#appOptions').is(':hidden') ) {
+            $("#appOptions").slideDown(500);
+            $("#menuOptions").html("Hide Options");
+            $("#appOptions").html(getAppOptionsHTML());
+        }else{
+            $("#appOptions").slideUp(500);
+            $("#menuOptions").html("Options");
+        }
+    });
     
-    if (!uCheck(agency))
-        getCustomers();
-    else
-        iSpyReg();
+    $("#menuAppSelect").click(function() {
+        alert("app click");
+    });
 }
 
 function initialize() {
@@ -155,6 +172,24 @@ function onNotificationGCM(e) {
           //alert('An unknown GCM event has occurred');
           break;
     }
+}
+
+function getAppOptionsHTML() {
+    var keyname = "token";
+    if (isAndroid())
+        keyname = "regid";
+    var htmlString = "";
+    htmlString += "Agency: " + window.localStorage.getItem("agency") + "<br>";
+    htmlString += "DeviceID: " + window.localStorage.getItem("deviceid") + "<br>";
+    htmlString += keyname + ": " + window.localStorage.getItem(keyname) + "<br>";
+    htmlString += "DBID: " + window.localStorage.getItem("dbid") + "<br>";
+    htmlString += "<input type='button' value='Reset App' onClick='clearAll();' style='margin-top: 10px;'>";
+    return htmlString;
+}
+
+function clearAll() {
+    window.localStorage.clear();
+    documentReady();
 }
 
 function setRegID(id) {

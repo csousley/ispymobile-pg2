@@ -10,11 +10,12 @@
         <div id="menu">
             <table style="width: 100%;">
                 <tr>
-                    <td class="menuItem" id="menuOptions"><a onClick="showOptions();">Options</a></td>
-                    <td class="menuItem" id="menuAppSelect"><a onClick="showOptions();">Web App</a></td>
+                    <td style="width: 50%;"><div class="menuItem" id="menuOptions">Options</div></td>
+                    <td style="width: 50%;"><div class="menuItem" id="menuAppSelect">Web App</div></td>
                 </tr>
             </table>
         </div>
+        <div id="appOptions"></div>
         <div class="app">
             <img src="img/fullLogo_small.png">
             
@@ -49,7 +50,8 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                initialize();
+                //initialize();
+                setClicks();
             });
         </script>
         

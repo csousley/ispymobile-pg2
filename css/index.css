@@ -61,13 +61,22 @@ h1 {
     max-width: 500px;
 }
 
+#appOptions {
+    top: 30px;
+    height: 100px;
+    background-color: #333;
+    border: 1px solid #777;
+    margin: 5px;
+    color: white;
+    display: none;
+}
+
 .menuItem {
     text-align: center;
     line-height: 25px;
-    width: 50%;
 }
 
-.menuItem:hover {
+.menuItemTouch {
     background-color: #777;
 }
 
