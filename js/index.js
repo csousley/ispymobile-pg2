@@ -255,7 +255,10 @@ function getCustomers() {
         customers = data.result.results;
         log("Customers: " + customers.length);
         showLogin();
-    });  
+    })
+    .done(function() { log("getCustomers - success"); })
+    .fail(function() { log("getCustomers - fail") })
+    .always(function() { log("getCustomers - always") });
 }
 
 function showLogin() {
