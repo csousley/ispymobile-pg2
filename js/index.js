@@ -306,14 +306,12 @@ function getCustomers() {
 function showLogin() {
     logStatus("Show Login");
     if (uCheck(customers)) {
+            $('#agencySelect').empty();
+            $('#agencySelect').append($("<option></option>").attr("value", "").text("Select your agency")); 
         for(var i = 0; i<customers.length; i++) {
-             $('#agencySelect')
-                .append($("<option></option>")
-                .attr("value", customers[i].subdomain)
-                .text(customers[i].name)); 
+            $('#agencySelect').append($("<option></option>").attr("value", customers[i].subdomain).text(customers[i].name)); 
         }
         $("#login").css("display", "block");
-        //$("#deviceready").css("display", "none");
     }else{
         log("No Customer List!?");
     }
