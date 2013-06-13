@@ -31,10 +31,10 @@
     
     <gap:splash src="splash.png" />
     
-    <gap:splash src="res/screen/android/screen-ldpi-portrait.jpg"  gap:platform="android" gap:density="ldpi"  />
-    <gap:splash src="res/screen/android/screen-mdpi-portrait.jpg"  gap:platform="android" gap:density="mdpi"  />
-    <gap:splash src="res/screen/android/screen-hdpi-portrait.jpg"  gap:platform="android" gap:density="hdpi"  />
-    <gap:splash src="res/screen/android/screen-xhdpi-portrait.jpg" gap:platform="android" gap:density="xhdpi" />
+    <gap:splash src="res/screen/android/splash_200x320.png"  gap:platform="android" gap:density="ldpi"  />
+    <gap:splash src="res/screen/android/splash_320x480.png"  gap:platform="android" gap:density="mdpi"  />
+    <gap:splash src="res/screen/android/splash_480x800.png"  gap:platform="android" gap:density="hdpi"  />
+    <gap:splash src="res/screen/android/splash_720x1280.png" gap:platform="android" gap:density="xhdpi" />
     
     <gap:splash src="res/screen/ios/splash_320x480.png"    gap:platform="ios" width="320" height="480"  />
     <gap:splash src="res/screen/ios/splash_640x960.png"    gap:platform="ios" width="640" height="960"  />
