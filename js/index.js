@@ -255,6 +255,7 @@ function getCustomers() {
         log("getCustomers status: " + status);
         log("getCustomers Data: " + data);
         log("getCustomers jqXHR: " + JSON.stringify(jqXHR));
+        log("getCustomers responseHeaders: " + JSON.stringify((jqXHR.getAllResponseHeaders())));
         customers = JSON.parse(data).result.results;
         log("Customers: " + customers.length);
         showLogin();

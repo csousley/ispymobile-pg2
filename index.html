@@ -7,24 +7,31 @@
         <title>iSpyMobile</title>
     </head>
     <body>        
+        <div id="menu">
+            
+        </div>
         <div class="app">
-            <a id="focusHref"></a>
             <img src="img/fullLogo_small.png">
+            
             <div id="deviceStatus" style="color: white; text-align: center; margin-bottom: 10px;">
                 Starting...
             </div>
+            
             <div id="loading" style="display: none; margin: 0 auto;">
                 <img src="img/loading.gif">
             </div>
+            
             <div id="login" style="display: none;">
                 <select id="agencySelect">
                     <option value="">Select your agency</option>
                 </select>
             </div>
+            
             <div id="regOptions" style="display: none;">
                 <input type="button" value="Register" id="regButton" onClick="iSpyReg();" style="display: none;">
                 <input type="button" value="Un-Register" id="unregButton" onClick="iSpyUnReg();" style="display: none;">
             </div>
+            
         </div>
         
         <div style="color: white;">

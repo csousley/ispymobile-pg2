@@ -9,10 +9,8 @@ body {
     background-color: #222;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
-    height:100%;
-    margin:0px;
-    padding:0px;
-    width:100%;
+    margin:0;
+    padding:0;
 }
 
 /* Portrait layout (default) */
@@ -53,6 +51,13 @@ h1 {
 
 #regButton, #unregButton {
     margin: 0 auto; 
+}
+
+#menu {
+    height: 30px;
+    border: 1px solid #777;
+    margin: 5px;
+    background-color: #333;
 }
 
 input[type="button"], input[type="submit"] {
