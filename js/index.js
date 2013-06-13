@@ -189,6 +189,9 @@ function getAppOptionsHTML() {
 
 function clearAll() {
     window.localStorage.clear();
+    $("#appOptions").slideUp(500);
+    $("#menuOptions").html("Options");
+    hideRegButtons();
     documentReady();
 }
 
