@@ -42,5 +42,6 @@
     
     <access origin="http://ispyfire.com" subdomains="true" />
     <access origin="https://ispyfire.com" subdomains="true" />
+    <access origin="*" /> 
     
 </widget>
