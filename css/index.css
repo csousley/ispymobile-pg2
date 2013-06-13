@@ -69,6 +69,13 @@ h1 {
     margin: 5px;
     color: white;
     display: none;
+    padding: 5px;
+}
+
+.textNoWrap {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .menuItem {

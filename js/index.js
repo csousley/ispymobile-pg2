@@ -179,10 +179,10 @@ function getAppOptionsHTML() {
     if (isAndroid())
         keyname = "regid";
     var htmlString = "";
-    htmlString += "Agency: " + window.localStorage.getItem("agency") + "<br>";
-    htmlString += "DeviceID: " + window.localStorage.getItem("deviceid") + "<br>";
-    htmlString += keyname + ": " + window.localStorage.getItem(keyname) + "<br>";
-    htmlString += "DBID: " + window.localStorage.getItem("dbid") + "<br>";
+    htmlString += "<div class='textNoWrap'>Agency: " + window.localStorage.getItem("agency") + "</div>";
+    htmlString += "<div class='textNoWrap'>DeviceID: " + window.localStorage.getItem("deviceid") + "</div>";
+    htmlString += "<div class='textNoWrap'>" + keyname + ": " + window.localStorage.getItem(keyname) + "</div>";
+    htmlString += "<div class='textNoWrap'>DBID: " + window.localStorage.getItem("dbid") + "</div>";
     htmlString += "<input type='button' value='Reset App' onClick='clearAll();' style='margin-top: 10px;'>";
     return htmlString;
 }
