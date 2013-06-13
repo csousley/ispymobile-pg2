@@ -252,13 +252,12 @@ function getCustomers() {
     logStatus("Get Customer List");
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
     $.getJSON(jsonURL, function(data) {
+        log("getCustomers in!");
+        log("getCustomers Data: " + JSON.stringify(data));
         customers = data.result.results;
         log("Customers: " + customers.length);
         showLogin();
-    })
-    .done(function() { log("getCustomers - success"); })
-    .fail(function() { log("getCustomers - fail") })
-    .always(function() { log("getCustomers - always") });
+    });
 }
 
 function showLogin() {
