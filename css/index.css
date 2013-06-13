@@ -54,16 +54,21 @@ h1 {
 }
 
 #menu {
-    height: 30px;
     border: 1px solid #777;
     margin: 5px;
     background-color: #333;
     color: white;
-    display: block;
+    margin: 0 auto;
+    max-width: 500px;
 }
 
 .menuItem {
-    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+}
+
+.menuItem:hover {
+    background-color: #777;
 }
 
 input[type="button"], input[type="submit"] {

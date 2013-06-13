@@ -249,16 +249,20 @@ function uCheck(a) {
 }
 
 function getCustomers() {
-    logStatus("Get Customer List 2.0");
-    var jsonURL = 'http://cfd.ispyfire.com/fireapp/getCustomerList';
-    $.get(jsonURL, function(data, status, jqXHR) {
+    logStatus("Get Customer List");
+    var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
+    $.getJSON(jsonURL, function(data, status, jqXHR) {
         log("getCustomers status: " + status);
         log("getCustomers Data: " + data);
         log("getCustomers jqXHR: " + JSON.stringify(jqXHR));
         log("getCustomers responseHeaders: " + JSON.stringify((jqXHR.getAllResponseHeaders())));
-        customers = JSON.parse(data).result.results;
-        log("Customers: " + customers.length);
-        showLogin();
+        if (data) {
+            customers = data.result.results;
+            log("Customers: " + customers.length);
+            showLogin();
+        } else {
+            log("ERROR! Customer List Not Returned");
+        }
     });
 }
 
