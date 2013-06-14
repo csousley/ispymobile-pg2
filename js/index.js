@@ -137,7 +137,7 @@ function onNotificationAPN(event) {
         callIDs = event.callIDs;
     }
     if (event.alert) {
-        navigator.notification.alert(event.alert);
+        //navigator.notification.alert(event.alert); // shows a popup
         showMessage(event.alert, callIDs);
     }
     // if (event.badge) {
