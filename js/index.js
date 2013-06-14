@@ -240,11 +240,11 @@ function clearList() {
 
 function setMenuAppRegStatus(color){
     if (color.toLowerCase() == "green")
-        $("#menuAppRegStatus").html("<img src='img/green.png");
+        $("#menuAppRegStatus").html("<img src='img/green.png'>");
     else if (color.toLowerCase() == "red")
-        $("#menuAppRegStatus").html("<img src='img/red.png");
+        $("#menuAppRegStatus").html("<img src='img/red.png'>");
     else
-        $("#menuAppRegStatus").html("<img src='img/yellow.png");
+        $("#menuAppRegStatus").html("<img src='img/yellow.png'>");
 }
 
 function setRegID(id) {
