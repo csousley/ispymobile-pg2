@@ -20,12 +20,6 @@ body {
     margin: 10px auto;
 }
 
-/* Landscape layout (with min-width) */
-@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
-    .app {
-
-    }
-}
 
 h1 {
     font-size:24px;
@@ -37,16 +31,16 @@ h1 {
 }
 
 #deviceStatus {
-    border-radius:4px;
-    -webkit-border-radius:4px;
-    color:#FFFFFF;
-    font-size:12px;
-    margin:0px 30px;
-    padding:2px 0px;
-    background-color: #888;
-    height: 20px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    color: #FFF;
+    padding: 2px;
+    background-color: #444;
     line-height: 20px;
-    text-transform:uppercase;
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 10px;
+    margin-top: -15px;
 }
 
 #regButton, #unregButton {
@@ -59,10 +53,11 @@ h1 {
     color: white;
     margin: 5px auto;
     max-width: 500px;
+    padding: 0;
 }
 
 #appOptions {
-    top: 30px;
+    position: relative;
     height: 100px;
     background-color: #333;
     border: 1px solid #777;
@@ -70,6 +65,21 @@ h1 {
     color: white;
     display: none;
     padding: 5px;
+}
+
+#regOptions {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#action {
+    background-color: black;
+    color: white;
+    min-height: 100px;
+    text-align: left;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .textNoWrap {

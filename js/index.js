@@ -43,7 +43,7 @@ function setClicks() {
         if( $('#appOptions').is(':hidden') ) {
             $("#appOptions").slideDown(500);
             $("#menuOptions").html("Hide Options");
-            $("#appOptions").html(getAppOptionsHTML());
+            $("#appOptionsContent").html(getAppOptionsHTML());
         }else{
             $("#appOptions").slideUp(500);
             $("#menuOptions").html("Options");
@@ -130,21 +130,20 @@ function register() {
 
 // iOS
 function onNotificationAPN(event) {
-    log("GOT IT");
-    log("Received a notification! " + event.alert);
+    // log("GOT IT");
+    // log("Received a notification! " + event.alert);
+    var callIDs = null;
     if (uCheck(event.callIDs)) {
-        log("PASSED CALL IDS: " + e.callIDs);
+        callIDs = event.callIDs;
     }
-    // console.log("event sound " + event.sound);
-    // console.log("event badge " + event.badge);
-    // console.log("event " + event);
     if (event.alert) {
         navigator.notification.alert(event.alert);
+        showMessage(event.alert, callIDs);
     }
-    if (event.badge) {
-        log("Set badge on  " + pushNotification);
-        pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
-    }
+    // if (event.badge) {
+    //     log("Set badge on  " + pushNotification);
+    //     pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
+    // }
     if (event.sound) {
         var snd = new Media(event.sound);
         snd.play();
@@ -171,11 +170,18 @@ function onNotificationGCM(e) {
             // this is the actual push notification. its format depends on the data model
             // of the intermediary push server which must also be reflected in GCMIntentService.java
             //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-            $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
-            if (uCheck(e.callIDs)) {
-                log("PASSED CALL IDS: " + e.callIDs);
-            }
+            // $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
+            // if (uCheck(e.callIDs)) {
+            //     log("PASSED CALL IDS: " + e.callIDs);
+            // }
             //alert(e.message);
+            var callIDs = null;
+            if (uCheck(e.callIDs)) {
+                callIDs = e.callIDs;
+            }
+            if (e.message) {
+                showMessage(e.message, callIDs);
+            }
         break;
 
         case 'error':
@@ -190,6 +196,15 @@ function onNotificationGCM(e) {
     }
 }
 
+function showMessage(message, callIDs) {
+    var htmlString = message;
+    if (uCheck(callIDs)) {
+        htmlString += "<br>" + callIDs;
+    }
+    $("#action").html(htmlString);
+    $("#action").css("display", "block");
+}
+
 function getAppOptionsHTML() {
     var keyname = "token";
     if (isAndroid())
@@ -200,6 +215,8 @@ function getAppOptionsHTML() {
     htmlString += "<div class='textNoWrap'>" + keyname + ": " + window.localStorage.getItem(keyname) + "</div>";
     htmlString += "<div class='textNoWrap'>DBID: " + window.localStorage.getItem("dbid") + "</div>";
     htmlString += "<input type='button' value='Reset App' onClick='clearAll();' style='margin-top: 10px;'>";
+    if (longLog)
+        htmlString += " <input type='button' value='Clear List' onClick='clearList();' style='margin-top: 10px;'>";
     return htmlString;
 }
 
@@ -215,6 +232,19 @@ function clearAll() {
     hideRegButtons();
     documentReady();
     setRegID(skipRegID);
+}
+
+function clearList() {
+    $("#ol").empty();
+}
+
+function setMenuAppRegStatus(color){
+    if (color.toLowerCase() == "green")
+        $("#menuAppRegStatus").html("<img src='img/green.png");
+    else if (color.toLowerCase() == "red")
+        $("#menuAppRegStatus").html("<img src='img/red.png");
+    else
+        $("#menuAppRegStatus").html("<img src='img/yellow.png");
 }
 
 function setRegID(id) {
@@ -342,20 +372,21 @@ function showLogin() {
 }
 
 function showRegButtons() {
-    //logStatus("Show Buttons");
     $("#loading").css("display", "none");
     $("#regOptions").css("display", "block");
     if (isiSpyRegistered) {
         $("#unregButton").css("display", "block");
         $("#regButton").css("display", "none");
+        setMenuAppRegStatus("green");
     }else{
         $("#unregButton").css("display", "none");
         $("#regButton").css("display", "block");
+        setMenuAppRegStatus("red");
     }
 }
 
 function hideRegButtons() {
-    //logStatus("Hide Buttons");
+    setMenuAppRegStatus("yellow");
     $("#loading").css("display", "block");
     $("#regOptions").css("display", "none");
     $("#regButton").css("display", "none");

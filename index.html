@@ -8,18 +8,26 @@
     </head>
     <body>        
         <div id="menu">
-            <table style="width: 100%;">
+            <table style="width: 100%; border-spacing: 0;">
                 <tr>
-                    <td style="width: 50%;"><div class="menuItem" id="menuOptions">Options</div></td>
-                    <td style="width: 50%;"><div class="menuItem" id="menuAppSelect">Web App</div></td>
+                    <td style="width: 45%; border-right: 1px solid #777;"><div class="menuItem" id="menuOptions">Options</div></td>
+                    <td style="width: 45%; border-right: 1px solid #777;"><div class="menuItem" id="menuAppSelect">Web App</div></td>
+                    <td style="width: 10%; text-align: center;"><div id="menuAppRegStatus"><img src="img/yellow.png"></div></td>
                 </tr>
             </table>
         </div>
-        <div id="appOptions"></div>
+        <div id="appOptions">
+            <div id="appOptionsContent"></div>
+            <div id="regOptions" style="display: none;">
+                <input type="button" value="Register" id="regButton" onClick="iSpyReg();" style="display: none;">
+                <input type="button" value="Un-Register" id="unregButton" onClick="iSpyUnReg();" style="display: none;">
+            </div>
+        </div>
+        
         <div class="app">
             <img src="img/fullLogo_small.png">
             
-            <div id="deviceStatus" style="color: white; text-align: center; margin-bottom: 10px;">
+            <div id="deviceStatus">
                 Starting...
             </div>
             
@@ -31,9 +39,8 @@
                 <select id="agencySelect"></select>
             </div>
             
-            <div id="regOptions" style="display: none;">
-                <input type="button" value="Register" id="regButton" onClick="iSpyReg();" style="display: none;">
-                <input type="button" value="Un-Register" id="unregButton" onClick="iSpyUnReg();" style="display: none;">
+            <div id="action" style="display: none;">
+                Here!!
             </div>
             
         </div>
