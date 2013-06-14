@@ -1,4 +1,4 @@
-var longLog = true;
+var longLog = false;
 var logCount = 0;
 var logCountUpTo = 4;
 var isLogStatusShowing = false;
