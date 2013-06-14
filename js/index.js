@@ -1,4 +1,4 @@
-var longLog = false;
+var longLog = true;
 var logCount = 0;
 var logCountUpTo = 4;
 var isLogStatusShowing = false;
@@ -393,6 +393,16 @@ function hideRegButtons() {
     $("#unregButton").css("display", "none");
 }
 
+function switchLongLog() {
+    if (longLog) {
+        longLog = false;
+        $("#switchLongLog").val("Turn on long log");
+        clearList();
+    }else{
+        longLog = true;
+        $("#switchLongLog").val("Turn off long log");
+    }
+}
 
 function iSpyReg() {
     if (uCheck(agency)) {
