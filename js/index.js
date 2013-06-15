@@ -416,6 +416,7 @@ function submitLogin() {
     var pass = $("#password").val();
     if (uCheck(user) && uCheck(pass) && uCheck(agency)) {
         hideRegButtons();
+        $("#loginButton").disabled = true;
         var jsonURL = "https://" + agency + ".ispyfire.com/applogin";
         var jsonString = "{\"username\": \"" + user + "\", \"password\": \"" + pass + "\"}";
         logStatus("iSpy Login");
@@ -432,11 +433,19 @@ function submitLogin() {
             logStatus("iSpy login Complete");
             var datastring = JSON.stringify(data);
             log("datastring: " + datastring);
-            log("need to do some testing of returned data");
-            $("#regOptions").css("display", "block");
-            $("#login").css("display", "none");
-            setUser(user);
-            iSpyReg();
+            $("#loginButton").disabled = false;
+            if(uCheck(data.authenticated)) {
+                if(data.authenticated) {
+                    $("#regOptions").css("display", "block");
+                    $("#login").css("display", "none");
+                    setUser(user);
+                    iSpyReg();
+                }else{
+                    logStatus("iSpy login incomplete");
+                }
+            }else{
+                log("missing data return on login");
+            }
         });
     }else{
         logStatus("Missing Something!");
