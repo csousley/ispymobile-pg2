@@ -428,6 +428,7 @@ function submitLogin() {
         })
         .fail(function() {
             logStatus("Fail on login");
+            $("#loading").css("display", "none");
         })
         .done(function(data) {
             logStatus("iSpy login Complete");
@@ -442,6 +443,7 @@ function submitLogin() {
                     iSpyReg();
                 }else{
                     logStatus("iSpy login incomplete");
+                    $("#loading").css("display", "none");
                 }
             }else{
                 log("missing data return on login");
