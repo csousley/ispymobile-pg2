@@ -18,6 +18,9 @@
         </div>
         <div id="appOptions">
             <div id="appOptionsContent"></div>
+            <div id="otherOptions">
+                <input type='button' value='Reset App' onClick='clearAll();'>
+            </div>
             <div id="regOptions" style="display: none;">
                 <input type="button" value="Register" id="regButton" onClick="iSpyReg();" style="display: none;">
                 <input type="button" value="Un-Register" id="unregButton" onClick="iSpyUnReg();" style="display: none;">
@@ -36,11 +39,19 @@
             </div>
             
             <div id="login" style="display: none;">
-                <select id="agencySelect"></select>
+                Agency: <br>
+                <select id="agencySelect"></select><br>
+                Username: <br>
+                <input type="text" id="username" name="username" /><br>
+                Password: <br>
+                <input type="password" id="password" name="password" /><br>
+                <input type='button' value='Login' onClick='submitLogin();'>
             </div>
-            
-            <div id="action" style="display: none;">
-                Here!!
+            <div id="actionWrapper" style="display: none; position: relative;">
+                <div id="actionClose"><input type="button" onClick="hideMessage();" value="Close Details" style="padding: 3px; font-weight: normal;"></div>
+                <div id="action">
+                    Here!!
+                </div>
             </div>
             
         </div>
@@ -58,7 +69,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 // switch long log to false on startup
-                switchLongLog();
+                //switchLongLog();
                 initialize();
                 setClicks();
             });

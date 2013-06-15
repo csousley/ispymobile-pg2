@@ -29,10 +29,10 @@ function setClicks() {
         if (uCheck(val)) {
             agency = val;
             window.localStorage.setItem("agency", val);
-            $("#regOptions").css("display", "block");
-            $("#agencySelect").css("display", "none");
-            $("#focusHref").focus();
-            iSpyReg();
+            // $("#regOptions").css("display", "block");
+            // $("#agencySelect").css("display", "none"); // maybe $("#login").css("display", "none");
+            // $("#focusHref").focus();
+            // iSpyReg();
         }else{
             agency = null;
             $("#regOptions").css("display", "none");
@@ -202,7 +202,11 @@ function showMessage(message, callIDs) {
         htmlString += "<br>" + callIDs;
     }
     $("#action").html(htmlString);
-    $("#action").css("display", "block");
+    $("#actionWrapper").css("display", "block");
+}
+
+function hideMessage() {
+    $("#actionWrapper").css("display", "none");
 }
 
 function getAppOptionsHTML() {
@@ -211,12 +215,10 @@ function getAppOptionsHTML() {
         keyname = "regid";
     var htmlString = "";
     htmlString += "<div class='textNoWrap'>Agency: " + window.localStorage.getItem("agency") + "</div>";
+    htmlString += "<div class='textNoWrap'>User: " + window.localStorage.getItem("user") + "</div>";
     htmlString += "<div class='textNoWrap'>DeviceID: " + window.localStorage.getItem("deviceid") + "</div>";
     htmlString += "<div class='textNoWrap'>" + keyname + ": " + window.localStorage.getItem(keyname) + "</div>";
-    htmlString += "<div class='textNoWrap'>DBID: " + window.localStorage.getItem("dbid") + "</div>";
-    htmlString += "<input type='button' value='Reset App' onClick='clearAll();' style='margin-top: 10px;'>";
-    if (longLog)
-        htmlString += " <input type='button' value='Clear List' onClick='clearList();' style='margin-top: 10px;'>";
+    htmlString += "<div class='textNoWrap' style='margin-bottom: 85px;'>DBID: " + window.localStorage.getItem("dbid") + "</div>";
     return htmlString;
 }
 
@@ -284,8 +286,13 @@ function setDeviceID() {
     window.localStorage.setItem("deviceid", device.uuid);
 }
 
+function setUser(user) {
+    //log("storing user id");
+    window.localStorage.setItem("user", user);
+}
+
 function setDBID(id) {
-    log("dbid: "+ id);
+    //log("dbid: "+ id);
     window.localStorage.setItem("dbid", id);
 }
 
@@ -401,6 +408,38 @@ function switchLongLog() {
     }else{
         longLog = true;
         $("#switchLongLog").val("Turn off long log");
+    }
+}
+
+function submitLogin() {
+    var user = $("#username").val();
+    var pass = $("#password").val();
+    if (uCheck(user) && uCheck(pass) && uCheck(agency)) {
+        hideRegButtons();
+        var jsonURL = "https://" + agency + ".ispyfire.com/applogin";
+        var jsonString = "{\"username\": \"" + user + "\", \"password\": \"" + pass + "\"}";
+        logStatus("iSpy Login");
+        $.ajax({
+            type: "POST",
+            url: jsonURL,
+            contentType: "application/json",
+            data: jsonString
+        })
+        .fail(function() {
+            logStatus("Fail on login");
+        })
+        .done(function(data) {
+            logStatus("iSpy login Complete");
+            var datastring = JSON.stringify(data);
+            log("datastring: " + datastring);
+            log("need to do some testing of returned data");
+            $("#regOptions").css("display", "block");
+            $("#login").css("display", "none");
+            setUser(user);
+            iSpyReg();
+        });
+    }else{
+        logStatus("Missing Something!");
     }
 }
 
