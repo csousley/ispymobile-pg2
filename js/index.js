@@ -2,6 +2,7 @@ var longLog = true;
 var logCount = 0;
 var logCountUpTo = 4;
 var isLogStatusShowing = false;
+var isBrowserFirst = true;
 var logStatusInterval = null;
 var pushNotification = null;
 var browser = null;
@@ -108,11 +109,13 @@ function errorHandler(error) {
 }
 
 function openBrowser() {
-    //$("#openBrowser").hide();
     browser = window.open('https://'+agency+'.ispyfire.com', '_blank', 'location=yes');
-    browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
-    browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
-    browser.addEventListener('exit', function() { log(event.type); });
+    if(isBrowserFirst) {
+        isBrowserFirst = false;
+        browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
+        browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
+        browser.addEventListener('exit', function() { log(event.type); });
+    }
 }
 
 function unregister(isReregister) {
