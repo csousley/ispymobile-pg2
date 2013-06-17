@@ -31,15 +31,24 @@ function mapHide() {
 
 function initializeMap() {
     logStatus("Init Map");
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+    // directionsDisplay = new google.maps.DirectionsRenderer();
+    // var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+    // var mapOptions = {
+    //     zoom:7,
+    //     mapTypeId: google.maps.MapTypeId.ROADMAP,
+    //     center: chicago
+    // };
+    // map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    // directionsDisplay.setMap(map);
+    // google.maps.event.trigger(map, 'resize');
+    
     var mapOptions = {
-        zoom:7,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: chicago
+        zoom: 8,
+        center: new google.maps.LatLng(-34.397, 150.644),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    directionsDisplay.setMap(map);
+    
     logStatus("Map Complete");
 }
 
