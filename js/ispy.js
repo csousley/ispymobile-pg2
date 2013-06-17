@@ -8,7 +8,7 @@ function mapIt(callID) {
     logStatus("Map It: " + callID);
     if(uCheck(callID)) {
         var call = null;
-        for (var i = 0; i<calls; i++) {
+        for (var i = 0; i<calls.length; i++) {
             if (calls[i]._id == callID) {
                 call = calls[i];
                 break;
