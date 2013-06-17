@@ -5,6 +5,7 @@ var isLogStatusShowing = false;
 var logStatusInterval = null;
 var pushNotification = null;
 var customers = null;
+var cadsettings = null;
 var agency = null;
 var isiSpyRegistered = false;
 
@@ -14,7 +15,12 @@ $(document).ready(function() {
 
 function documentReady() {
     agency = window.localStorage.getItem("agency");
+    cadsettings = window.localStorage.getItem("agency");
+    
     log("AGENCY: " + agency);
+    log("CADSETTINGS: " + cadsettings);
+    
+    getCadSettings(); // refresh, even if we have it
     
     if (!uCheck(agency))
         getCustomers();
@@ -79,6 +85,7 @@ function onDeviceReady() {
 
 function onResume() {
     logStatus("Device Resume");
+    getCalls();
 }
 
 function tokenHandler(msg) {
@@ -130,16 +137,17 @@ function register() {
 
 // iOS
 function onNotificationAPN(event) {
-    // log("GOT IT");
+    logStatus("Notification Received");
+    getCalls();
     // log("Received a notification! " + event.alert);
-    var callIDs = null;
-    if (uCheck(event.callIDs)) {
-        callIDs = event.callIDs;
-    }
-    if (event.alert) {
-        //navigator.notification.alert(event.alert); // shows a popup
-        showMessage(event.alert, callIDs);
-    }
+    // var callIDs = null;
+    // if (uCheck(event.callIDs)) {
+    //     callIDs = event.callIDs;
+    // }
+    // if (event.alert) {
+    //     //navigator.notification.alert(event.alert); // shows a popup
+    //     //showMessage(event.alert, callIDs);
+    // }
     // if (event.badge) {
     //     log("Set badge on  " + pushNotification);
     //     pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
@@ -166,7 +174,7 @@ function onNotificationGCM(e) {
         break;
 
         case 'message':
-            log("GOT IT");
+            //log("GOT IT");
             // this is the actual push notification. its format depends on the data model
             // of the intermediary push server which must also be reflected in GCMIntentService.java
             //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
@@ -175,13 +183,15 @@ function onNotificationGCM(e) {
             //     log("PASSED CALL IDS: " + e.callIDs);
             // }
             //alert(e.message);
-            var callIDs = null;
-            if (uCheck(e.callIDs)) {
-                callIDs = e.callIDs;
-            }
-            if (e.message) {
-                showMessage(e.message, callIDs);
-            }
+            // var callIDs = null;
+            // if (uCheck(e.callIDs)) {
+            //     callIDs = e.callIDs;
+            // }
+            // if (e.message) {
+            //     showMessage(e.message, callIDs);
+            // }
+            logStatus("Notification Received");
+            getCalls();
         break;
 
         case 'error':
@@ -196,14 +206,14 @@ function onNotificationGCM(e) {
     }
 }
 
-function showMessage(message, callIDs) {
-    var htmlString = message;
-    if (uCheck(callIDs)) {
-        htmlString += "<br>" + callIDs;
-    }
-    $("#action").html(htmlString);
-    $("#actionWrapper").css("display", "block");
-}
+// function showMessage(message, callIDs) {
+//     var htmlString = message;
+//     if (uCheck(callIDs)) {
+//         htmlString += "<br>" + callIDs;
+//     }
+//     $("#action").html(htmlString);
+//     $("#actionWrapper").css("display", "block");
+// }
 
 function hideMessage() {
     $("#actionWrapper").css("display", "none");
@@ -360,6 +370,22 @@ function getCustomers() {
         showLogin();
     })
     .fail(function(data) { log( "customer error: " + JSON.stringify(data) ); });
+}
+
+function getCadSettings() {
+    var jsonURL = window.location.protocol + '//' + window.location.host;
+    jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
+    $.getJSON(jsonURL, function(data) {
+        log("CAD settings back");
+    })
+    .done(function(data) {
+        if (uCheck(data.results[0])) {
+            cadsettings = data.results[0];
+            window.localStorage.setItem("agency", cadsettings);
+            log("CAD settings set");
+        }
+    })
+    .fail(function(data) { log( "cad settings error: " + JSON.stringify(data) ); });
 }
 
 function showLogin() {

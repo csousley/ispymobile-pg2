@@ -27,7 +27,7 @@
             </div>
         </div>
         
-        <div class="app">
+        <div id="app">
             <img src="img/fullLogo_small.png">
             
             <div id="deviceStatus">
@@ -48,9 +48,12 @@
                 <input type='button' id="loginButton" value='Login' onClick='submitLogin();'>
             </div>
             <div id="actionWrapper" style="display: none; position: relative;">
-                <div id="actionClose"><input type="button" onClick="hideMessage();" value="Close Details" style="padding: 3px; font-weight: normal;"></div>
+                <div id="actionClose"><input type="button" onClick="hideMessage();" value="X" style="padding: 5px 10px; font-size: 12px;"></div>
                 <div id="action">
-                    Here!!
+                    <div id="activeCallsHeader" class="active bold">Active Calls</div>
+                    <div id="activeCalls" class="active indent"></div>
+                    <div id="completeCallsHeader" class="complete bold">Complete Calls</div>
+                    <div id="completeCalls" class="complete indent"></div>
                 </div>
             </div>
             
@@ -65,6 +68,7 @@
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script> 
         <script type="text/javascript" src="PushNotification.js"></script>
         <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+        <script type="text/javascript" src="js/ispy.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
