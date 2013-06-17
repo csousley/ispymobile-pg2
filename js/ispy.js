@@ -12,6 +12,7 @@ function getCalls() {
     })
     .done(function(data) {
         logStatus("Calls Returned");
+        log( "calls: " + JSON.stringify(data) );
         calls = data.results;
         parseCalls();
     })
@@ -23,7 +24,7 @@ function getCalls() {
 }
 
 function refreshTimer() {
-    setTimeout(function() { $("#actionRefresh").show(500); }, refreshWait);
+    setTimeout(function() { $("#actionRefresh").slideDown(500); }, refreshWait);
 }
 
 function parseCalls() {
