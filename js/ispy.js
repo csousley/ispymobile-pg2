@@ -85,10 +85,10 @@ function parseCalls() {
 }
 
 function parseCall(call) {
-    var htmlString = "<div onClick=\"map('"+call._id+"');\">" + call.IncidentNature;
-    htmlString += "<br>" + call.RespondToAddress;
-    htmlString += "<br>" + call.CityInfo.City;
-    htmlString += "<br>" + call.WhenCallWasOpened;
+    var htmlString = "<div><a onClick=\"map('"+call._id+"');\">" + call.IncidentNature + "</a>";
+    htmlString += "<br><a onClick=\"map('"+call._id+"');\">" + call.RespondToAddress + "</a>";
+    htmlString += "<br><a onClick=\"map('"+call._id+"');\">" + call.CityInfo.City + "</a>";
+    htmlString += "<br><a onClick=\"map('"+call._id+"');\">" + call.WhenCallWasOpened + "</a>";
     htmlString += "</div>";
     return htmlString;
 }

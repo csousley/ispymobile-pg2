@@ -27,6 +27,10 @@ input[type="button"], input[type="submit"] {
     color: white;
 }
 
+a {
+    
+}
+
 /* Portrait layout (default) */
 #app {
     min-width: 225px;
