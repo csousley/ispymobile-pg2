@@ -17,7 +17,9 @@ function mapIt(callID) {
         if (uCheck(call)) {
             log("good call: " + call._id);
             $("#map").show();
-            $("#map").height(($(window).height() - 30) + "px");
+            var w = ($(window).height() - 30) + "px";
+            $("#map").height(w);
+            $("#map-canvas").height(w);
             initializeMap();
         }
     }else{
