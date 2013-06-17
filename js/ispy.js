@@ -1,11 +1,15 @@
 var calls = null;
 var refreshWait = 15000; // 15 seconds
 var directionsDisplay = null;
+var clickedCallID = null;
 var directionsService = new google.maps.DirectionsService();
 var map = null;
 
-function map(callID) {
-    alert(callID);
+function map() {
+    if (uCheck(clickedCallID))
+        alert(clickedCallID);
+    else
+        alert("no call id");
 }
 
 function initializeMap() {
@@ -85,7 +89,12 @@ function parseCalls() {
 }
 
 function parseCall(call) {
-    var htmlString = "<div onClick='map('"+call._id+"');'>" + call.IncidentNature;
+    if (uCheck(call._id))
+        clickedCallID = call._id;
+    else
+        clickedCallID = null;
+        
+    var htmlString = "<div onClick='map();'>" + call.IncidentNature;
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
