@@ -3,6 +3,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
         <link rel="stylesheet" type="text/css" href="css/index.css" />
         <title>iSpyMobile</title>
     </head>
@@ -29,15 +30,12 @@
         
         <div id="app">
             <img src="img/fullLogo_small.png">
-            
             <div id="deviceStatus">
                 Starting...
             </div>
-            
             <div id="loading" style="display: none; margin: 0 auto;">
                 <img src="img/loading.gif">
             </div>
-            
             <div id="login" style="display: none;">
                 Agency: <br>
                 <select id="agencySelect"></select><br>
@@ -57,13 +55,15 @@
                     <div id="completeCalls" class="complete indent textNoWrap"></div>
                 </div>
             </div>
+        </div>
+        
+        <div id="map">
             
         </div>
         
         <div style="color: white;">
             <ol id="ol"></ol>
         </div>
-        
         <div style="margin: 50px auto 0 auto; width: 300px; text-align: center;">
             <input type="button" value="Turn off long log" id="switchLongLog" onClick="switchLongLog();">
         </div>

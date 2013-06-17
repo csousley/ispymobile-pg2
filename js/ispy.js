@@ -1,5 +1,39 @@
 var calls = null;
 var refreshWait = 15000; // 15 seconds
+var directionsDisplay = null;
+var directionsService = new google.maps.DirectionsService();
+var map = null;
+
+function map(callID) {
+    alert(callID);
+}
+
+function initializeMap() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    var chicago = new google.maps.LatLng(41.850033, -87.6500523);
+    var mapOptions = {
+        zoom:7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: chicago
+    };
+    map = new google.maps.Map(document.getElementById('map'), mapOptions);
+    directionsDisplay.setMap(map);
+}
+
+function calcRoute() {
+    var start = document.getElementById('start').value;
+    var end = document.getElementById('end').value;
+    var request = {
+        origin:start,
+        destination:end,
+        travelMode: google.maps.DirectionsTravelMode.DRIVING
+    };
+    directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+        }
+    });
+}
 
 function getCalls() {
     var jsonURL = "https://" + agency + ".ispyfire.com";
@@ -51,10 +85,10 @@ function parseCalls() {
 }
 
 function parseCall(call) {
-    var htmlString = call.IncidentNature;
+    var htmlString = "<div onClick=\"map("+call._id+");\">" + call.IncidentNature;
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
-    htmlString += "<p>&nbsp;</p>";
+    htmlString += "</div>";
     return htmlString;
 }
 
