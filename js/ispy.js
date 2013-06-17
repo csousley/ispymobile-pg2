@@ -5,6 +5,7 @@ var directionsService = new google.maps.DirectionsService();
 var map = null;
 
 function mapIt(callID) {
+    logStatus("Map It: " + callID);
     if(uCheck(callID)) {
         var call = null;
         for (var i = 0; i<calls; i++) {
@@ -14,6 +15,7 @@ function mapIt(callID) {
             }
         }
         if (uCheck(call)) {
+            log("good call: " + call._id);
             $("#map").show();
             $("#map").height(($(window).height() - 30) + "px");
             initializeMap();
