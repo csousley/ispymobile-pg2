@@ -259,7 +259,8 @@ function clearAll() {
 }
 
 function clearList() {
-    $("#ol").empty();
+    if ($('#ol li').length > 0)
+        $("#ol").empty();
 }
 
 function setMenuAppRegStatus(color){
