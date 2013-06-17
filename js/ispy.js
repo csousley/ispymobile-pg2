@@ -4,8 +4,27 @@ var directionsDisplay = null;
 var directionsService = new google.maps.DirectionsService();
 var map = null;
 
-function mapIt() {
-    alert("got it");
+function mapIt(callID) {
+    if(uCheck(callID)) {
+        var call = null;
+        for (var i = 0; i<calls; i++) {
+            if (calls[i]._id == callID) {
+                call = calls[i];
+                break;
+            }
+        }
+        if (uCheck(call)) {
+            $("#map").show();
+            $("#map").height(($(window).height() - 30) + "px");
+            initializeMap();
+        }
+    }else{
+        alert("no call id");
+    }
+}
+
+function mapHide() {
+    $("#map").hide();
 }
 
 function initializeMap() {
@@ -79,9 +98,8 @@ function parseCalls() {
         $("#completeCalls").html(completeHTML);
         
         $(".callClick").click(function() {
-            mapIt();
             var productId = $(this).attr('id');
-            alert(productId);
+            mapIt(productId);
         });
     }else{
         logStatus("No Calls");
