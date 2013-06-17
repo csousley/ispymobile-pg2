@@ -4,6 +4,7 @@ var logCountUpTo = 4;
 var isLogStatusShowing = false;
 var logStatusInterval = null;
 var pushNotification = null;
+var browser = null;
 var customers = null;
 var cadsettings = null;
 var agency = null;
@@ -104,6 +105,14 @@ function successHandler(result) {
 function errorHandler(error) {
     log("Error Handle: " + error);
     //alert(error);
+}
+
+function openBrowser() {
+    $("#openBrowser").hide();
+    browser = window.open('http://apache.org', '_blank', 'location=yes');
+    browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
+    browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
+    browser.addEventListener('exit', function() { log(event.type); });
 }
 
 function unregister(isReregister) {
