@@ -58,7 +58,7 @@ function setClicks() {
     });
     
     $("#menuAppSelect").click(function() {
-        alert("app click");
+        openBrowser();
     });
 }
 
@@ -108,8 +108,8 @@ function errorHandler(error) {
 }
 
 function openBrowser() {
-    $("#openBrowser").hide();
-    browser = window.open('http://apache.org', '_blank', 'location=yes');
+    //$("#openBrowser").hide();
+    browser = window.open('https://'+agency+'.ispyfire.com', '_blank', 'location=yes');
     browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
     browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
     browser.addEventListener('exit', function() { log(event.type); });
