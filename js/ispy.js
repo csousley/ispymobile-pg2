@@ -1,18 +1,29 @@
 var calls = null;
+var refreshWait = 15000; // 15 seconds
 
 function getCalls() {
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/';
     showLoader();
+    $("#actionRefresh").hide();
+    logStatus("Getting Calls");
     $.getJSON(jsonURL, function(data) {
         log("Calls back");
     })
     .done(function(data) {
+        logStatus("Calls Returned");
         calls = data.results;
         parseCalls();
     })
     .fail(function(data) { log( "calls error: " + JSON.stringify(data) ); })
-    .always(function() { hideLoader(); });   
+    .always(function() {
+        hideLoader();
+        refreshTimer();
+    });   
+}
+
+function refreshTimer() {
+    setTimeout(function() { $("#actionRefresh").show(500); }, refreshWait);
 }
 
 function parseCalls() {

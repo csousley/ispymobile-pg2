@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 function documentReady() {
     agency = window.localStorage.getItem("agency");
-    cadsettings = window.localStorage.getItem("agency");
+    cadsettings = window.localStorage.getItem("cadsettings");
     
     log("AGENCY: " + agency);
     log("CADSETTINGS: " + cadsettings);
@@ -381,7 +381,7 @@ function getCadSettings() {
     .done(function(data) {
         if (uCheck(data.results[0])) {
             cadsettings = data.results[0];
-            window.localStorage.setItem("agency", cadsettings);
+            window.localStorage.setItem("cadsettings", cadsettings);
             log("CAD settings set");
         }
     })

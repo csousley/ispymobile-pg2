@@ -93,10 +93,16 @@ input[type="button"], input[type="submit"] {
     border: 1px solid #555;
 }
 
-#actionClose{
+#actionClose {
     position: absolute;
     top: -10px;
     right: 5px;
+}
+
+#actionRefresh {
+    position: absolute;
+    top: -10px;
+    right: 55px;
 }
 
 #login {
