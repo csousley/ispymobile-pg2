@@ -373,7 +373,7 @@ function getCustomers() {
 }
 
 function getCadSettings() {
-    var jsonURL = window.location.protocol + '//' + window.location.host;
+    var jsonURL = "http://" + agency + ".ispyfire.com";
     jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
     $.getJSON(jsonURL, function(data) {
         log("CAD settings back");
