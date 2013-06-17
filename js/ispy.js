@@ -4,7 +4,7 @@ var directionsDisplay = null;
 var directionsService = new google.maps.DirectionsService();
 var map = null;
 
-function map() {
+function mapIt() {
     alert("got it");
 }
 
@@ -79,8 +79,9 @@ function parseCalls() {
         $("#completeCalls").html(completeHTML);
         
         $(".callClick").click(function() {
-            map();
-            var callClick = this;
+            mapIt();
+            var productId = $(this).attr('id');
+            alert(productId);
         });
     }else{
         logStatus("No Calls");
@@ -90,7 +91,7 @@ function parseCalls() {
 }
 
 function parseCall(call) {
-    var htmlString = "<div id='"+call+"' class='callClick'>" + call.IncidentNature;
+    var htmlString = "<div id='"+call._id+"' class='callClick'>" + call.IncidentNature;
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
