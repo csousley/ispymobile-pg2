@@ -516,6 +516,7 @@ function iSpyReg() {
                 if(uCheck(data.regids.results[0]._id)) {
                     setDBID(data.regids.results[0]._id);
                 }
+                getCalls();
             });
         }else{
             logStatus("NO REG: Missing " + keyname);

@@ -12,7 +12,7 @@ function getCalls() {
     })
     .done(function(data) {
         logStatus("Calls Returned");
-        log( "calls: " + JSON.stringify(data) );
+        //log( "calls: " + JSON.stringify(data) );
         calls = data.results;
         parseCalls();
     })

@@ -130,6 +130,10 @@ input[type="button"], input[type="submit"] {
     background-color: #777;
 }
 
+.bigger {
+    font-size: 14px;
+}
+
 .complete {
     color: #777;
 }
@@ -143,7 +147,7 @@ input[type="button"], input[type="submit"] {
 }
 
 .indent {
-    margin-left: 10px 5px;
+    margin: 10px 5px;
 }
 
 
