@@ -41,6 +41,7 @@
     <gap:splash src="res/screen/ios/splash_640x1136.png"   gap:platform="ios" width="640" height="1136" />
     
 	<gap:plugin name="GenericPush"/>
+    <gap:plugin name="Geolocation"/>
     
     <feature name="http://api.phonegap.com/1.0/geolocation"/>
     <feature name="http://api.phonegap.com/1.0/network"/>

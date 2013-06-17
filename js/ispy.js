@@ -30,6 +30,7 @@ function mapHide() {
 }
 
 function initializeMap() {
+    logStatus("Init Map");
     directionsDisplay = new google.maps.DirectionsRenderer();
     var chicago = new google.maps.LatLng(41.850033, -87.6500523);
     var mapOptions = {
@@ -39,6 +40,7 @@ function initializeMap() {
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     directionsDisplay.setMap(map);
+    logStatus("Map Complete");
 }
 
 function calcRoute() {
