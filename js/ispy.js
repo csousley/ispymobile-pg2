@@ -15,23 +15,35 @@ function mapIt(callID) {
             }
         }
         if (uCheck(call)) {
-            log("good call: " + call._id);
-            $("#map").show();
-            var w = ($(window).height() - 30) + "px";
-            $("#map").height(w);
-            $("#map-canvas").height(w);
-            initializeMap();
+            logStatus("Geolocating");
+            showLoader();
+            navigator.geolocation.getCurrentPosition(onInitGeoSuccess, onInitGeoError);
         }
     }else{
         alert("no call id");
     }
 }
 
+function onInitGeoSuccess(position) {
+    logStatus("Location obtained");
+    $("#map").show();
+    var w = ($(window).height() - 30) + "px";
+    $("#map").height(w);
+    $("#map-canvas").height(w);
+    hideLoader();
+    initializeMap(position.coords.latitude, position.coords.longitude);
+}
+
+function onInitGeoError(error) {
+    logStatus("Error on location");
+    log(error.message);
+}
+
 function mapHide() {
     $("#map").hide();
 }
 
-function initializeMap() {
+function initializeMap(lat, lng) {
     logStatus("Init Map");
     // directionsDisplay = new google.maps.DirectionsRenderer();
     // var chicago = new google.maps.LatLng(41.850033, -87.6500523);
@@ -44,10 +56,11 @@ function initializeMap() {
     // directionsDisplay.setMap(map);
     // google.maps.event.trigger(map, 'resize');
     
+    var currentLocation = new google.maps.LatLng(lat, lng);
     var mapOptions = {
-        zoom: 8,
-        center: new google.maps.LatLng(-34.397, 150.644),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
+        zoom: 7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: currentLocation
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     
