@@ -22,12 +22,12 @@ function documentReady() {
     log("AGENCY: " + agency);
     log("CADSETTINGS: " + cadsettings);
     
-    getCadSettings(); // refresh, even if we have it
-    
     if (!uCheck(agency))
         getCustomers();
     else
         iSpyReg();
+        
+    getCadSettings();
 }
 
 function setClicks() {
