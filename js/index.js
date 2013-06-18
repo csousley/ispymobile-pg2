@@ -24,10 +24,10 @@ function documentReady() {
     
     if (!uCheck(agency))
         getCustomers();
-    else
+    else {
         iSpyReg();
-        
-    getCadSettings();
+        getCadSettings();
+    }
 }
 
 function setClicks() {
@@ -87,7 +87,9 @@ function onDeviceReady() {
 
 function onResume() {
     logStatus("Device Resume");
-    getCalls();
+    if (agency) {
+        getCalls();
+    }
 }
 
 function tokenHandler(msg) {
@@ -386,19 +388,21 @@ function getCustomers() {
 }
 
 function getCadSettings() {
-    var jsonURL = "http://" + agency + ".ispyfire.com";
-    jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
-    $.getJSON(jsonURL, function(data) {
-        log("CAD settings back");
-    })
-    .done(function(data) {
-        if (uCheck(data.results[0])) {
-            cadsettings = data.results[0];
-            window.localStorage.setItem("cadsettings", cadsettings);
-            log("CAD settings set");
-        }
-    })
-    .fail(function(data) { log( "cad settings error: " + JSON.stringify(data) ); });
+    if (agency) {
+        var jsonURL = "http://" + agency + ".ispyfire.com";
+        jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
+        $.getJSON(jsonURL, function(data) {
+            log("CAD settings back");
+        })
+        .done(function(data) {
+            if (uCheck(data.results[0])) {
+                cadsettings = data.results[0];
+                window.localStorage.setItem("cadsettings", cadsettings);
+                log("CAD settings set");
+            }
+        })
+        .fail(function(data) { log( "cad settings error: " + JSON.stringify(data) ); });
+    }
 }
 
 function showLogin() {
@@ -479,6 +483,7 @@ function submitLogin() {
                     $("#regOptions").css("display", "block");
                     $("#login").css("display", "none");
                     setUser(user);
+                    getCadSettings();
                     iSpyReg();
                 }else{
                     logStatus("iSpy login incomplete");
