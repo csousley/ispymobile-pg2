@@ -56,20 +56,28 @@ function initializeMap(lat, lng) {
     // directionsDisplay.setMap(map);
     // google.maps.event.trigger(map, 'resize');
     
+    var otherLocation = new google.maps.LatLng(47.409034, -120.31458399999997);
     var currentLocation = new google.maps.LatLng(lat, lng);
+    
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    
     var mapOptions = {
-        zoom: 7,
+        zoom: 12,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: currentLocation
     };
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+    directionsDisplay.setMap(map);
+    
+    calcRoute(currentLocation, otherLocation);
     
     logStatus("Map Complete");
 }
 
-function calcRoute() {
-    var start = document.getElementById('start').value;
-    var end = document.getElementById('end').value;
+function calcRoute(start, end) {
+    // var start = document.getElementById('start').value;
+    // var end = document.getElementById('end').value;
+    log("Map directions");
     var request = {
         origin:start,
         destination:end,
@@ -78,6 +86,7 @@ function calcRoute() {
     directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
+            log("Map directions ok");
         }
     });
 }
