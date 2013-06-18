@@ -7,21 +7,21 @@ var map = null;
 function mapIt(callID) {
     logStatus("Map It: " + callID);
     if(uCheck(callID)) {
-        var call = null;
-        for (var i = 0; i<calls.length; i++) {
-            if (calls[i]._id == callID) {
-                call = calls[i];
-                break;
-            }
-        }
-        if (uCheck(call)) {
-            log("good call: " + call._id);
+        // var call = null;
+        // for (var i = 0; i<calls.length; i++) {
+        //     if (calls[i]._id == callID) {
+        //         call = calls[i];
+        //         break;
+        //     }
+        // }
+        // if (uCheck(call)) {
+        //     log("good call: " + call._id);
             $("#map").show();
             var w = ($(window).height() - 30) + "px";
             $("#map").height(w);
             $("#map-canvas").height(w);
             initializeMap();
-        }
+        // }
     }else{
         alert("no call id");
     }
