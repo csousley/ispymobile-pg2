@@ -3,18 +3,19 @@ var refreshWait = 15000; // 15 seconds
 var directionsDisplay = null;
 var directionsService = new google.maps.DirectionsService();
 var map = null;
+var currentCall = null;
 
 function mapIt(callID) {
     logStatus("Map It: " + callID);
     if(uCheck(callID)) {
-        var call = null;
+        currentCall = null;
         for (var i = 0; i<calls.length; i++) {
             if (calls[i]._id == callID) {
-                call = calls[i];
+                currentCall = calls[i];
                 break;
             }
         }
-        if (uCheck(call)) {
+        if (uCheck(currentCall)) {
             logStatus("Geolocating");
             showLoader();
             navigator.geolocation.getCurrentPosition(onInitGeoSuccess, onInitGeoError);
@@ -45,18 +46,7 @@ function mapHide() {
 
 function initializeMap(lat, lng) {
     logStatus("Init Map");
-    // directionsDisplay = new google.maps.DirectionsRenderer();
-    // var chicago = new google.maps.LatLng(41.850033, -87.6500523);
-    // var mapOptions = {
-    //     zoom:7,
-    //     mapTypeId: google.maps.MapTypeId.ROADMAP,
-    //     center: chicago
-    // };
-    // map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    // directionsDisplay.setMap(map);
-    // google.maps.event.trigger(map, 'resize');
     
-    var otherLocation = new google.maps.LatLng(47.409034, -120.31458399999997);
     var currentLocation = new google.maps.LatLng(lat, lng);
     
     directionsDisplay = new google.maps.DirectionsRenderer();
@@ -69,26 +59,44 @@ function initializeMap(lat, lng) {
     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
     directionsDisplay.setMap(map);
     
-    calcRoute(currentLocation, otherLocation);
+    calcRoute(currentLocation);
     
     logStatus("Map Complete");
 }
 
-function calcRoute(start, end) {
+function calcRoute(start) {
     // var start = document.getElementById('start').value;
     // var end = document.getElementById('end').value;
+    var end = getCallAddressForMap(currentCall);
     log("Map directions");
-    var request = {
-        origin:start,
-        destination:end,
-        travelMode: google.maps.DirectionsTravelMode.DRIVING
-    };
-    directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(response);
-            log("Map directions ok");
-        }
-    });
+    log("To: " + end);
+    if (uCheck(end)) {
+        var request = {
+            origin:start,
+            destination:end,
+            travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                log("Map directions ok");
+            }
+        });
+    }
+}
+
+function getCallAddressForMap(call) {
+    var address = "";
+    if (uCheck(call.RespondToAddress))
+        address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + ", ";
+    if (uCheck(call.CityInfo) && uCheck(call.CityInfo.ZIPCode)) {
+        address += call.CityInfo.City + ", ";
+        address += call.CityInfo.ZIPCode;
+    }
+    if (address.length === 0)
+        return null;
+        
+    return address.trim();
 }
 
 function getCalls() {
