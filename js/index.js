@@ -154,6 +154,7 @@ function register() {
 // iOS
 function onNotificationAPN(event) {
     logStatus("Notification Received");
+    log(event.alert);
     getCalls();
     // log("Received a notification! " + event.alert);
     // var callIDs = null;
@@ -207,6 +208,7 @@ function onNotificationGCM(e) {
             //     showMessage(e.message, callIDs);
             // }
             logStatus("Notification Received");
+            log(e.message);
             getCalls();
         break;
 
@@ -502,6 +504,7 @@ function submitLogin() {
 }
 
 function iSpyReg() {
+    log("early reg");
     if (uCheck(agency)) {
         var lastURL = "iosReg";
         var keyname = "token";
