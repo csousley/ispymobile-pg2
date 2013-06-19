@@ -133,6 +133,13 @@ a {
     width: 100%;
 }
 
+.callClick {
+    text-align: left;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #555;
+}
+
 .textNoWrap {
     overflow: hidden;
     white-space: nowrap;

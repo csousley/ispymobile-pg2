@@ -95,7 +95,8 @@ function getCallAddressForMap(call) {
     }
     if (address.length === 0)
         return null;
-        
+    
+    address = address.replace("&", "AT");
     return address.trim();
 }
 
