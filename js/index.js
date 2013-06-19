@@ -20,11 +20,13 @@ function documentReady() {
     cadsettings = window.localStorage.getItem("cadsettings");
     
     log("AGENCY: " + agency);
-    log("CADSETTINGS: " + cadsettings);
+    //log("CADSETTINGS: " + cadsettings);
     
-    if (!uCheck(agency))
+    if (!uCheck(agency)) {
+        log("No agency get customers");
         getCustomers();
-    else {
+    } else {
+        log("Reg and Cad Settings");
         iSpyReg();
         getCadSettings();
     }
@@ -388,7 +390,8 @@ function getCustomers() {
 }
 
 function getCadSettings() {
-    if (agency) {
+    log("CAD settings for " + agency);
+    if (uCheck(agency)) {
         var jsonURL = "http://" + agency + ".ispyfire.com";
         jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
         $.getJSON(jsonURL, function(data) {
