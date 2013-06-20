@@ -170,7 +170,10 @@ function parseCall(call, isAcive) {
     var style = "";
     if (isAcive)
         style = "border: 1px solid white;";
-    var htmlString = "<div id='"+call._id+"' class='callClick' style='"+style+"'>" + call.IncidentNature;
+        
+    var textWidth = $("#activeCalls").width() - 70;
+    var htmlString = "<div class='callWrapper' style='"+style+"'>";
+    htmlString += "<div id='"+call._id+"' class='callClick textNoWrap' style='width: "+textWidth+"px;'>" + call.IncidentNature;
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;

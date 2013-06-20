@@ -133,13 +133,17 @@ a {
     width: 100%;
 }
 
-.callClick {
-    text-align: left;
-    padding: 5px 50px 5px 5px;
+.callWrapper {
     border-radius: 5px;
     border: 1px solid #555;
-    position: relative;
     margin-bottom: 5px;
+    position: relative;
+}
+
+.callClick {
+    text-align: left;
+    padding: 5px;
+    display: inline-block;
 }
 
 .mapover {
@@ -152,6 +156,7 @@ a {
     border-radius: 0 5px 5px 0;
     background: url("../img/map.png");
     background-position: -30px -45px;
+    display: inline-block;
 }
 
 .textNoWrap {
