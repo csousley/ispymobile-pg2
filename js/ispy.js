@@ -177,6 +177,7 @@ function parseCall(call, isAcive) {
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
+    htmlString += "</div>";
     htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
     htmlString += "</div>";
     return htmlString;
