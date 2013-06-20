@@ -211,7 +211,12 @@ function parseCall(call, isAcive) {
 }
 
 function getShowDetailsHTML(call) {
-    var htmlString = call.IncidentNature;
+    var htmlString = "<h2>"+call.IncidentNature+"</h2>";
+    htmlString += call.RespondToAddress;
+    htmlString += "<br>" + call.CityInfo.City;
+    htmlString += "<br>" + call.WhenCallWasOpened;
+    htmlString += "<br>" + call.JoinedResponders;
+    htmlString += "<p>" + call.JoinedComments;
     return htmlString;
 }
 
