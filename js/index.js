@@ -360,6 +360,7 @@ function isAndroid() {
     if (!uCheck(deviceType)) {
         log("step");
         if (uCheck(device) && uCheck(device.platform)) {
+            log("step");
             deviceType = device.platform;
             window.localStorage.setItem("devicetype", deviceType);
             log("device platform saved: " + deviceType);
