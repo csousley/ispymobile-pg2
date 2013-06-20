@@ -213,7 +213,7 @@ function parseCall(call, isAcive) {
 }
 
 function getShowDetailsHTML(call, w) {
-    var htmlString = "<h2>"+call.IncidentNature+"</h2>";
+    var htmlString = "<div class='showWrapper'><h2>"+call.IncidentNature+"</h2>";
     htmlString += call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
@@ -221,6 +221,7 @@ function getShowDetailsHTML(call, w) {
         htmlString += "<br>" + call.JoinedResponders;
     if (uCheck(call.JoinedComments))
         htmlString += "<div id='callComments' style='height: "+w+";'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
+    htmlString += "</div>"
     return htmlString;
 }
 
