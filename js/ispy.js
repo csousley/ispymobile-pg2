@@ -215,8 +215,10 @@ function getShowDetailsHTML(call) {
     htmlString += call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
-    htmlString += "<br>" + call.JoinedResponders;
-    htmlString += "<p>" + call.JoinedComments;
+    if (uCheck(call.JoinedResponders))
+        htmlString += "<br>" + call.JoinedResponders;
+    if (uCheck(call.JoinedComments))
+        htmlString += "<p>" + call.JoinedComments.replace(/\n/g, '<br/>');
     return htmlString;
 }
 
