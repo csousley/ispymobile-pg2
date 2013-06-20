@@ -1,4 +1,3 @@
-var longLog = true;
 var logCount = 0;
 var logCountUpTo = 4;
 var isLogStatusShowing = false;
@@ -351,8 +350,7 @@ function logStatus(logMessage) {
 
 function log(logMessage) {
     console.log(logMessage);
-    if (longLog)
-        $("#ol").append("<li>" + logMessage + "</li>");
+    $("#ol").append("<li>" + logMessage + "</li>");
 }
 
 function isAndroid() {
@@ -380,15 +378,13 @@ function uCheck(a) {
 function getCustomers() {
     logStatus("Get Customer List");
     var jsonURL = 'http://test.ispyfire.com/fireapp/getCustomerList';
-    $.getJSON(jsonURL, function() {
-        log("Customers back");
-    })
-    .done(function(data) {
-        customers = data.result.results;
-        log("Customers: " + customers.length);
-        showLogin();
-    })
-    .fail(function(data) { log( "customer error: " + JSON.stringify(data) ); });
+    $.getJSON(jsonURL)
+        .done(function(data) {
+            customers = data.result.results;
+            log("Customers: " + customers.length);
+            showLogin();
+        })
+        .fail(function(data) { log( "customer error: " + JSON.stringify(data) ); });
 }
 
 function getCadSettings() {
@@ -396,17 +392,15 @@ function getCadSettings() {
     if (uCheck(agency)) {
         var jsonURL = "http://" + agency + ".ispyfire.com";
         jsonURL += '/firedb/@@DB@@/cadsettings/?criteria={"isActive": true}';
-        $.getJSON(jsonURL, function(data) {
-            log("CAD settings back");
-        })
-        .done(function(data) {
-            if (uCheck(data.results[0])) {
-                cadsettings = data.results[0];
-                window.localStorage.setItem("cadsettings", cadsettings);
-                log("CAD settings set");
-            }
-        })
-        .fail(function(data) { log( "cad settings error: " + JSON.stringify(data) ); });
+        $.getJSON(jsonURL)
+            .done(function(data) {
+                if (uCheck(data.results[0])) {
+                    cadsettings = data.results[0];
+                    window.localStorage.setItem("cadsettings", cadsettings);
+                    log("CAD settings set");
+                }
+            })
+            .fail(function(data) { log( "cad settings error: " + JSON.stringify(data) ); });
     }
 }
 
@@ -449,13 +443,12 @@ function hideRegButtons() {
 }
 
 function switchLongLog() {
-    if (longLog) {
-        longLog = false;
-        $("#switchLongLog").val("Turn on long log");
-        clearList();
+    if ($('#longLogWrapper').is(":visible")) {
+        $("#switchLongLog").val("View long log");
+        $("#longLogWrapper").hide();
     }else{
-        longLog = true;
-        $("#switchLongLog").val("Turn off long log");
+        $("#switchLongLog").val("Hide long log");
+        $("#longLogWrapper").show();
     }
 }
 

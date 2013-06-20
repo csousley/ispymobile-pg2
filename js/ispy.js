@@ -40,6 +40,7 @@ function onInitGeoError(error) {
     log(error.message);
 }
 
+
 function mapHide() {
     $("#map").hide();
 }
@@ -100,26 +101,30 @@ function getCallAddressForMap(call) {
     return address.trim();
 }
 
+function pushInTest() {
+    var call = {_id: 12341234, IncidentNature: "FALL", RespondToAddress: "209 PATON STREET: EXTRA LONG INFO FOR CHECK", CityInfo: {City: "Cashmere"}, WhenCallWasOpened: "testing"};
+    var activeHTML = parseCall(call, true);
+    $("#activeCalls").html(activeHTML);
+}
+
 function getCalls() {
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/';
     showLoader();
     $("#actionRefresh").hide();
     logStatus("Getting Calls");
-    $.getJSON(jsonURL, function(data) {
-        log("Calls back");
-    })
-    .done(function(data) {
-        logStatus("Calls Returned");
-        //log( "calls: " + JSON.stringify(data) );
-        calls = data.results;
-        parseCalls();
-    })
-    .fail(function(data) { log( "calls error: " + JSON.stringify(data) ); })
-    .always(function() {
-        hideLoader();
-        refreshTimer();
-    });   
+    $.getJSON(jsonURL)
+        .done(function(data) {
+            logStatus("Calls Returned");
+            //log( "calls: " + JSON.stringify(data) );
+            calls = data.results;
+            parseCalls();
+        })
+        .fail(function(data) { log( "calls error: " + JSON.stringify(data) ); })
+        .always(function() {
+            hideLoader();
+            refreshTimer();
+        });   
 }
 
 function refreshTimer() {
@@ -134,9 +139,9 @@ function parseCalls() {
         for(var i = 0; i<calls.length; i++) {
             if (checkCADCallForLocal(calls[i])) {
                 if (calls[i].iSpyStatus.toLowerCase() != "completed") {
-                    activeHTML += parseCall(calls[i]);
+                    activeHTML += parseCall(calls[i], true);
                 }else{
-                    completeHTML += parseCall(calls[i]);
+                    completeHTML += parseCall(calls[i], false);
                 }
             }
         }
@@ -145,7 +150,14 @@ function parseCalls() {
         
         $(".callClick").click(function() {
             var productId = $(this).attr('id');
-            mapIt(productId);
+            alert(productId);
+        });
+        
+        $(".mapover").click(function() {
+            var productId = $(this).attr('id');
+            productId = productId.replace("_map", "");
+            alert("MAP: " + productId);
+            //mapIt(productId);
         });
     }else{
         logStatus("No Calls");
@@ -154,11 +166,15 @@ function parseCalls() {
     }
 }
 
-function parseCall(call) {
-    var htmlString = "<div id='"+call._id+"' class='callClick'>" + call.IncidentNature;
+function parseCall(call, isAcive) {
+    var style = "";
+    if (isAcive)
+        style = "border: 1px solid white;";
+    var htmlString = "<div id='"+call._id+"' class='callClick' style='"+style+"'>" + call.IncidentNature;
     htmlString += "<br>" + call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
+    htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
     htmlString += "</div>";
     return htmlString;
 }

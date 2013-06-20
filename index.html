@@ -54,7 +54,9 @@
                     <div id="activeCallsHeader" class="active bold bigger">Active Calls</div>
                     <div id="activeCalls" class="active indent textNoWrap"></div>
                     <div id="completeCallsHeader" class="complete bold bigger">Complete Calls</div>
-                    <div id="completeCalls" class="complete indent textNoWrap"></div>
+                    <div id="completeCalls" class="complete indent textNoWrap">
+                        <!-- <input type="button" onClick="pushInTest();" value="push in"> -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,7 +66,7 @@
             <div id="map-canvas"></div>
         </div>
         
-        <div style="color: white;">
+        <div id="longLogWrapper" style="color: white;">
             <ol id="ol"></ol>
         </div>
         <div style="margin: 50px auto 0 auto; width: 300px; text-align: center;">
@@ -79,7 +81,7 @@
         <script type="text/javascript">
             $(document).ready(function() {
                 // switch long log to false on startup
-                //switchLongLog();
+                switchLongLog();
                 initialize();
                 setClicks();
             });
