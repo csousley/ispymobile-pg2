@@ -18,10 +18,12 @@ function showIt(callID) {
         if (uCheck(currentCall)) {
             logStatus("Show Call Details");
             $("#show").show();
-            var w = ($(window).height() - 30) + "px";
+            var w = ($(window).height() - 30);
+            var wComments = (w - 75) + "px";
+            w += "px";
             $("#show").height(w);
             $("#show-canvas").height(w);
-            $("#show-canvas").html(getShowDetailsHTML(currentCall));
+            $("#show-canvas").html(getShowDetailsHTML(currentCall, wComments));
             initializeMap(position.coords.latitude, position.coords.longitude);
         }
     }else{
@@ -210,7 +212,7 @@ function parseCall(call, isAcive) {
     return htmlString;
 }
 
-function getShowDetailsHTML(call) {
+function getShowDetailsHTML(call, w) {
     var htmlString = "<h2>"+call.IncidentNature+"</h2>";
     htmlString += call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
@@ -218,7 +220,7 @@ function getShowDetailsHTML(call) {
     if (uCheck(call.JoinedResponders))
         htmlString += "<br>" + call.JoinedResponders;
     if (uCheck(call.JoinedComments))
-        htmlString += "<p>" + call.JoinedComments.replace(/\n/g, '<br/>');
+        htmlString += "<div id='callComments' style='height: "+w+";'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
     return htmlString;
 }
 

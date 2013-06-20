@@ -133,6 +133,13 @@ a {
     width: 100%;
 }
 
+#callComments {
+    overflow: auto;
+    overflow-y: hidden;
+    border: 1px solid red;
+    padding: 5px;
+}
+
 .callWrapper {
     border-radius: 5px;
     border: 1px solid #555;
