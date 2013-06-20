@@ -18,12 +18,12 @@ function showIt(callID) {
         if (uCheck(currentCall)) {
             logStatus("Show Call Details");
             $("#show").show();
-            var wh = ($(window).height() - 30);
-            var whComments = (w - 100) + "px";
-            wh += "px";
-            $("#show").height(wh);
-            $("#show-canvas").height(wh);
-            $("#show-canvas").html(getShowDetailsHTML(currentCall, whComments));
+            var w = ($(window).height() - 30);
+            var wComments = (w - 100) + "px";
+            w += "px";
+            $("#show").height(w);
+            $("#show-canvas").height(w);
+            $("#show-canvas").html(getShowDetailsHTML(currentCall, wComments));
             initializeMap(position.coords.latitude, position.coords.longitude);
         }
     }else{
