@@ -8,6 +8,7 @@ var browser = null;
 var customers = null;
 var cadsettings = null;
 var agency = null;
+var device = null;
 var isiSpyRegistered = false;
 
 $(document).ready(function() {
@@ -16,10 +17,11 @@ $(document).ready(function() {
 
 function documentReady() {
     agency = window.localStorage.getItem("agency");
+    device = window.localStorage.getItem("device");
     cadsettings = window.localStorage.getItem("cadsettings");
     
     log("AGENCY: " + agency);
-    //log("CADSETTINGS: " + cadsettings);
+    log("DEVICE: " + device);
     
     if (!uCheck(agency)) {
         log("No agency get customers");
@@ -355,11 +357,19 @@ function log(logMessage) {
 
 function isAndroid() {
     log("device type check");
-    if (uCheck(device.platform))
-        log("device platform is set: " + device.platform);
-    if (device.platform == 'android' || device.platform == 'Android')
-        return true;
-    return false;
+    if (!uCheck(device)) {
+        if (uCheck(device.platform)) {
+            device = device.platform;
+            window.localStorage.setItem("device", device);
+            log("device platform saved: " + device);
+        }else{
+            logStatus("ERROR: Needs re-install");
+        }
+    }else{
+        if (device == 'android' || device == 'Android')
+            return true;
+        return false;
+    }
 }
 
 function isIOS() {
