@@ -120,7 +120,7 @@ a {
     border-radius: 5px;
 }
 
-#map {
+#map, #show {
     position: absolute;
     top: 30px;
     height: 200px;
@@ -129,7 +129,7 @@ a {
     display: none;
 }
 
-#map-canvas {
+#map-canvas, #show-canvas {
     width: 100%;
 }
 
