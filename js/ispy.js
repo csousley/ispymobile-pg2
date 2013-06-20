@@ -19,7 +19,7 @@ function showIt(callID) {
             logStatus("Show Call Details");
             $("#show").show();
             var w = ($(window).height() - 30);
-            var wComments = (w - 100) + "px";
+            var wComments = (w - 150) + "px";
             w += "px";
             $("#show").height(w);
             $("#show-canvas").height(w);
