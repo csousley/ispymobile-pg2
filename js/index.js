@@ -8,7 +8,7 @@ var browser = null;
 var customers = null;
 var cadsettings = null;
 var agency = null;
-var device = null;
+var deviceType = null;
 var isiSpyRegistered = false;
 
 $(document).ready(function() {
@@ -17,11 +17,11 @@ $(document).ready(function() {
 
 function documentReady() {
     agency = window.localStorage.getItem("agency");
-    device = window.localStorage.getItem("device");
+    deviceType = window.localStorage.getItem("devicetype");
     cadsettings = window.localStorage.getItem("cadsettings");
     
     log("AGENCY: " + agency);
-    log("DEVICE: " + device);
+    log("DEVICETYPE: " + deviceType);
     
     if (!uCheck(agency)) {
         log("No agency get customers");
@@ -357,16 +357,17 @@ function log(logMessage) {
 
 function isAndroid() {
     log("device type check");
-    if (!uCheck(device)) {
-        if (uCheck(device.platform)) {
-            device = device.platform;
-            window.localStorage.setItem("device", device);
-            log("device platform saved: " + device);
+    if (!uCheck(deviceType)) {
+        log("step");
+        if (uCheck(device) && uCheck(device.platform)) {
+            deviceType = device.platform;
+            window.localStorage.setItem("devicetype", deviceType);
+            log("device platform saved: " + deviceType);
         }else{
             logStatus("ERROR: Needs re-install");
         }
     }else{
-        if (device == 'android' || device == 'Android')
+        if (deviceType == 'android' || deviceType == 'Android')
             return true;
         return false;
     }
