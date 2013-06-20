@@ -5,6 +5,30 @@ var directionsService = new google.maps.DirectionsService();
 var map = null;
 var currentCall = null;
 
+function showIt(callID) {
+    logStatus("Show It: " + callID);
+    if(uCheck(callID)) {
+        currentCall = null;
+        for (var i = 0; i<calls.length; i++) {
+            if (calls[i]._id == callID) {
+                currentCall = calls[i];
+                break;
+            }
+        }
+        if (uCheck(currentCall)) {
+            logStatus("Show Call Details");
+            $("#show").show();
+            var w = ($(window).height() - 30) + "px";
+            $("#show").height(w);
+            $("#show-canvas").height(w);
+            $("#show-canvas").html(getShowDetailsHTML(currentCall));
+            initializeMap(position.coords.latitude, position.coords.longitude);
+        }
+    }else{
+        alert("no call id");
+    }
+}
+
 function mapIt(callID) {
     logStatus("Map It: " + callID);
     if(uCheck(callID)) {
@@ -43,6 +67,10 @@ function onInitGeoError(error) {
 
 function mapHide() {
     $("#map").hide();
+}
+
+function showHide() {
+    $("#show").hide();
 }
 
 function initializeMap(lat, lng) {
@@ -150,14 +178,13 @@ function parseCalls() {
         
         $(".callClick").click(function() {
             var productId = $(this).attr('id');
-            alert(productId);
+            showIt(productId);
         });
         
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
-            alert("MAP: " + productId);
-            //mapIt(productId);
+            mapIt(productId);
         });
     }else{
         logStatus("No Calls");
@@ -180,6 +207,11 @@ function parseCall(call, isAcive) {
     htmlString += "</div>";
     htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
     htmlString += "</div>";
+    return htmlString;
+}
+
+function getShowDetailsHTML(call) {
+    var htmlString = call.IncidentNature;
     return htmlString;
 }
 
