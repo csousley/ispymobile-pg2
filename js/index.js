@@ -354,6 +354,9 @@ function log(logMessage) {
 }
 
 function isAndroid() {
+    log("device type check");
+    if (uCheck(device.platform))
+        log("device platform is set: " + device.platform);
     if (device.platform == 'android' || device.platform == 'Android')
         return true;
     return false;
