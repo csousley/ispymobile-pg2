@@ -269,6 +269,7 @@ function hideLoader() {
     $("#loading").css("display", "none");
 }
 
+
 function workShiftCalendar() {
     var dateNow = new Date();
     var latertoday = false;
@@ -384,3 +385,4 @@ function formatDate(datetime) {
     var dateStr = (dateObj.getMonth()+1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
     return dateStr;
 }
+
