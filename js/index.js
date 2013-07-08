@@ -409,20 +409,26 @@ function uCheck(a) {
 }
 
 function getPersonIDForUser(user) {
-    logStatus("Get Person");
+    logStatus("Get Person From User");
     var jsonURL = "http://" + agency + ".ispyfire.com";
     jsonURL += '/firedb/@@DB@@/people/?criteria={"email": "'+user+'"}';
     $.getJSON(jsonURL)
         .done(function(data) {
+            log("person back data: " + JSON.stringify(data));
             if (uCheck(data.results[0]._id)) {
                 log("Person back, store id");
                 window.localStorage.setItem("userID", user);
                 getShiftCalendar();
             }else{
-                log( "person error 1: " + JSON.stringify(data) );
+                log("person error 1: " + JSON.stringify(data));
             }
         })
-        .fail(function(data) { log( "person error: " + JSON.stringify(data) ); });
+        .fail(function(data) {
+            log("person error: " + JSON.stringify(data));
+        })
+        .always(function(data) {
+            log("person back always: " + JSON.stringify(data));
+        });
 }
 
 function getCustomers() {
