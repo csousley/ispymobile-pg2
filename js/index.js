@@ -35,7 +35,7 @@ function documentReady() {
         if (uCheck(window.localStorage.getItem("userID"))) {
             getShiftCalendar();
         }else{
-            getPersonIDForUser();
+            getPersonIDForUser(window.localStorage.getItem("user"));
         }
     }
 }
@@ -415,7 +415,7 @@ function getPersonIDForUser(user) {
     log("person url: " + jsonURL);
     $.getJSON(jsonURL)
         .done(function(data) {
-            log("person back data: " + JSON.stringify(data));
+            //log("person back data: " + JSON.stringify(data));
             if (uCheck(data.results[0]._id)) {
                 log("Person back, store id");
                 window.localStorage.setItem("userID", user);
