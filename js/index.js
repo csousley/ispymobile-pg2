@@ -20,6 +20,8 @@ function documentReady() {
     deviceType = window.localStorage.getItem("devicetype");
     cadsettings = window.localStorage.getItem("cadsettings");
     
+    moveShiftDiv();
+    
     log("AGENCY: " + agency);
     log("DEVICETYPE: " + deviceType);
     
@@ -30,6 +32,11 @@ function documentReady() {
         log("Reg and Cad Settings");
         iSpyReg();
         getCadSettings();
+        if (uCheck(window.localStorage.getItem("userID"))) {
+            getShiftCalendar();
+        }else{
+            getPersonIDForUser();
+        }
     }
 }
 
@@ -234,6 +241,16 @@ function onNotificationGCM(e) {
 //     $("#actionWrapper").css("display", "block");
 // }
 
+function moveShiftDiv() {
+    var menuLeft = $("#menu").offset().left;
+    var menuWidth = $("#menu").width();
+    var menuHeight = $("#menu").height();
+    console.log(menuLeft + " " + menuWidth + " " + menuHeight);
+    $("#shift").css("width", menuWidth + "px");
+    $("#shift").css("top", (menuHeight + 1) + "px");
+    $("#shift").css("left", menuLeft + "px");
+}
+
 function hideMessage() {
     $("#actionWrapper").css("display", "none");
 }
@@ -319,6 +336,7 @@ function setDeviceID() {
 function setUser(user) {
     //log("storing user id");
     window.localStorage.setItem("user", user);
+    getPersonIDForUser(user);
 }
 
 function setDBID(id) {
@@ -388,6 +406,21 @@ function uCheck(a) {
     if (a.length === 0)
         return false;
     return true;
+}
+
+function getPersonIDForUser(user) {
+    logStatus("Get Person");
+    var jsonURL = "http://" + agency + ".ispyfire.com";
+    jsonURL += '/firedb/@@DB@@/people/?criteria={"email": "'+user+'"}';
+    $.getJSON(jsonURL)
+        .done(function(data) {
+            if (uCheck(data.results[0]._id)) {
+                log("Person back, store id");
+                window.localStorage.setItem("userID", user);
+                getShiftCalendar();
+            }
+        })
+        .fail(function(data) { log( "person error: " + JSON.stringify(data) ); });
 }
 
 function getCustomers() {

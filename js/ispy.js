@@ -4,6 +4,7 @@ var directionsDisplay = null;
 var directionsService = new google.maps.DirectionsService();
 var map = null;
 var currentCall = null;
+var shiftCalendar = null;
 
 function showIt(callID) {
     logStatus("Show It: " + callID);
@@ -266,4 +267,120 @@ function showLoader() {
 
 function hideLoader() {
     $("#loading").css("display", "none");
+}
+
+function workShiftCalendar() {
+    var dateNow = new Date();
+    var latertoday = false;
+    for (var i = 0; i<shiftCalendar.length; i++) {
+        if (uCheck(shiftCalendar[i].response)) {
+            for (var x = 0; x<shiftCalendar[i].response.length; x++) {
+                if (shiftCalendar[i].response[x]._id == window.localStorage.getItem("userID")) {
+                    var startD = formatEpochToDate(shiftCalendar[i].date);
+                    var endD = formatEpochToDate(shiftCalendar[i].endDate);
+                    if (dateNow > startD && dateNow < endD) {
+                        var type = shiftCalendar[i].callType;
+                        if (type == "*") {type="All";}
+                        var zone = shiftCalendar[i].callZone;
+                        if (zone == "*") {zone="All";}
+                        $("#shiftDisplay").css("color", "green");
+                        $("#shiftDisplay").css("font-size", "14px");
+                        $("#shiftDisplay").css("font-weight", "bold");
+                        $("#shiftDisplay").html("On Shift (" + type + " - " + zone + ")");
+                        return false;
+                    }
+                    var dateNowString = formatDate(dateNow);
+                    var startDString = formatDate(startD);
+                    if (dateNowString == startDString && dateNow < endD) {
+                        latertoday = true;
+                    }
+                }
+            }
+        }
+    }
+    for (var i = 0; i<shiftCalendar.length; i++) {
+        var endD = formatEpochToDate(shiftCalendar[i].endDate);
+        if (dateNow < endD) {
+            if (uCheck(shiftCalendar[i].response)) {
+                for (var x = 0; x<shiftCalendar[i].response.length; x++) {
+                    if (shiftCalendar[i].response[x]._id == window.localStorage.getItem("userID")) {
+                        var htmlString = "Next Shift: "+ shiftCalendar[i].displayDate;
+                        if (latertoday) {
+                            $("#shiftDisplay").css("color", "green");
+                            htmlString += "<div id='timeTillShift' />";
+                        }
+                        $("#shiftDisplay").css("font-size", "12px");
+                        $("#shiftDisplay").html(htmlString);
+                        if (latertoday) {
+                            $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
+                            // var interval = setInterval(function() { 
+                            //     $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
+                            // }, 61000); // every 61 seconds
+                        }
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+    $("#shiftDisplay").html("No shifts within 2 weeks");
+}
+
+function getShiftCalendar() {
+    if (uCheck(window.localStorage.getItem("userID"))) {
+        var startDate = new Date();
+        $("#shiftDisplay").html("Checking shifts...");
+        // if (uCheck(currentSystemSettings.shiftLookBack))
+        //     startDate.setHours(startDate.getHours() - currentSystemSettings.shiftLookBack);
+        startDate.setHours(startDate.getHours() - 12);
+        var endDate = new Date();
+        endDate.setDate(endDate.setDate() + 14);
+        var firstEpoch = formatDateToEpoch(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+        var lastEpoch = formatDateToEpoch(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+        
+        var jsonURL = "https://" + agency + ".ispyfire.com";
+        // jsonURL += '/firecad/@@DB@@/cadcalls/';
+        
+        // var jsonURL = window.location.protocol + '//' + window.location.host;
+        jsonURL += '/firedb/@@DB@@/shiftcalendar/?criteria={"date":{"$gte":"'+firstEpoch+'","$lt":"'+lastEpoch+'"},"isActive": true}&sort={"date":1}';
+        $.getJSON(jsonURL)
+            .done(function(data) {
+                $("#shiftDisplay").html("Parsing...");
+                shiftCalendar = data.results;
+                workShiftCalendar();
+            })
+            .fail(function(data) {
+                $("#shiftDisplay").html("error");
+                log( "shift error: " + JSON.stringify(data) );
+            });  
+    }else{
+        log("missing userid, reset app for shifts");
+    }
+}
+
+function timeTillShift(shift) {
+    var now = new Date();
+    var shiftStart = formatEpochToDate(shift.date);
+    var dif = shiftStart.getTime() - now.getTime();
+    var timeCalc = new Date(2013, 01, 13, 0, 0, 0, dif);
+    if (timeCalc.getHours() > 0)
+        return "In: " + timeCalc.getHours() + " hours " + timeCalc.getMinutes() + " minutes";
+    return "In: " + timeCalc.getMinutes() + " minutes";
+}
+
+function formatDateToEpoch(Year, Month, Day) {
+    var epoch = new Date(Year, Month, Day).getTime() / 1000;
+    return epoch;
+}
+
+function formatEpochToDate(epoch) {
+    var dateObj = new Date(0);
+    dateObj.setUTCSeconds(epoch);
+    return dateObj;
+}
+
+function formatDate(datetime) {
+    var dateObj = new Date(datetime);
+    var dateStr = (dateObj.getMonth()+1) + "/" + dateObj.getDate() + "/" + dateObj.getFullYear();
+    return dateStr;
 }
