@@ -418,6 +418,8 @@ function getPersonIDForUser(user) {
                 log("Person back, store id");
                 window.localStorage.setItem("userID", user);
                 getShiftCalendar();
+            }else{
+                log( "person error 1: " + JSON.stringify(data) );
             }
         })
         .fail(function(data) { log( "person error: " + JSON.stringify(data) ); });
