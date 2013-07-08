@@ -412,6 +412,7 @@ function getPersonIDForUser(user) {
     logStatus("Get Person From User");
     var jsonURL = "http://" + agency + ".ispyfire.com";
     jsonURL += '/firedb/@@DB@@/people/?criteria={"email": "'+user+'"}';
+    log("person url: " + jsonURL);
     $.getJSON(jsonURL)
         .done(function(data) {
             log("person back data: " + JSON.stringify(data));
