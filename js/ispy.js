@@ -271,6 +271,7 @@ function hideLoader() {
 
 
 function workShiftCalendar() {
+    log("work shift calendar");
     var dateNow = new Date();
     var latertoday = false;
     for (var i = 0; i<shiftCalendar.length; i++) {
@@ -328,7 +329,9 @@ function workShiftCalendar() {
 }
 
 function getShiftCalendar() {
+    log("Shift Calendar...");
     if (uCheck(window.localStorage.getItem("userID"))) {
+        log("userid stored: " + window.localStorage.getItem("userID"));
         var startDate = new Date();
         $("#shiftDisplay").html("Checking shifts...");
         // if (uCheck(currentSystemSettings.shiftLookBack))
