@@ -275,6 +275,7 @@ function workShiftCalendar() {
     log("work shift calendar");
     var dateNow = new Date();
     var latertoday = false;
+    var match = false;
     for (var i = 0; i<shiftCalendar.length; i++) {
         if (uCheck(shiftCalendar[i].response)) {
             for (var x = 0; x<shiftCalendar[i].response.length; x++) {
@@ -292,7 +293,8 @@ function workShiftCalendar() {
                         
                         $("#app").animate({marginTop:"25px"}, 1500);
                         $("#shift").animate({backgroundColor: "green"}, 1500);
-                        return false;
+                        match = true;
+                        break;
                     }
                     var dateNowString = formatDate(dateNow);
                     var startDString = formatDate(startD);
@@ -303,6 +305,27 @@ function workShiftCalendar() {
             }
         }
     }
+    
+    $("#app").animate(
+        {marginTop:"25px"},
+        {
+            duration: 500,
+            complete: function() {
+                $("#shift").css("background-color", "green");
+                $("#shift").fadeIn(500);
+                $("#shiftDisplay").fadeIn(500);
+                setTimeout(function(){
+                    $("#app").animate({marginTop:"10px"}, 500);
+                    $("#shift").animate({height:"3px"}, 500);
+                    $("#shiftDisplay").fadeOut(500);
+                    },
+                4000);
+            }
+        }
+    );    
+    if (match)
+        return false;
+    
     for (var i = 0; i<shiftCalendar.length; i++) {
         var endD = formatEpochToDate(shiftCalendar[i].endDate);
         if (dateNow < endD) {
@@ -319,19 +342,54 @@ function workShiftCalendar() {
                         if (latertoday) {
                             $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
                         }
-                        
-                        $("#app").animate({marginTop:"25px"}, 1500);
-                        $("#shift").animate({backgroundColor: "green"}, 1500);
-                        return false;
+                        match = true;
+                        break;
                     }
                 }
             }
         }
     }
-    $("#shiftDisplay").html("No shifts within 2 weeks");
     
-    $("#app").animate({marginTop:"25px"}, 1500);
-    $("#shift").animate({backgroundColor: "yellow"}, 1500);
+    $("#app").animate(
+        {marginTop:"25px"},
+        {
+            duration: 500,
+            complete: function() {
+                $("#shift").css("background-color", "yellow");
+                $("#shift").fadeIn(500);
+                $("#shiftDisplay").fadeIn(500);
+                setTimeout(function(){
+                    $("#app").animate({marginTop:"10px"}, 500);
+                    $("#shift").animate({height:"3px"}, 500);
+                    $("#shiftDisplay").fadeOut(500);
+                    },
+                4000);
+            }
+        }
+    );    
+    // if (match)
+    //     return false;
+    
+    
+    // $("#shiftDisplay").html("No shifts within 2 weeks");
+    
+    // $("#app").animate(
+    //     {marginTop:"25px"},
+    //     {
+    //         duration: 500,
+    //         complete: function() {
+    //             $("#shift").css("background-color", "yellow");
+    //             $("#shift").fadeIn(500);
+    //             $("#shiftDisplay").fadeIn(500);
+    //             setTimeout(function(){
+    //                 $("#app").animate({marginTop:"10px"}, 500);
+    //                 $("#shift").animate({height:"3px"}, 500);
+    //                 $("#shiftDisplay").fadeOut(500);
+    //                 },
+    //             4000);
+    //         }
+    //     }
+    // );    
 }
 
 function getShiftCalendar() {

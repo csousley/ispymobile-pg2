@@ -248,9 +248,8 @@ function moveShiftDiv() {
     var menuHeight = $("#menu").height();
     console.log(menuLeft + " " + menuWidth + " " + menuHeight);
     $("#shift").css("width", menuWidth + "px");
-    $("#shift").css("top", (menuHeight + 1) + "px");
+    $("#shift").css("top", (menuHeight + 3) + "px");
     $("#shift").css("left", menuLeft + "px");
-    console.log(menuLeft + " " + menuWidth + " " + menuHeight);
 }
 
 function hideMessage() {
