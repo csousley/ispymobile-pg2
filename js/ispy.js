@@ -305,26 +305,28 @@ function workShiftCalendar() {
             }
         }
     }
-    
-    $("#app").animate(
-        {marginTop:"25px"},
-        {
-            duration: 500,
-            complete: function() {
-                $("#shift").css("background-color", "green");
-                $("#shift").fadeIn(500);
-                $("#shiftDisplay").fadeIn(500);
-                setTimeout(function(){
-                    $("#app").animate({marginTop:"10px"}, 500);
-                    $("#shift").animate({height:"3px"}, 500);
-                    $("#shiftDisplay").fadeOut(500);
-                    },
-                4000);
+       
+    if (match) {
+        $("#app").animate(
+            {marginTop:"25px"},
+            {
+                duration: 500,
+                complete: function() {
+                    $("#shift").css("background-color", "green");
+                    $("#shift").css("color", "white");
+                    $("#shift").fadeIn(500);
+                    $("#shiftDisplay").fadeIn(500);
+                    setTimeout(function(){
+                        $("#app").animate({marginTop:"10px"}, 500);
+                        $("#shift").animate({height:"3px"}, 500);
+                        $("#shiftDisplay").fadeOut(500);
+                        },
+                    4000);
+                }
             }
-        }
-    );    
-    if (match)
+        ); 
         return false;
+    }
     
     for (var i = 0; i<shiftCalendar.length; i++) {
         var endD = formatEpochToDate(shiftCalendar[i].endDate);
@@ -350,25 +352,27 @@ function workShiftCalendar() {
         }
     }
     
-    $("#app").animate(
-        {marginTop:"25px"},
-        {
-            duration: 500,
-            complete: function() {
-                $("#shift").css("background-color", "yellow");
-                $("#shift").fadeIn(500);
-                $("#shiftDisplay").fadeIn(500);
-                setTimeout(function(){
-                    $("#app").animate({marginTop:"10px"}, 500);
-                    $("#shift").animate({height:"3px"}, 500);
-                    $("#shiftDisplay").fadeOut(500);
-                    },
-                4000);
+    if (match) {
+        $("#app").animate(
+            {marginTop:"25px"},
+            {
+                duration: 500,
+                complete: function() {
+                    $("#shift").css("background-color", "yellow");
+                    $("#shift").css("color", "black");
+                    $("#shift").fadeIn(500);
+                    $("#shiftDisplay").fadeIn(500);
+                    setTimeout(function(){
+                        $("#app").animate({marginTop:"10px"}, 500);
+                        $("#shift").animate({height:"3px"}, 500);
+                        $("#shiftDisplay").fadeOut(500);
+                        },
+                    4000);
+                }
             }
-        }
-    );    
-    // if (match)
-    //     return false;
+        ); 
+        return false;
+    }
     
     
     // $("#shiftDisplay").html("No shifts within 2 weeks");

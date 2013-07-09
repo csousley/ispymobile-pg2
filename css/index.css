@@ -67,6 +67,7 @@ a {
 
 #shift {
     color: black;
+    font-weight: bold;
     margin: 0 auto;
     max-width: 500px;
     min-width: 50px;
