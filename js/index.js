@@ -250,6 +250,7 @@ function moveShiftDiv() {
     $("#shift").css("width", menuWidth + "px");
     $("#shift").css("top", (menuHeight + 1) + "px");
     $("#shift").css("left", menuLeft + "px");
+    console.log(menuLeft + " " + menuWidth + " " + menuHeight);
 }
 
 function hideMessage() {

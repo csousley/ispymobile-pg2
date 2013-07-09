@@ -286,10 +286,12 @@ function workShiftCalendar() {
                         if (type == "*") {type="All";}
                         var zone = shiftCalendar[i].callZone;
                         if (zone == "*") {zone="All";}
-                        $("#shiftDisplay").css("color", "green");
                         $("#shiftDisplay").css("font-size", "14px");
                         $("#shiftDisplay").css("font-weight", "bold");
                         $("#shiftDisplay").html("On Shift (" + type + " - " + zone + ")");
+                        
+                        $("#app").animate({marginTop:"25px"}, 1500);
+                        $("#shift").animate({backgroundColor: "green"}, 1500);
                         return false;
                     }
                     var dateNowString = formatDate(dateNow);
@@ -309,17 +311,17 @@ function workShiftCalendar() {
                     if (shiftCalendar[i].response[x]._id == window.localStorage.getItem("userID")) {
                         var htmlString = "Next Shift: "+ shiftCalendar[i].displayDate;
                         if (latertoday) {
-                            $("#shiftDisplay").css("color", "green");
+                            // $("#shiftDisplay").css("color", "green");
                             htmlString += "<div id='timeTillShift' />";
                         }
                         $("#shiftDisplay").css("font-size", "12px");
                         $("#shiftDisplay").html(htmlString);
                         if (latertoday) {
                             $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
-                            // var interval = setInterval(function() { 
-                            //     $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
-                            // }, 61000); // every 61 seconds
                         }
+                        
+                        $("#app").animate({marginTop:"25px"}, 1500);
+                        $("#shift").animate({backgroundColor: "green"}, 1500);
                         return false;
                     }
                 }
@@ -327,6 +329,9 @@ function workShiftCalendar() {
         }
     }
     $("#shiftDisplay").html("No shifts within 2 weeks");
+    
+    $("#app").animate({marginTop:"25px"}, 1500);
+    $("#shift").animate({backgroundColor: "yellow"}, 1500);
 }
 
 function getShiftCalendar() {
