@@ -99,6 +99,7 @@ function onResume() {
     logStatus("Device Resume");
     if (agency) {
         getCalls();
+        getShiftCalendar();
     }
 }
 

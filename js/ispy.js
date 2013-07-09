@@ -5,6 +5,7 @@ var directionsService = new google.maps.DirectionsService();
 var map = null;
 var currentCall = null;
 var shiftCalendar = null;
+var lastShiftCheck = null;
 
 function showIt(callID) {
     logStatus("Show It: " + callID);
@@ -331,32 +332,39 @@ function workShiftCalendar() {
 function getShiftCalendar() {
     log("Shift Calendar...");
     if (uCheck(window.localStorage.getItem("userID"))) {
-        log("userid stored: " + window.localStorage.getItem("userID"));
-        var startDate = new Date();
-        $("#shiftDisplay").html("Checking shifts...");
-        // if (uCheck(currentSystemSettings.shiftLookBack))
-        //     startDate.setHours(startDate.getHours() - currentSystemSettings.shiftLookBack);
-        startDate.setHours(startDate.getHours() - 12);
-        var endDate = new Date();
-        endDate.setDate(endDate.setDate() + 14);
-        var firstEpoch = formatDateToEpoch(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
-        var lastEpoch = formatDateToEpoch(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
-        
-        var jsonURL = "https://" + agency + ".ispyfire.com";
-        // jsonURL += '/firecad/@@DB@@/cadcalls/';
-        
-        // var jsonURL = window.location.protocol + '//' + window.location.host;
-        jsonURL += '/firedb/@@DB@@/shiftcalendar/?criteria={"date":{"$gte":"'+firstEpoch+'","$lt":"'+lastEpoch+'"},"isActive": true}&sort={"date":1}';
-        $.getJSON(jsonURL)
-            .done(function(data) {
-                $("#shiftDisplay").html("Parsing...");
-                shiftCalendar = data.results;
-                workShiftCalendar();
-            })
-            .fail(function(data) {
-                $("#shiftDisplay").html("error");
-                log( "shift error: " + JSON.stringify(data) );
-            });  
+        var hourAgo = new Date().setHours(-1);
+        log("HOUR AGO: " + hourAgo);
+        if (!uCheck(lastShiftCheck) || lastShiftCheck < hourAgo) {
+            log("userid stored: " + window.localStorage.getItem("userID"));
+            var startDate = new Date();
+            $("#shiftDisplay").html("Checking shifts...");
+            // if (uCheck(currentSystemSettings.shiftLookBack))
+            //     startDate.setHours(startDate.getHours() - currentSystemSettings.shiftLookBack);
+            startDate.setHours(startDate.getHours() - 12);
+            var endDate = new Date();
+            endDate.setDate(endDate.setDate() + 14);
+            var firstEpoch = formatDateToEpoch(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            var lastEpoch = formatDateToEpoch(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+            
+            var jsonURL = "https://" + agency + ".ispyfire.com";
+            // jsonURL += '/firecad/@@DB@@/cadcalls/';
+            
+            // var jsonURL = window.location.protocol + '//' + window.location.host;
+            jsonURL += '/firedb/@@DB@@/shiftcalendar/?criteria={"date":{"$gte":"'+firstEpoch+'","$lt":"'+lastEpoch+'"},"isActive": true}&sort={"date":1}';
+            $.getJSON(jsonURL)
+                .done(function(data) {
+                    $("#shiftDisplay").html("Parsing...");
+                    shiftCalendar = data.results;
+                    workShiftCalendar();
+                })
+                .fail(function(data) {
+                    $("#shiftDisplay").html("error");
+                    log( "shift error: " + JSON.stringify(data) );
+                });  
+            lastShiftCheck = new Date();
+        }else{
+            log("Shift recently checked... Abort.");
+        }
     }else{
         log("missing userid, reset app for shifts");
     }
