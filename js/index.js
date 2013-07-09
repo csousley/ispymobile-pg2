@@ -418,7 +418,7 @@ function getPersonIDForUser(user) {
             //log("person back data: " + JSON.stringify(data));
             if (uCheck(data.results[0]._id)) {
                 log("Person back, store id");
-                window.localStorage.setItem("userID", user);
+                window.localStorage.setItem("userID", data.results[0]._id);
                 getShiftCalendar();
             }else{
                 log("person error 1: " + JSON.stringify(data));
