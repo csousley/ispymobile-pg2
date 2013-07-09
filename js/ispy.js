@@ -287,12 +287,8 @@ function workShiftCalendar() {
                         if (type == "*") {type="All";}
                         var zone = shiftCalendar[i].callZone;
                         if (zone == "*") {zone="All";}
-                        $("#shiftDisplay").css("font-size", "14px");
-                        $("#shiftDisplay").css("font-weight", "bold");
                         $("#shiftDisplay").html("On Shift (" + type + " - " + zone + ")");
                         
-                        $("#app").animate({marginTop:"25px"}, 1500);
-                        $("#shift").animate({backgroundColor: "green"}, 1500);
                         match = true;
                         break;
                     }
