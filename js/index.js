@@ -73,7 +73,7 @@ function setClicks() {
     });
     
     $("#shiftAction").click(function() {
-        alert("asdf");
+        shiftAction();
     });
 }
 
