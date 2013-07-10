@@ -319,7 +319,7 @@ function workShiftCalendar() {
                         $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
                         $("#shiftAction").html('<img src="img/greenDown.png">');
-                        $("#shiftAction").fadeIn(250);
+                        $("#shiftAction").fadeIn(500);
                         shiftExpanded = false;
                         shiftColor = "green";
                         },
@@ -370,7 +370,7 @@ function workShiftCalendar() {
                         $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
                         $("#shiftAction").html('<img src="img/yellowDown.png">');
-                        $("#shiftAction").fadeIn(250);
+                        $("#shiftAction").fadeIn(500);
                         shiftExpanded = false;
                         shiftColor = "yellow";
                         },
@@ -413,7 +413,7 @@ function shiftAction() {
     }else{
         $("#app").animate({marginTop:"25px"}, 500);
         $("#shift").animate({height:"25px"}, 500);
-        $("#shiftDisplay").fadeOut(500);
+        $("#shiftDisplay").fadeIn(500);
         $("#shiftAction").html('<img src="img/'+shiftColor+'Up.png">');
         shiftExpanded = true;
     }
