@@ -316,6 +316,8 @@ function workShiftCalendar() {
                         $("#app").animate({marginTop:"10px"}, 500);
                         $("#shift").animate({height:"3px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
+                        $("#shiftAction").html("<img src='img/greenDown.png'>");
+                        $("#shiftAction").fadeIn(250);
                         },
                     4000);
                 }
@@ -358,10 +360,13 @@ function workShiftCalendar() {
                     $("#shift").css("color", "black");
                     $("#shift").fadeIn(500);
                     $("#shiftDisplay").fadeIn(500);
+                    $("#shiftAction").fadeIn(250);
                     setTimeout(function(){
                         $("#app").animate({marginTop:"10px"}, 500);
                         $("#shift").animate({height:"3px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
+                        $("#shiftAction").html("<img src='img/yellowDown.png'>");
+                        $("#shiftAction").fadeIn(250);
                         },
                     4000);
                 }

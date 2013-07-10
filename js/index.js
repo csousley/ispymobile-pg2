@@ -71,6 +71,10 @@ function setClicks() {
     $("#menuAppSelect").click(function() {
         openBrowser();
     });
+    
+    $("#shiftAction").click(function() {
+        alert("asdf");
+    });
 }
 
 function initialize() {
@@ -250,6 +254,9 @@ function moveShiftDiv() {
     $("#shift").css("width", menuWidth + "px");
     $("#shift").css("top", (menuHeight + 3) + "px");
     $("#shift").css("left", menuLeft + "px");
+    
+    $("#shiftAction").css("top", (menuHeight + 30) + "px");
+    $("#shiftAction").css("left", (menuLeft + (menuWidth - 50)) + "px");
 }
 
 function hideMessage() {

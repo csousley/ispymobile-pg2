@@ -78,6 +78,18 @@ a {
     display: none;
 }
 
+#shiftAction {
+    color: yellow;
+    font-weight: bold;
+    margin: 0 auto;
+    width: 50px;
+    padding: 0;
+    position:absolute;
+    top: 40px;
+    text-align: right;
+    display: none;
+}
+
 #appOptions {
     position: relative;
     height: 125px;
