@@ -316,7 +316,7 @@ function workShiftCalendar() {
                         $("#app").animate({marginTop:"10px"}, 500);
                         $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
-                        $("#shiftAction").html("<img src='img/greenDown.png'>");
+                        $("#shiftAction").html('<img src="img/greenDown.png">');
                         $("#shiftAction").fadeIn(250);
                         },
                     4000);
@@ -365,7 +365,7 @@ function workShiftCalendar() {
                         $("#app").animate({marginTop:"10px"}, 500);
                         $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
-                        $("#shiftAction").html("<img src='img/yellowDown.png'>");
+                        $("#shiftAction").html('<img src="img/yellowDown.png">');
                         $("#shiftAction").fadeIn(250);
                         },
                     4000);
