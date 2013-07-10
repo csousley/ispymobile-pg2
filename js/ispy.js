@@ -314,7 +314,7 @@ function workShiftCalendar() {
                     $("#shiftDisplay").fadeIn(500);
                     setTimeout(function(){
                         $("#app").animate({marginTop:"10px"}, 500);
-                        $("#shift").animate({height:"3px"}, 500);
+                        $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
                         $("#shiftAction").html("<img src='img/greenDown.png'>");
                         $("#shiftAction").fadeIn(250);
@@ -333,15 +333,15 @@ function workShiftCalendar() {
                 for (var x = 0; x<shiftCalendar[i].response.length; x++) {
                     if (shiftCalendar[i].response[x]._id == window.localStorage.getItem("userID")) {
                         var htmlString = "Next Shift: "+ shiftCalendar[i].displayDate;
-                        if (latertoday) {
-                            // $("#shiftDisplay").css("color", "green");
-                            htmlString += "<div id='timeTillShift' />";
-                        }
+                        // if (latertoday) {
+                        //     // $("#shiftDisplay").css("color", "green");
+                        //     //htmlString += "<div id='timeTillShift' />";
+                        // }
                         $("#shiftDisplay").css("font-size", "12px");
                         $("#shiftDisplay").html(htmlString);
-                        if (latertoday) {
-                            $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
-                        }
+                        // if (latertoday) {
+                        //     $("#timeTillShift").html(timeTillShift(shiftCalendar[i]));
+                        // }
                         match = true;
                         break;
                     }
@@ -363,7 +363,7 @@ function workShiftCalendar() {
                     $("#shiftAction").fadeIn(250);
                     setTimeout(function(){
                         $("#app").animate({marginTop:"10px"}, 500);
-                        $("#shift").animate({height:"3px"}, 500);
+                        $("#shift").animate({height:"2px"}, 500);
                         $("#shiftDisplay").fadeOut(500);
                         $("#shiftAction").html("<img src='img/yellowDown.png'>");
                         $("#shiftAction").fadeIn(250);
