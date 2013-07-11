@@ -75,8 +75,10 @@ function onInitGeoError(error) {
 
 function mapDirections() {
     //var url = 'http://maps.apple.com/?q=daddr='+destination+'&saddr='+source;
-    //var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
-    var url = 'maps:daddr='+mapEndingLocation;
+    var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
+    var url = 'maps:daddr='+mapEndingLocation+'&saddr='+currentLoc;
+    if (isAndroid())
+        url = 'geo:'+mapEndingLocation;
     window.location = url;
 }
 
