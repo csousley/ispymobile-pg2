@@ -437,6 +437,8 @@ function getShiftCalendar() {
             log("ED: " + endDate);
             var firstEpoch = formatDateToEpoch(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
             var lastEpoch = formatDateToEpoch(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+            log("SDE: " + firstEpoch);
+            log("EDE: " + lastEpoch);
             
             var jsonURL = "https://" + agency + ".ispyfire.com";
             // jsonURL += '/firecad/@@DB@@/cadcalls/';
