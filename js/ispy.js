@@ -2,6 +2,8 @@ var calls = null;
 var refreshWait = 15000; // 15 seconds
 var directionsDisplay = null;
 var directionsService = new google.maps.DirectionsService();
+var mapStartingLocation = null;
+var mapEndingLocation = null;
 var map = null;
 var currentCall = null;
 var shiftCalendar = null;
@@ -57,6 +59,7 @@ function mapIt(callID) {
 
 function onInitGeoSuccess(position) {
     logStatus("Location obtained");
+    mapStartingLocation = position;
     $("#map").show();
     var w = ($(window).height() - 30) + "px";
     $("#map").height(w);
@@ -68,6 +71,12 @@ function onInitGeoSuccess(position) {
 function onInitGeoError(error) {
     logStatus("Error on location");
     log(error.message);
+}
+
+function mapDirections() {
+    //var url = 'http://maps.apple.com/?q=daddr='+destination+'&saddr='+source;
+    var url = 'maps:daddr='+mapEndingLocation;
+    window.location = url;
 }
 
 
@@ -103,6 +112,7 @@ function calcRoute(start) {
     // var start = document.getElementById('start').value;
     // var end = document.getElementById('end').value;
     var end = getCallAddressForMap(currentCall);
+    mapEndingLocation = end;
     log("Map directions");
     log("To: " + end);
     if (uCheck(end)) {
