@@ -432,7 +432,7 @@ function getShiftCalendar() {
             //     startDate.setHours(startDate.getHours() - currentSystemSettings.shiftLookBack);
             startDate.setHours(startDate.getHours() - 12);
             var endDate = new Date();
-            endDate.setDate(endDate.setDate() + 14);
+            endDate.setDate(endDate.getDate() + 14);
             var firstEpoch = formatDateToEpoch(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
             var lastEpoch = formatDateToEpoch(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
             

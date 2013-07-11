@@ -10,6 +10,8 @@ var cadsettings = null;
 var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
+var isChrome = false; // aka is testing
+
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
@@ -19,6 +21,9 @@ function documentReady() {
     agency = window.localStorage.getItem("agency");
     deviceType = window.localStorage.getItem("devicetype");
     cadsettings = window.localStorage.getItem("cadsettings");
+    
+    if (uCheck(window.chrome))
+        isChrome = true;
     
     moveShiftDiv();
     
@@ -47,10 +52,6 @@ function setClicks() {
         if (uCheck(val)) {
             agency = val;
             window.localStorage.setItem("agency", val);
-            // $("#regOptions").css("display", "block");
-            // $("#agencySelect").css("display", "none"); // maybe $("#login").css("display", "none");
-            // $("#focusHref").focus();
-            // iSpyReg();
         }else{
             agency = null;
             $("#regOptions").css("display", "none");
@@ -79,10 +80,12 @@ function setClicks() {
 
 function initialize() {
     documentReady();
-    logStatus("Initialize");    
-    document.addEventListener('deviceready', onDeviceReady, false);
-    document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
-    document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
+    logStatus("Initialize"); 
+    if (!isChrome) {
+        document.addEventListener('deviceready', onDeviceReady, false);
+        document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
+        document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
+    }
 }
 
 function onTouch_menuOptions() {
@@ -169,19 +172,6 @@ function onNotificationAPN(event) {
     logStatus("Notification Received");
     log(event.alert);
     getCalls();
-    // log("Received a notification! " + event.alert);
-    // var callIDs = null;
-    // if (uCheck(event.callIDs)) {
-    //     callIDs = event.callIDs;
-    // }
-    // if (event.alert) {
-    //     //navigator.notification.alert(event.alert); // shows a popup
-    //     //showMessage(event.alert, callIDs);
-    // }
-    // if (event.badge) {
-    //     log("Set badge on  " + pushNotification);
-    //     pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
-    // }
     if (event.sound) {
         var snd = new Media(event.sound);
         snd.play();
@@ -195,31 +185,12 @@ function onNotificationGCM(e) {
         case 'registered':
             if ( e.regid.length > 0 )
             {
-                // Your GCM push server needs to know the regID before it can push to this device
-                // here is where you might want to send it the regID for later use.
-                //alert('registration id = '+e.regid);
                 setRegID(e.regid);
                 $("#ol").append("<li>Android regID: "+e.regid+"</li>");
             }
         break;
 
         case 'message':
-            //log("GOT IT");
-            // this is the actual push notification. its format depends on the data model
-            // of the intermediary push server which must also be reflected in GCMIntentService.java
-            //alert('message = '+e.message+' msgcnt = '+e.msgcnt);
-            // $("#ol").append("<li>Android Message Received: "+e.message+"</li>");
-            // if (uCheck(e.callIDs)) {
-            //     log("PASSED CALL IDS: " + e.callIDs);
-            // }
-            //alert(e.message);
-            // var callIDs = null;
-            // if (uCheck(e.callIDs)) {
-            //     callIDs = e.callIDs;
-            // }
-            // if (e.message) {
-            //     showMessage(e.message, callIDs);
-            // }
             logStatus("Notification Received");
             log(e.message);
             getCalls();
@@ -236,15 +207,6 @@ function onNotificationGCM(e) {
           break;
     }
 }
-
-// function showMessage(message, callIDs) {
-//     var htmlString = message;
-//     if (uCheck(callIDs)) {
-//         htmlString += "<br>" + callIDs;
-//     }
-//     $("#action").html(htmlString);
-//     $("#actionWrapper").css("display", "block");
-// }
 
 function moveShiftDiv() {
     var menuLeft = $("#menu").offset().left;
@@ -385,13 +347,15 @@ function isAndroid() {
     log("device type check");
     if (!uCheck(deviceType)) {
         log("step");
-        if (uCheck(device) && uCheck(device.platform)) {
-            log("double step");
-            deviceType = device.platform;
-            window.localStorage.setItem("devicetype", deviceType);
-            log("device platform saved: " + deviceType);
-        }else{
-            logStatus("ERROR: Needs re-install");
+        if (!isChrome) {
+            if (uCheck(device) && uCheck(device.platform)) {
+                log("double step");
+                deviceType = device.platform;
+                window.localStorage.setItem("devicetype", deviceType);
+                log("device platform saved: " + deviceType);
+            }else{
+                logStatus("ERROR: Needs re-install");
+            }
         }
     }else{
         if (deviceType == 'android' || deviceType == 'Android')
@@ -407,6 +371,8 @@ function isIOS() {
 }
 
 function uCheck(a) {
+    if (a === undefined)
+        return false;
     if (typeof a == "undefined")
         return false;
     if (a === null)
@@ -434,9 +400,6 @@ function getPersonIDForUser(user) {
         })
         .fail(function(data) {
             log("person error: " + JSON.stringify(data));
-        })
-        .always(function(data) {
-            log("person back always: " + JSON.stringify(data));
         });
 }
 
@@ -639,9 +602,7 @@ function iSpyUnReg(isReregister) {
             showRegButtons();
         })
         .done(function(data) {
-            //log("DATA: " + data);
             logStatus("iSpy UnReg Complete");
-            //unregister(); // to unreg for apn and gcm service
             isiSpyRegistered = false;
             showRegButtons();
             if (isReregister)
