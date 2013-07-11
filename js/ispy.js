@@ -279,6 +279,8 @@ function workShiftCalendar() {
     var latertoday = false;
     var match = false;
     for (var i = 0; i<shiftCalendar.length; i++) {
+        if (match)
+            break;
         if (uCheck(shiftCalendar[i].response)) {
             for (var x = 0; x<shiftCalendar[i].response.length; x++) {
                 if (shiftCalendar[i].response[x]._id == window.localStorage.getItem("userID")) {
@@ -331,6 +333,8 @@ function workShiftCalendar() {
     }
     
     for (var i = 0; i<shiftCalendar.length; i++) {
+        if (match)
+            break;
         var endD = formatEpochToDate(shiftCalendar[i].endDate);
         if (dateNow < endD) {
             if (uCheck(shiftCalendar[i].response)) {
@@ -447,7 +451,7 @@ function getShiftCalendar() {
             jsonURL += '/firedb/@@DB@@/shiftcalendar/?criteria={"date":{"$gte":"'+firstEpoch+'","$lt":"'+lastEpoch+'"},"isActive": true}&sort={"date":1}';
             $.getJSON(jsonURL)
                 .done(function(data) {
-                    $("#shiftDisplay").html("Parsing...");
+                    $("#shiftDisplay").html("Parsing Shifts...");
                     shiftCalendar = data.results;
                     workShiftCalendar();
                 })
