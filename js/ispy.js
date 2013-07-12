@@ -439,9 +439,10 @@ function shiftAction() {
 function getShiftCalendar() {
     log("Shift Calendar...");
     if (uCheck(window.localStorage.getItem("userID"))) {
-        var hourAgo = new Date().setHours(-1);
+        var hourAgo = new Date();
+        hourAgo = hourAgo.setMinutes(-30); // half hour, not an hour.
         log("HOUR AGO: " + hourAgo);
-        if (!uCheck(lastShiftCheck) || lastShiftCheck < hourAgo) {
+        if (!uCheck(lastShiftCheck) || (lastShiftCheck < hourAgo)) {
             log("userid stored: " + window.localStorage.getItem("userID"));
             var startDate = new Date();
             $("#shiftDisplay").html("Checking shifts...");
@@ -475,6 +476,9 @@ function getShiftCalendar() {
             lastShiftCheck = new Date();
         }else{
             log("Shift recently checked... Abort.");
+            log("Half hour ago: " + hourAgo);
+            if (uCheck(lastShiftCheck))
+                log("Last check: " + lastShiftCheck);
         }
     }else{
         log("missing userid, reset app for shifts");
