@@ -74,7 +74,7 @@ function onInitGeoError(error) {
 }
 
 function mapDirections() {
-    var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=';
+    var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current+Location';
     //var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
     //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
     //if (isAndroid())
@@ -116,7 +116,7 @@ function calcRoute(start) {
     // var start = document.getElementById('start').value;
     // var end = document.getElementById('end').value;
     var end = getCallAddressForMap(currentCall);
-    mapEndingLocation = end;
+    mapEndingLocation = getCallAddressForMapPassing(currentCall);
     log("Map directions");
     log("To: " + end);
     if (uCheck(end)) {
@@ -146,6 +146,23 @@ function getCallAddressForMap(call) {
         return null;
     
     address = address.replace("&", "AT");
+    return address.trim();
+}
+
+function getCallAddressForMapPassing(call) {
+    var address = "";
+    if (uCheck(call.RespondToAddress))
+        address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + ",";
+    if (uCheck(call.CityInfo) && uCheck(call.CityInfo.ZIPCode)) {
+        address += call.CityInfo.City + ",";
+        address += call.CityInfo.StateAbbreviation + " ";
+        address += call.CityInfo.ZIPCode;
+    }
+    if (address.length === 0)
+        return null;
+    
+    address = address.replace("&", "AT");
+    address = address.replace(" ", "+");
     return address.trim();
 }
 
