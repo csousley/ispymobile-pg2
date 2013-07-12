@@ -91,6 +91,8 @@ function onInitGeoSuccessNew(position) {
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
+    if (isAndroid)
+        url = 'geo:'+mapEndingLocation;
     window.location = url;
 }
 
@@ -105,7 +107,7 @@ function mapDirections() {
     //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
     //if (isAndroid())
     //    url = 'geo:'+mapEndingLocation;
-    //var wind = window.open(url, '_blank', 'location=yes');
+    //var wind = window.open(url, '_blank', 'location=yes'); // try target _system with this...?
     window.location = url;
     // browser = window.open(url, '_blank', 'location=yes');
     // if(isBrowserFirst) {
@@ -254,7 +256,7 @@ function parseCalls() {
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
-            navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
+            //navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
             mapItNew(productId);
         });
     }else{
