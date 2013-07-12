@@ -91,7 +91,7 @@ function onInitGeoSuccessNew(position) {
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
-    if (isAndroid)
+    if (isAndroid())
         url = 'geo:'+mapEndingLocation;
     window.location = url;
 }
