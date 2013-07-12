@@ -89,8 +89,10 @@ function onInitGeoSuccess(position) {
 }
 
 function onInitGeoSuccessNew(position) {
-    logStatus("Location obtained: " + JSON.stringify(position));
-    mapStartingLocation = position;
+    logStatus("Location obtained");
+    var curLoc = position.coords.latitude + "," + position.coords.longitude;
+    log("lat.lng: " + curLoc);
+    mapStartingLocation = curLoc;
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
