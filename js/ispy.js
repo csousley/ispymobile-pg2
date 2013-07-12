@@ -57,35 +57,30 @@ function mapItNew(callID) {
     }
 }
 
-function mapIt(callID) {
-    logStatus("Map It: " + callID);
-    if(uCheck(callID)) {
-        currentCall = null;
-        for (var i = 0; i<calls.length; i++) {
-            if (calls[i]._id == callID) {
-                currentCall = calls[i];
-                break;
-            }
-        }
-        if (uCheck(currentCall)) {
-            logStatus("Geolocating");
-            showLoader();
-            navigator.geolocation.getCurrentPosition(onInitGeoSuccess, onInitGeoError);
-        }
-    }else{
-        alert("no call id");
-    }
-}
+// function mapIt(callID) {
+//     logStatus("Map It: " + callID);
+//     if(uCheck(callID)) {
+//         currentCall = null;
+//         for (var i = 0; i<calls.length; i++) {
+//             if (calls[i]._id == callID) {
+//                 currentCall = calls[i];
+//                 break;
+//             }
+//         }
+//         if (uCheck(currentCall)) {
+//             logStatus("Geolocating");
+//             showLoader();
+//             navigator.geolocation.getCurrentPosition(onInitGeoSuccess, onInitGeoError);
+//         }
+//     }else{
+//         alert("no call id");
+//     }
+// }
 
-function onInitGeoSuccess(position) {
-    logStatus("Location obtained");
-    mapStartingLocation = position;
-    $("#map").show();
-    var w = ($(window).height() - 30) + "px";
-    $("#map").height(w);
-    $("#map-canvas").height(w);
-    hideLoader();
-    initializeMap(position.coords.latitude, position.coords.longitude);
+function onInitPreGeoSuccess(position) {
+    logStatus("Pre Location obtained");
+    var curLoc = position.coords.latitude + "," + position.coords.longitude;
+    log("pre.lat.lng: " + curLoc);
 }
 
 function onInitGeoSuccessNew(position) {
@@ -259,6 +254,7 @@ function parseCalls() {
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
+            navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
             mapItNew(productId);
         });
     }else{
