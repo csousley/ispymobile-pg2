@@ -79,8 +79,8 @@ function mapDirections() {
     //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
     //if (isAndroid())
     //    url = 'geo:'+mapEndingLocation;
-    //window.location = url;
-    window.open(url, "iSpy Directions", "target=_blank");
+    window.location = url;
+    //window.open(url, "iSpy Directions", "target=_blank");
 }
 
 
