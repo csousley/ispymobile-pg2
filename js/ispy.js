@@ -327,6 +327,7 @@ function workShiftCalendar() {
                 complete: function() {
                     $("#shift").css("background-color", "green");
                     $("#shift").css("color", "white");
+                    $("#shift").css("height", "25px");
                     $("#shift").fadeIn(500);
                     $("#shiftDisplay").fadeIn(500);
                     setTimeout(function(){
@@ -379,6 +380,7 @@ function workShiftCalendar() {
                 complete: function() {
                     $("#shift").css("background-color", "yellow");
                     $("#shift").css("color", "black");
+                    $("#shift").css("height", "25px");
                     $("#shift").fadeIn(500);
                     $("#shiftDisplay").fadeIn(500);
                     $("#shiftAction").fadeIn(250);
@@ -396,28 +398,7 @@ function workShiftCalendar() {
             }
         ); 
         return false;
-    }
-    
-    
-    // $("#shiftDisplay").html("No shifts within 2 weeks");
-    
-    // $("#app").animate(
-    //     {marginTop:"25px"},
-    //     {
-    //         duration: 500,
-    //         complete: function() {
-    //             $("#shift").css("background-color", "yellow");
-    //             $("#shift").fadeIn(500);
-    //             $("#shiftDisplay").fadeIn(500);
-    //             setTimeout(function(){
-    //                 $("#app").animate({marginTop:"10px"}, 500);
-    //                 $("#shift").animate({height:"3px"}, 500);
-    //                 $("#shiftDisplay").fadeOut(500);
-    //                 },
-    //             4000);
-    //         }
-    //     }
-    // );    
+    }   
 }
 
 function shiftAction() {
@@ -467,13 +448,13 @@ function getShiftCalendar() {
                 .done(function(data) {
                     $("#shiftDisplay").html("Parsing Shifts...");
                     shiftCalendar = data.results;
+                    //lastShiftCheck = new Date();
                     workShiftCalendar();
                 })
                 .fail(function(data) {
                     $("#shiftDisplay").html("error");
                     log( "shift error: " + JSON.stringify(data) );
                 });  
-            lastShiftCheck = new Date();
         }else{
             log("Shift recently checked... Abort.");
             log("Half hour ago: " + hourAgo);
