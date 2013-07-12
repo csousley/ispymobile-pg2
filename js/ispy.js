@@ -75,8 +75,8 @@ function onInitGeoError(error) {
 
 function mapDirections() {
     //var url = 'http://maps.apple.com/?q=daddr='+destination+'&saddr='+source;
-    var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
-    var url = 'maps:daddr='+mapEndingLocation+'&saddr='+currentLoc;
+    //var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
+    var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current+Location';
     if (isAndroid())
         url = 'geo:'+mapEndingLocation;
     window.location = url;
@@ -448,7 +448,7 @@ function getShiftCalendar() {
                 .done(function(data) {
                     $("#shiftDisplay").html("Parsing Shifts...");
                     shiftCalendar = data.results;
-                    //lastShiftCheck = new Date();
+                    lastShiftCheck = new Date();
                     workShiftCalendar();
                 })
                 .fail(function(data) {
