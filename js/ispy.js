@@ -74,13 +74,13 @@ function onInitGeoError(error) {
 }
 
 function mapDirections() {
-    var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current Location';
+    var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=';
     //var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
     //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
     //if (isAndroid())
     //    url = 'geo:'+mapEndingLocation;
     //window.location = url;
-    window.location.open(url, "iSpy Directions", "target=_blank");
+    window.open(url, "iSpy Directions", "target=_blank");
 }
 
 
