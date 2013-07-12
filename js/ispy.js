@@ -37,6 +37,26 @@ function showIt(callID) {
     }
 }
 
+function mapItNew(callID) {
+    logStatus("Map It: " + callID);
+    if(uCheck(callID)) {
+        currentCall = null;
+        for (var i = 0; i<calls.length; i++) {
+            if (calls[i]._id == callID) {
+                currentCall = calls[i];
+                break;
+            }
+        }
+        if (uCheck(currentCall)) {
+            logStatus("Opening Map");
+            showLoader();
+            navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError);
+        }
+    }else{
+        alert("no call id");
+    }
+}
+
 function mapIt(callID) {
     logStatus("Map It: " + callID);
     if(uCheck(callID)) {
@@ -68,6 +88,15 @@ function onInitGeoSuccess(position) {
     initializeMap(position.coords.latitude, position.coords.longitude);
 }
 
+function onInitGeoSuccessNew(position) {
+    logStatus("Location obtained: " + JSON.stringify(position));
+    mapStartingLocation = position;
+    mapEndingLocation = getCallAddressForMapPassing(currentCall);
+    hideLoader();
+    var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
+    window.location = url;
+}
+
 function onInitGeoError(error) {
     logStatus("Error on location");
     log(error.message);
@@ -80,14 +109,14 @@ function mapDirections() {
     //if (isAndroid())
     //    url = 'geo:'+mapEndingLocation;
     //var wind = window.open(url, '_blank', 'location=yes');
-    //window.open(url, "iSpy Directions", "target=_blank");
-    browser = window.open(url, '_blank', 'location=yes');
-    if(isBrowserFirst) {
-        isBrowserFirst = false;
-        browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
-        browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
-        browser.addEventListener('exit', function() { log(event.type); });
-    }
+    window.location = url;
+    // browser = window.open(url, '_blank', 'location=yes');
+    // if(isBrowserFirst) {
+    //     isBrowserFirst = false;
+    //     browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
+    //     browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
+    //     browser.addEventListener('exit', function() { log(event.type); });
+    // }
 }
 
 
@@ -228,7 +257,7 @@ function parseCalls() {
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
-            mapIt(productId);
+            mapItNew(productId);
         });
     }else{
         logStatus("No Calls");
