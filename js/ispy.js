@@ -79,8 +79,15 @@ function mapDirections() {
     //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
     //if (isAndroid())
     //    url = 'geo:'+mapEndingLocation;
-    var wind = window.open(url);
+    //var wind = window.open(url, '_blank', 'location=yes');
     //window.open(url, "iSpy Directions", "target=_blank");
+    browser = window.open(url, '_blank', 'location=yes');
+    if(isBrowserFirst) {
+        isBrowserFirst = false;
+        browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
+        browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
+        browser.addEventListener('exit', function() { log(event.type); });
+    }
 }
 
 
