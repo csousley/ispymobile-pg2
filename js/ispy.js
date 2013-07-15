@@ -92,7 +92,7 @@ function onInitGeoSuccessNew(position) {
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
     if (isAndroid())
-        url = 'geo:'+mapEndingLocation;
+        url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr='+mapStartingLocation;
     window.location = url;
 }
 
