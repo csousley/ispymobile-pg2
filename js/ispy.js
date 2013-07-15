@@ -91,8 +91,9 @@ function onInitGeoSuccessNew(position) {
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
-    if (isAndroid())
-        url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr='+mapStartingLocation;
+    if (isAndroid()) {
+        url = 'http://maps.google.com/?daddr='+mapEndingLocation+'&saddr='+mapStartingLocation;
+    }
     window.location = url;
 }
 
