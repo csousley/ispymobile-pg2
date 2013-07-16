@@ -93,6 +93,7 @@ function onInitGeoSuccessNew(position) {
     if (isAndroid()) {
         url = 'geo:38.897096,-77.036545';
     }
+    log("GEO URL: " + url);
     window.location = url;
 }
 
