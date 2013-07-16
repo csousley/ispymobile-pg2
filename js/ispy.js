@@ -91,7 +91,8 @@ function onInitGeoSuccessNew(position) {
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
     if (isAndroid()) {
-        url = 'geo:38.897096,-77.036545';
+        //url = 'geo:38.897096,-77.036545';
+        url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
     }
     log("GEO URL: " + url);
     window.location = url;
