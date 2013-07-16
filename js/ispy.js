@@ -91,7 +91,7 @@ function onInitGeoSuccessNew(position) {
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
     if (isAndroid()) {
-        url = 'google.navigation:q='+mapEndingLocation;
+        url = 'geo:38.897096,-77.036545';
     }
     window.location = url;
 }
