@@ -22,7 +22,7 @@
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
     
-    <gap:plugin name="com.phonegap.plugins.GenericPush" />
+    <gap:plugin name="com.adobe.plugins.pushplugin" />
     
     <access origin="*" /> 
 
