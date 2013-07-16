@@ -50,7 +50,7 @@ function mapItNew(callID) {
         if (uCheck(currentCall)) {
             logStatus("Opening Map");
             showLoader();
-            navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError);
+            navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
         }
     }else{
         alert("no call id");
@@ -209,7 +209,7 @@ function pushInTest() {
 }
 
 function getCalls() {
-    navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
+    navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/?sort={\"iSpyTimestamp\":-1}';
     showLoader();
