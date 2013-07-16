@@ -347,7 +347,7 @@ function isAndroid() {
     log("device type check");
     if (!uCheck(deviceType)) {
         log("step");
-        if (!isChrome) {
+        //if (!isChrome) {
             if (uCheck(device) && uCheck(device.platform)) {
                 log("double step");
                 deviceType = device.platform;
@@ -356,7 +356,7 @@ function isAndroid() {
             }else{
                 logStatus("ERROR: Needs re-install");
             }
-        }
+        //}
     }else{
         if (deviceType == 'android' || deviceType == 'Android')
             return true;
