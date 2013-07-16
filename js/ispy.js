@@ -89,13 +89,16 @@ function onInitGeoSuccessNew(position) {
     log("lat.lng: " + mapStartingLocation);
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
-    var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
+    
+    //var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
+    //url = 'geo:38.897096,-77.036545';
+    //url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation
+    
+    var url = 'maps:daddr='+mapEndingLocation;
     if (isAndroid()) {
-        //url = 'geo:38.897096,-77.036545';
-        //url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
         url = 'geo:0,0?q=' + mapEndingLocation;
     }
-    log("GEO URL: " + url);
+    log("GEO: " + mapEndingLocation);
     window.location = url;
 }
 
