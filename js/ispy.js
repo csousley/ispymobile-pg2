@@ -79,15 +79,14 @@ function mapItNew(callID) {
 
 function onInitPreGeoSuccess(position) {
     logStatus("Pre Location obtained");
-    var curLoc = position.coords.latitude + "," + position.coords.longitude;
-    log("pre.lat.lng: " + curLoc);
+    mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
+    log("pre.lat.lng: " + mapStartingLocation);
 }
 
 function onInitGeoSuccessNew(position) {
     logStatus("Location obtained");
-    var curLoc = position.coords.latitude + "," + position.coords.longitude;
-    log("lat.lng: " + curLoc);
-    mapStartingLocation = curLoc;
+    mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
+    log("lat.lng: " + mapStartingLocation);
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
@@ -209,6 +208,7 @@ function pushInTest() {
 }
 
 function getCalls() {
+    navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/';
     showLoader();
@@ -257,7 +257,6 @@ function parseCalls() {
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
-            //navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
             mapItNew(productId);
         });
     }else{
