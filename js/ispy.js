@@ -91,7 +91,7 @@ function onInitGeoSuccessNew(position) {
     hideLoader();
     var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
     if (isAndroid()) {
-        url = 'http://maps.google.com/?daddr='+mapEndingLocation+'&saddr='+mapStartingLocation;
+        url = 'google.navigation:q='+mapEndingLocation;
     }
     window.location = url;
 }
@@ -210,7 +210,7 @@ function pushInTest() {
 function getCalls() {
     navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError);
     var jsonURL = "https://" + agency + ".ispyfire.com";
-    jsonURL += '/firecad/@@DB@@/cadcalls/';
+    jsonURL += '/firecad/@@DB@@/cadcalls/?sort={\"iSpyTimestamp\":-1}';
     showLoader();
     $("#actionRefresh").hide();
     logStatus("Getting Calls");
