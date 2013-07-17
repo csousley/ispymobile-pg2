@@ -94,7 +94,7 @@ function onInitGeoSuccessNew(position) {
     //url = 'geo:38.897096,-77.036545';
     //url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation
     
-    var url = 'maps:q='+mapEndingLocation;
+    var url = 'maps:?q='+mapEndingLocation;
     if (isAndroid()) {
         url = 'geo:0,0?q=' + mapEndingLocation;
     }
@@ -193,7 +193,7 @@ function getCallAddressForMap(call) {
 function getCallAddressForMapPassing(call) {
     var address = "";
     if (uCheck(call.RespondToAddress))
-        address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + ",";
+        address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + "+";
     if (uCheck(call.CityInfo) && uCheck(call.CityInfo.ZIPCode)) {
         address += call.CityInfo.City + "+";
         address += call.CityInfo.StateAbbreviation + "+";
