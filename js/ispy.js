@@ -195,15 +195,15 @@ function getCallAddressForMapPassing(call) {
     if (uCheck(call.RespondToAddress))
         address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + ",";
     if (uCheck(call.CityInfo) && uCheck(call.CityInfo.ZIPCode)) {
-        address += call.CityInfo.City + ",";
-        address += call.CityInfo.StateAbbreviation + " ";
+        address += call.CityInfo.City + "+";
+        address += call.CityInfo.StateAbbreviation + "+";
         address += call.CityInfo.ZIPCode;
     }
     if (address.length === 0)
         return null;
     
     address = address.replace("&", "AT");
-    address = address.replace(" ", "+");
+    address = address.split(' ').join('+');
     return address.trim();
 }
 
