@@ -94,7 +94,8 @@ function onInitGeoSuccessNew(position) {
     //url = 'geo:38.897096,-77.036545';
     //url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation
     
-    var url = 'maps:?q='+mapEndingLocation;
+    var url = 'maps://?q='+mapEndingLocation;
+    //var url = "http://maps.apple.com/?q=" + mapEndingLocation;
     if (isAndroid()) {
         url = 'geo:0,0?q=' + mapEndingLocation;
     }
