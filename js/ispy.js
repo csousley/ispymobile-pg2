@@ -30,7 +30,7 @@ function showIt(callID) {
             $("#show").height(w);
             $("#show-canvas").height(w);
             $("#show-canvas").html(getShowDetailsHTML(currentCall, wComments));
-            initializeMap(position.coords.latitude, position.coords.longitude);
+            //initializeMap(position.coords.latitude, position.coords.longitude);
         }
     }else{
         alert("no call id");
@@ -39,43 +39,27 @@ function showIt(callID) {
 
 function mapItNew(callID) {
     logStatus("Map It: " + callID);
-    if(uCheck(callID)) {
-        currentCall = null;
-        for (var i = 0; i<calls.length; i++) {
-            if (calls[i]._id == callID) {
-                currentCall = calls[i];
-                break;
+    if (!debug) {
+        if (uCheck(callID)) {
+            currentCall = null;
+            for (var i = 0; i<calls.length; i++) {
+                if (calls[i]._id == callID) {
+                    currentCall = calls[i];
+                    break;
+                }
             }
-        }
-        if (uCheck(currentCall)) {
-            logStatus("Opening Map");
-            showLoader();
-            navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
+            if (uCheck(currentCall)) {
+                logStatus("Opening Map");
+                showLoader();
+                navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
+            }
+        }else{
+            alert("no call id");
         }
     }else{
-        alert("no call id");
+        console.log("Can not map in debug mode!")
     }
 }
-
-// function mapIt(callID) {
-//     logStatus("Map It: " + callID);
-//     if(uCheck(callID)) {
-//         currentCall = null;
-//         for (var i = 0; i<calls.length; i++) {
-//             if (calls[i]._id == callID) {
-//                 currentCall = calls[i];
-//                 break;
-//             }
-//         }
-//         if (uCheck(currentCall)) {
-//             logStatus("Geolocating");
-//             showLoader();
-//             navigator.geolocation.getCurrentPosition(onInitGeoSuccess, onInitGeoError);
-//         }
-//     }else{
-//         alert("no call id");
-//     }
-// }
 
 function onInitPreGeoSuccess(position) {
     logStatus("Pre Location obtained");
@@ -110,19 +94,7 @@ function onInitGeoError(error) {
 
 function mapDirections() {
     var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current+Location';
-    //var currentLoc = mapStartingLocation.coords.latitude+","+mapStartingLocation.coords.longitude;
-    //var url = 'maps:daddr='+mapEndingLocation+'&saddr=Current Location';
-    //if (isAndroid())
-    //    url = 'geo:'+mapEndingLocation;
-    //var wind = window.open(url, '_blank', 'location=yes'); // try target _system with this...?
     window.location = url;
-    // browser = window.open(url, '_blank', 'location=yes');
-    // if(isBrowserFirst) {
-    //     isBrowserFirst = false;
-    //     browser.addEventListener('loadstart', function() { log('start: ' + event.url); });
-    //     browser.addEventListener('loadstop', function() { log('stop: ' + event.url); });
-    //     browser.addEventListener('exit', function() { log(event.type); });
-    // }
 }
 
 
@@ -155,8 +127,6 @@ function initializeMap(lat, lng) {
 }
 
 function calcRoute(start) {
-    // var start = document.getElementById('start').value;
-    // var end = document.getElementById('end').value;
     var end = getCallAddressForMap(currentCall);
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     log("Map directions");
@@ -215,7 +185,7 @@ function pushInTest() {
 }
 
 function getCalls() {
-    navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
+    //navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/?sort={\"iSpyTimestamp\":-1}';
     showLoader();

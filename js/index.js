@@ -10,7 +10,8 @@ var cadsettings = null;
 var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
-var isChrome = false; // aka is testing
+
+var debug = false;
 
 
 $(document).ready(function() {
@@ -18,30 +19,49 @@ $(document).ready(function() {
 });
 
 function documentReady() {
+    if (debug) {
+        alert("DEBUG ENABLED");
+        window.localStorage.setItem("agency", "CFD");
+        window.localStorage.setItem("devicetype", "IOS");
+        window.localStorage.setItem("user", "cy@cyzer.com");
+        window.localStorage.setItem("userID", "null");
+        window.localStorage.setItem("cadsettings", "{\"matchingUnits\": [\"CFD\", \"A21\"]}");
+    }
+    
     agency = window.localStorage.getItem("agency");
     deviceType = window.localStorage.getItem("devicetype");
     cadsettings = window.localStorage.getItem("cadsettings");
     
-    if (uCheck(window.chrome))
-        isChrome = true;
+    if (uCheck(cadsettings))
+        cadsettings = $.parseJSON(cadsettings);
     
     moveShiftDiv();
     
     log("AGENCY: " + agency);
     log("DEVICETYPE: " + deviceType);
     
-    if (!uCheck(agency)) {
-        log("No agency get customers");
-        getCustomers();
-    } else {
-        log("Reg and Cad Settings");
-        iSpyReg();
-        getCadSettings();
-        if (uCheck(window.localStorage.getItem("userID"))) {
-            getShiftCalendar();
-        }else{
-            getPersonIDForUser(window.localStorage.getItem("user"));
+    if (!debug) {
+        if (!uCheck(agency)) {
+            log("No agency get customers");
+            getCustomers();
+        } else {
+            log("Reg and Cad Settings");
+            iSpyReg();
+            getCadSettings();
+            if (uCheck(window.localStorage.getItem("userID"))) {
+                getShiftCalendar();
+            }else{
+                getPersonIDForUser(window.localStorage.getItem("user"));
+            }
         }
+    }else{
+        // from ispy.js getCalls()
+        var debugCalls = "{\"results\": [{\"AgencyCode\": \"CFD\",\"CallNumber\": \"31\",\"CallPriority\": \"1\",\"CallTypeLawFireEMS\": \"f\",\"CallZoneCode\": \"CFD1\",\"CityCode\": \"CAS\",\"CityInfo\": {\"City\": \"CASHMERE\",\"CityCode\": \"CAS\",\"StateAbbreviation\": \"WA\",\"ZIPCode\": \"98815\",\"MileageToCity\": \"0\"},\"ClearanceCodeLawOnly\": \"NA\",\"DispatchLevelStatus\": \"0\",\"Disposition\": \"ACT\",\"GeobaseAddressID\": \"534\",\"HighBitsOfXCoordinate\": \"-240\",\"HowManyTimesTextChanged\": \"4\",\"IncidentNature\": \"BREATHING PROB\",\"JoinedComments\": \"ELDERLY FEMALE CANT BREATHE\",\"JoinedResponders\": \"BALL CFD A21\",\"JoinedRespondersDetail\": [{\"UnitNumber\": \"BALL\",\"UnitTypeLawFireEMS\": \"e\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"e\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"BALL\",\"AgencyCode\": \"BALL\",\"LastRadioLogComments\": \"incid#=13BAL2020Pagedcall=31e\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"MutualAidCall\": \"Y\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:06 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"AMB\",\"iSpyIsNew\": false},{\"UnitNumber\": \"CFD\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Pagedcall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false},{\"UnitNumber\": \"A21\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"ARRVD\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"1\",\"CurrentUnitStatus\": \"9\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:07:1408/13/2013\",\"WhenTimeoutWillExpire\": \"09:37:1408/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"Station\": \"CFD1\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false}],\"JoinedRespondersHistory\": [{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:32 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13BAL2020Completedcallcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:07:14 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ARRVD\",\"Description\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:55 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ENRT\",\"Description\": \"incid#=13CAS1647Enroutetoacallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13CAS1647Pagedcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13BAL2020Pagedcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"}],\"LongTermCallID\": \"1308-3707\",\"RelatedRecordNumber\": \"13CAS1647\",\"RespondToAddress\": \"115 EAST PLEASANT ST;#110\",\"ResponsibleUnitNumber\": \"CFD\",\"StatusCodeOfCall\": \"PAGED\",\"TimeDateReported\": \"09:01:58 08/13/2013\",\"TimeoutHasExpired\": \"1\",\"WhenCallWasOpened\": \"09:02:34 08/13/2013\",\"WhenStatusDeclared\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:04:34 08/13/2013\",\"XCoordinateGeobase\": \"-30694\",\"YCoordinateGeobase\": \"-37987\",\"_id\": \"520a58a047a018020000004c\",\"iSpyStatus\": \"Completed\",\"iSpyTimestamp\": 1376410658}]}";
+        debugCalls = $.parseJSON(debugCalls);
+        calls = debugCalls.results;
+        parseCalls();
+        hideLoader();
+        refreshTimer();
     }
 }
 
@@ -80,8 +100,7 @@ function setClicks() {
 
 function initialize() {
     documentReady();
-    logStatus("Initialize"); 
-    if (!isChrome) {
+    if (!debug) {
         document.addEventListener('deviceready', onDeviceReady, false);
         document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
         document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
@@ -125,7 +144,6 @@ function successHandler(result) {
 
 function errorHandler(error) {
     log("Error Handle: " + error);
-    //alert(error);
 }
 
 function openBrowser() {
@@ -198,12 +216,10 @@ function onNotificationGCM(e) {
 
         case 'error':
           $("#ol").append("<li>Android GCM Error: "+e.msg+"</li>");
-          //alert('GCM error = '+e.msg);
         break;
 
         default:
           $("#ol").append("<li>Android Unknown GCM Event</li>");
-          //alert('An unknown GCM event has occurred');
           break;
     }
 }
@@ -299,18 +315,15 @@ function setRegID(id) {
 }
 
 function setDeviceID() {
-    //log("storing device id");
     window.localStorage.setItem("deviceid", device.uuid);
 }
 
 function setUser(user) {
-    //log("storing user id");
     window.localStorage.setItem("user", user);
     getPersonIDForUser(user);
 }
 
 function setDBID(id) {
-    //log("dbid: "+ id);
     window.localStorage.setItem("dbid", id);
 }
 
@@ -347,16 +360,21 @@ function isAndroid() {
     log("device type check");
     if (!uCheck(deviceType)) {
         log("step");
-        //if (!isChrome) {
+        if (!debug) {
             if (uCheck(device) && uCheck(device.platform)) {
                 log("double step");
                 deviceType = device.platform;
                 window.localStorage.setItem("devicetype", deviceType);
                 log("device platform saved: " + deviceType);
+                if (deviceType == 'android' || deviceType == 'Android')
+                    return true;
+                return false;
             }else{
                 logStatus("ERROR: Needs re-install");
             }
-        //}
+        }else{
+            return false;
+        }
     }else{
         if (deviceType == 'android' || deviceType == 'Android')
             return true;
