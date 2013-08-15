@@ -101,6 +101,7 @@ function setClicks() {
 
 function initialize() {
     log("init start");
+    log("debug status: " + debug);
     documentReady();
     if (!debug) {
         log("not debug, lets do this");
