@@ -19,6 +19,7 @@ $(document).ready(function() {
 });
 
 function documentReady() {
+    log("doc ready function");
     if (debug) {
         alert("DEBUG ENABLED");
         window.localStorage.setItem("agency", "CFD");
@@ -99,6 +100,7 @@ function setClicks() {
 }
 
 function initialize() {
+    log("init start");
     documentReady();
     if (!debug) {
         document.addEventListener('deviceready', onDeviceReady, false);
@@ -489,6 +491,7 @@ function hideRegButtons() {
 }
 
 function switchLongLog() {
+    log("long log switch");
     if ($('#longLogWrapper').is(":visible")) {
         $("#switchLongLog").val("View long log");
         $("#longLogWrapper").hide();
