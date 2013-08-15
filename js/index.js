@@ -108,6 +108,8 @@ function initialize() {
         document.addEventListener('deviceready', onDeviceReady, false);
         document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
         document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
+    }else{
+        log("yes debug");
     }
 }
 
