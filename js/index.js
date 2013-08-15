@@ -103,6 +103,7 @@ function initialize() {
     log("init start");
     documentReady();
     if (!debug) {
+        log("not debug, lets do this");
         document.addEventListener('deviceready', onDeviceReady, false);
         document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
         document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
