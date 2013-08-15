@@ -27,14 +27,18 @@ function documentReady() {
         window.localStorage.setItem("user", "cy@cyzer.com");
         window.localStorage.setItem("userID", "null");
         window.localStorage.setItem("cadsettings", "{\"matchingUnits\": [\"CFD\", \"A21\"]}");
+        
+        agency = window.localStorage.getItem("agency");
+        deviceType = window.localStorage.getItem("devicetype");
+        cadsettings = window.localStorage.getItem("cadsettings");
+        
+        if (uCheck(cadsettings))
+            cadsettings = $.parseJSON(cadsettings);
+    }else{
+        agency = window.localStorage.getItem("agency");
+        deviceType = window.localStorage.getItem("devicetype");
+        cadsettings = window.localStorage.getItem("cadsettings");
     }
-    
-    agency = window.localStorage.getItem("agency");
-    deviceType = window.localStorage.getItem("devicetype");
-    cadsettings = window.localStorage.getItem("cadsettings");
-    
-    if (uCheck(cadsettings))
-        cadsettings = $.parseJSON(cadsettings);
     
     moveShiftDiv();
     
