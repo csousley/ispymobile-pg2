@@ -1,7 +1,7 @@
 var calls = null;
 var refreshWait = 15000; // 15 seconds
 var directionsDisplay = null;
-var directionsService = new google.maps.DirectionsService();
+//var directionsService = new google.maps.DirectionsService();
 var mapStartingLocation = null;
 var mapEndingLocation = null;
 var map = null;
@@ -24,12 +24,7 @@ function showIt(callID) {
         if (uCheck(currentCall)) {
             logStatus("Show Call Details");
             $("#show").show();
-            var w = ($(window).height() - 30);
-            var wComments = (w - 150) + "px";
-            w += "px";
-            $("#show").height(w);
-            $("#show-canvas").height(w);
-            $("#show-canvas").html(getShowDetailsHTML(currentCall, wComments));
+            $("#show-canvas").html(getShowDetailsHTML(currentCall));
             //initializeMap(position.coords.latitude, position.coords.longitude);
         }
     }else{
@@ -61,11 +56,11 @@ function mapItNew(callID) {
     }
 }
 
-function onInitPreGeoSuccess(position) {
-    logStatus("Pre Location obtained");
-    mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
-    log("pre.lat.lng: " + mapStartingLocation);
-}
+// function onInitPreGeoSuccess(position) {
+//     logStatus("Pre Location obtained");
+//     mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
+//     log("pre.lat.lng: " + mapStartingLocation);
+// }
 
 function onInitGeoSuccessNew(position) {
     logStatus("Location obtained");
@@ -92,59 +87,59 @@ function onInitGeoError(error) {
     log(error.message);
 }
 
-function mapDirections() {
-    var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current+Location';
-    window.location = url;
-}
+// function mapDirections() {
+//     var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current+Location';
+//     window.location = url;
+// }
 
 
-function mapHide() {
-    $("#map").hide();
-}
+// function mapHide() {
+//     $("#map").hide();
+// }
 
 function showHide() {
     $("#show").hide();
 }
 
-function initializeMap(lat, lng) {
-    logStatus("Init Map");
+// function initializeMap(lat, lng) {
+//     logStatus("Init Map");
     
-    var currentLocation = new google.maps.LatLng(lat, lng);
+//     var currentLocation = new google.maps.LatLng(lat, lng);
     
-    directionsDisplay = new google.maps.DirectionsRenderer();
+//     directionsDisplay = new google.maps.DirectionsRenderer();
     
-    var mapOptions = {
-        zoom: 12,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: currentLocation
-    };
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-    directionsDisplay.setMap(map);
+//     var mapOptions = {
+//         zoom: 12,
+//         mapTypeId: google.maps.MapTypeId.ROADMAP,
+//         center: currentLocation
+//     };
+//     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+//     directionsDisplay.setMap(map);
     
-    calcRoute(currentLocation);
+//     calcRoute(currentLocation);
     
-    logStatus("Map Complete");
-}
+//     logStatus("Map Complete");
+// }
 
-function calcRoute(start) {
-    var end = getCallAddressForMap(currentCall);
-    mapEndingLocation = getCallAddressForMapPassing(currentCall);
-    log("Map directions");
-    log("To: " + end);
-    if (uCheck(end)) {
-        var request = {
-            origin:start,
-            destination:end,
-            travelMode: google.maps.DirectionsTravelMode.DRIVING
-        };
-        directionsService.route(request, function(response, status) {
-            if (status == google.maps.DirectionsStatus.OK) {
-                directionsDisplay.setDirections(response);
-                log("Map directions ok");
-            }
-        });
-    }
-}
+// function calcRoute(start) {
+//     var end = getCallAddressForMap(currentCall);
+//     mapEndingLocation = getCallAddressForMapPassing(currentCall);
+//     log("Map directions");
+//     log("To: " + end);
+//     if (uCheck(end)) {
+//         var request = {
+//             origin:start,
+//             destination:end,
+//             travelMode: google.maps.DirectionsTravelMode.DRIVING
+//         };
+//         directionsService.route(request, function(response, status) {
+//             if (status == google.maps.DirectionsStatus.OK) {
+//                 directionsDisplay.setDirections(response);
+//                 log("Map directions ok");
+//             }
+//         });
+//     }
+// }
 
 function getCallAddressForMap(call) {
     var address = "";
@@ -178,14 +173,13 @@ function getCallAddressForMapPassing(call) {
     return address.trim();
 }
 
-function pushInTest() {
-    var call = {_id: 12341234, IncidentNature: "FALL", RespondToAddress: "209 PATON STREET: EXTRA LONG INFO FOR CHECK", CityInfo: {City: "Cashmere"}, WhenCallWasOpened: "testing"};
-    var activeHTML = parseCall(call, true);
-    $("#activeCalls").html(activeHTML);
-}
+// function pushInTest() {
+//     var call = {_id: 12341234, IncidentNature: "FALL", RespondToAddress: "209 PATON STREET: EXTRA LONG INFO FOR CHECK", CityInfo: {City: "Cashmere"}, WhenCallWasOpened: "testing"};
+//     var activeHTML = parseCall(call, true);
+//     $("#activeCalls").html(activeHTML);
+// }
 
 function getCalls() {
-    //navigator.geolocation.getCurrentPosition(onInitPreGeoSuccess, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
     var jsonURL = "https://" + agency + ".ispyfire.com";
     jsonURL += '/firecad/@@DB@@/cadcalls/?sort={\"iSpyTimestamp\":-1}';
     showLoader();
@@ -260,7 +254,7 @@ function parseCall(call, isAcive) {
     return htmlString;
 }
 
-function getShowDetailsHTML(call, w) {
+function getShowDetailsHTML(call) {
     var htmlString = "<div class='showWrapper'><h2>"+call.IncidentNature+"</h2>";
     htmlString += call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
@@ -268,7 +262,7 @@ function getShowDetailsHTML(call, w) {
     if (uCheck(call.JoinedResponders))
         htmlString += "<br>" + call.JoinedResponders;
     if (uCheck(call.JoinedComments))
-        htmlString += "<div id='callComments' style='height: "+w+";'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
+        htmlString += "<div id='callComments'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
     htmlString += "</div>"
     return htmlString;
 }

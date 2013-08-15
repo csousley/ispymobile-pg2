@@ -147,8 +147,8 @@ a {
 
 #map, #show {
     position: absolute;
-    top: 30px;
-    height: 200px;
+    top: 0;
+    height: 100%;
     width: 100%;
     background-color: #222;
     display: none;
@@ -165,8 +165,8 @@ a {
     padding: 5px;
 }
 
-.showWraper {
-
+.showWrapper {
+    padding: 5px;
 }
 
 .callWrapper {
