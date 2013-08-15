@@ -11,7 +11,7 @@ var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
 
-var debug = true;
+var debug = false;
 
 
 $(document).ready(function() {
