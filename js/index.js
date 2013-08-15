@@ -11,7 +11,7 @@ var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
 
-var debug = false;
+var debug = true;
 
 
 $(document).ready(function() {
@@ -19,7 +19,7 @@ $(document).ready(function() {
 });
 
 function documentReady() {
-    log("doc ready function");
+    log("debug status: " + debug);
     if (debug) {
         alert("DEBUG ENABLED");
         window.localStorage.setItem("agency", "CFD");
@@ -104,16 +104,11 @@ function setClicks() {
 }
 
 function initialize() {
-    log("init start");
-    log("debug status: " + debug);
     documentReady();
     if (!debug) {
-        log("not debug, lets do this");
         document.addEventListener('deviceready', onDeviceReady, false);
         document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
         document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
-    }else{
-        log("yes debug");
     }
 }
 

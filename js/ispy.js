@@ -25,7 +25,7 @@ function showIt(callID) {
             logStatus("Show Call Details");
             $("#show").show();
             $("#show-canvas").html(getShowDetailsHTML(currentCall));
-            //initializeMap(position.coords.latitude, position.coords.longitude);
+            $("#callTabs").tabs();
         }
     }else{
         alert("no call id");
@@ -259,11 +259,34 @@ function getShowDetailsHTML(call) {
     htmlString += call.RespondToAddress;
     htmlString += "<br>" + call.CityInfo.City;
     htmlString += "<br>" + call.WhenCallWasOpened;
-    if (uCheck(call.JoinedResponders))
-        htmlString += "<br>" + call.JoinedResponders;
-    if (uCheck(call.JoinedComments))
-        htmlString += "<div id='callComments'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
-    htmlString += "</div>"
+    if (uCheck(call.JoinedResponders)) {
+        htmlString += "<br>" + call.JoinedResponders + "<p></p>";
+    }
+    if (uCheck(call.JoinedComments)) {
+        htmlString += "<div id='callTabs'>";
+        htmlString += "<ul>";
+        htmlString += "<li><a href='#tab-callComments'>Comments</a></li>";
+        htmlString += "<li><a href='#tab-apparatus'>Apparatus</a></li>";
+        htmlString += "</ul>";
+        htmlString += "<div id='tab-callComments' >" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
+        htmlString += "<div id='tab-apparatus' >";
+        if (uCheck(call.JoinedRespondersHistory)) {
+            htmlString += "<table border=0 cellpadding=5>";
+            // work backwards through the list
+            for(var i = call.JoinedRespondersHistory.length - 1; i>0; i--) {
+                htmlString += "<tr><td>" + call.JoinedRespondersHistory[i].TimeDateOfEntry + "</td>";
+                htmlString += "<td>" + call.JoinedRespondersHistory[i].AgencyCode + "</td>";
+                htmlString += "<td>" + call.JoinedRespondersHistory[i].UnitNumber + "</td>";
+                htmlString += "<td>" + call.JoinedRespondersHistory[i].TenCode + "</td></tr>";
+            }
+            htmlString += "</table>";
+        }else{
+            htmlString = "No history available at this time";
+        }
+        htmlString += "</div>";
+        htmlString += "</div>";
+    }
+    htmlString += "</div>";
     return htmlString;
 }
 
