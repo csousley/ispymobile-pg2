@@ -268,20 +268,22 @@ function getShowDetailsHTML(call) {
         htmlString += "<li><a href='#tab-callComments'>Comments</a></li>";
         htmlString += "<li><a href='#tab-apparatus'>Apparatus</a></li>";
         htmlString += "</ul>";
-        htmlString += "<div id='tab-callComments' >" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
-        htmlString += "<div id='tab-apparatus' >";
+        htmlString += "<div id='tab-callComments'>" + call.JoinedComments.replace(/\n/g, '<p>') + "</div>";
+        htmlString += "<div id='tab-apparatus'>";
         if (uCheck(call.JoinedRespondersHistory)) {
             htmlString += "<table border=0 cellpadding=5>";
             // work backwards through the list
-            for(var i = call.JoinedRespondersHistory.length - 1; i>0; i--) {
-                htmlString += "<tr><td>" + call.JoinedRespondersHistory[i].TimeDateOfEntry + "</td>";
-                htmlString += "<td>" + call.JoinedRespondersHistory[i].AgencyCode + "</td>";
-                htmlString += "<td>" + call.JoinedRespondersHistory[i].UnitNumber + "</td>";
-                htmlString += "<td>" + call.JoinedRespondersHistory[i].TenCode + "</td></tr>";
+            for(var i = call.JoinedRespondersHistory.length - 1; i>-1; i--) {
+                if(uCheck(call.JoinedRespondersHistory[i])) {
+                    htmlString += "<tr><td>" + call.JoinedRespondersHistory[i].TimeDateOfEntry + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersHistory[i].AgencyCode + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersHistory[i].UnitNumber + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersHistory[i].TenCode + "</td></tr>";
+                }
             }
             htmlString += "</table>";
         }else{
-            htmlString = "No history available at this time";
+            htmlString += "<table><tr><td>Apparatus history not available untill call is complete.</td></tr></table>";
         }
         htmlString += "</div>";
         htmlString += "</div>";
