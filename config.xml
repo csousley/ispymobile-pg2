@@ -24,7 +24,7 @@
     <gap:plugin name="com.adobe.plugins.pushplugin" />
     
     <access origin="*" /> 
-
+    
     <icon src="res/icon/android/iSpyLogo_android36.png" gap:platform="android" gap:density="ldpi"  />
     <icon src="res/icon/android/iSpyLogo_android48.png" gap:platform="android" gap:density="mdpi"  />
     <icon src="res/icon/android/iSpyLogo_android72.png" gap:platform="android" gap:density="hdpi"  />
@@ -45,5 +45,10 @@
     <gap:splash src="res/screen/ios/splash_320x480.png"    gap:platform="ios" width="320" height="480"  />
     <gap:splash src="res/screen/ios/splash_640x960.png"    gap:platform="ios" width="640" height="960"  />
     <gap:splash src="res/screen/ios/splash_640x1136.png"   gap:platform="ios" width="640" height="1136" />
+    
+    <gap:splash src="res/screen/ios/splash_1024x768.png"   gap:platform="ios" width="1024" height="768" />
+    <gap:splash src="res/screen/ios/splash_768x1024.png"   gap:platform="ios" width="768"  height="1024" />
+    <gap:splash src="res/screen/ios/splash_2048x1496.png"  gap:platform="ios" width="2048" height="1496" />
+    <gap:splash src="res/screen/ios/splash_1536x2008.png"  gap:platform="ios" width="1536" height="2008" />
     
 </widget>
