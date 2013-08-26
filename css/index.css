@@ -1,12 +1,12 @@
 * {
-    -webkit-tap-highlight-color: rgba(0,0,0,.7); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+    -webkit-tap-highlight-color: rgba(0,0,0,.7);
 }
 
 html, body {
     -x-apple-data-detectors: false;
-    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
-    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
-    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
     background-color: #222;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
     font-size:12px;
@@ -32,7 +32,6 @@ a {
     
 }
 
-/* Portrait layout (default) */
 #app {
     min-width: 225px;
     max-width: 98%;

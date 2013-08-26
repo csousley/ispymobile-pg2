@@ -60,7 +60,6 @@ function documentReady() {
             }
         }
     }else{
-        // from ispy.js getCalls()
         var debugCalls = "{\"results\": [{\"AgencyCode\": \"CFD\",\"CallNumber\": \"31\",\"CallPriority\": \"1\",\"CallTypeLawFireEMS\": \"f\",\"CallZoneCode\": \"CFD1\",\"CityCode\": \"CAS\",\"CityInfo\": {\"City\": \"CASHMERE\",\"CityCode\": \"CAS\",\"StateAbbreviation\": \"WA\",\"ZIPCode\": \"98815\",\"MileageToCity\": \"0\"},\"ClearanceCodeLawOnly\": \"NA\",\"DispatchLevelStatus\": \"0\",\"Disposition\": \"ACT\",\"GeobaseAddressID\": \"534\",\"HighBitsOfXCoordinate\": \"-240\",\"HowManyTimesTextChanged\": \"4\",\"IncidentNature\": \"BREATHING PROB\",\"JoinedComments\": \"ELDERLY FEMALE CANT BREATH\",\"JoinedResponders\": \"BALL CFD A21\",\"JoinedRespondersDetail\": [{\"UnitNumber\": \"BALL\",\"UnitTypeLawFireEMS\": \"e\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"e\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"BALL\",\"AgencyCode\": \"BALL\",\"LastRadioLogComments\": \"incid#=13BAL2020Pagedcall=31e\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"MutualAidCall\": \"Y\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:06 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"AMB\",\"iSpyIsNew\": false},{\"UnitNumber\": \"CFD\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Pagedcall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false},{\"UnitNumber\": \"A21\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"ARRVD\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"1\",\"CurrentUnitStatus\": \"9\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:07:1408/13/2013\",\"WhenTimeoutWillExpire\": \"09:37:1408/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"Station\": \"CFD1\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false}],\"JoinedRespondersHistory\": [{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:32 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13BAL2020Completedcallcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:07:14 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ARRVD\",\"Description\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:55 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ENRT\",\"Description\": \"incid#=13CAS1647Enroutetoacallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13CAS1647Pagedcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13BAL2020Pagedcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"}],\"LongTermCallID\": \"1308-3707\",\"RelatedRecordNumber\": \"13CAS1647\",\"RespondToAddress\": \"115 EAST PLEASANT ST;#110\",\"ResponsibleUnitNumber\": \"CFD\",\"StatusCodeOfCall\": \"PAGED\",\"TimeDateReported\": \"09:01:58 08/13/2013\",\"TimeoutHasExpired\": \"1\",\"WhenCallWasOpened\": \"09:02:34 08/13/2013\",\"WhenStatusDeclared\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:04:34 08/13/2013\",\"XCoordinateGeobase\": \"-30694\",\"YCoordinateGeobase\": \"-37987\",\"_id\": \"520a58a047a018020000004c\",\"iSpyStatus\": \"Completed\",\"iSpyTimestamp\": 1376410658}]}";
         debugCalls = $.parseJSON(debugCalls);
         calls = debugCalls.results;
@@ -190,7 +189,6 @@ function register() {
     log("Reg Complete");
 }
 
-// iOS
 function onNotificationAPN(event) {
     logStatus("Notification Received");
     log(event.alert);
@@ -201,13 +199,11 @@ function onNotificationAPN(event) {
     }
 }
 
-// Android
 function onNotificationGCM(e) {
-    switch( e.event )
+    switch(e.event)
     {
         case 'registered':
-            if ( e.regid.length > 0 )
-            {
+            if (e.regid.length > 0) {
                 setRegID(e.regid);
                 $("#ol").append("<li>Android regID: "+e.regid+"</li>");
             }
@@ -288,7 +284,7 @@ function setMenuAppRegStatus(color){
 }
 
 function setRegID(id) {
-    logStatus("Storing IDs");
+    logStatus("Checking IDs");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
@@ -300,14 +296,11 @@ function setRegID(id) {
     if (uCheck(window.localStorage.getItem(keyname))) {
         var key = window.localStorage.getItem(keyname);
         if (key != id) {
-            // regid or token don't match, reg with new one now
             needSet = true;
         }else{
             log("matching new id and old");
         }
-        // we're already registered with ispy using this regid or token, no need to do it again
     }else{
-        // never set, any reg attempt prior would have aborted, reg now
         needSet = true;
     }
     if (needSet) {
@@ -331,7 +324,6 @@ function setUser(user) {
 function setDBID(id) {
     window.localStorage.setItem("dbid", id);
 }
-
 
 function logIntTimer() {
     logCount++;
@@ -495,13 +487,17 @@ function hideRegButtons() {
 
 function switchLongLog() {
     log("long log switch");
-    if ($('#longLogWrapper').is(":visible")) {
-        $("#switchLongLog").val("View long log");
-        $("#longLogWrapper").hide();
-    }else{
-        $("#switchLongLog").val("Hide long log");
-        $("#longLogWrapper").show();
-    }
+    
+    $("#longLogWrapper").hide();
+    $("#switchLongLog").hide();
+    
+    // if ($('#longLogWrapper').is(":visible")) {
+    //     $("#switchLongLog").val("View long log");
+    //     $("#longLogWrapper").hide();
+    // }else{
+    //     $("#switchLongLog").val("Hide long log");
+    //     $("#longLogWrapper").show();
+    // }
 }
 
 function submitLogin() {

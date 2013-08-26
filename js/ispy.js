@@ -1,7 +1,6 @@
 var calls = null;
-var refreshWait = 15000; // 15 seconds
+var refreshWait = 15000;
 var directionsDisplay = null;
-//var directionsService = new google.maps.DirectionsService();
 var mapStartingLocation = null;
 var mapEndingLocation = null;
 var map = null;
@@ -56,12 +55,6 @@ function mapItNew(callID) {
     }
 }
 
-// function onInitPreGeoSuccess(position) {
-//     logStatus("Pre Location obtained");
-//     mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
-//     log("pre.lat.lng: " + mapStartingLocation);
-// }
-
 function onInitGeoSuccessNew(position) {
     logStatus("Location obtained");
     mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
@@ -69,12 +62,7 @@ function onInitGeoSuccessNew(position) {
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     
-    //var url = 'maps:saddr='+mapStartingLocation+'&daddr='+mapEndingLocation;
-    //url = 'geo:38.897096,-77.036545';
-    //url = 'http://maps.google.com/?saddr='+mapStartingLocation+'&daddr='+mapEndingLocation
-    
     var url = 'maps://?q='+mapEndingLocation;
-    //var url = "http://maps.apple.com/?q=" + mapEndingLocation;
     if (isAndroid()) {
         url = 'geo:0,0?q=' + mapEndingLocation;
     }
@@ -87,59 +75,9 @@ function onInitGeoError(error) {
     log(error.message);
 }
 
-// function mapDirections() {
-//     var url = 'http://maps.google.com/?q=daddr='+mapEndingLocation+'&saddr=Current+Location';
-//     window.location = url;
-// }
-
-
-// function mapHide() {
-//     $("#map").hide();
-// }
-
 function showHide() {
     $("#show").hide();
 }
-
-// function initializeMap(lat, lng) {
-//     logStatus("Init Map");
-    
-//     var currentLocation = new google.maps.LatLng(lat, lng);
-    
-//     directionsDisplay = new google.maps.DirectionsRenderer();
-    
-//     var mapOptions = {
-//         zoom: 12,
-//         mapTypeId: google.maps.MapTypeId.ROADMAP,
-//         center: currentLocation
-//     };
-//     map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-//     directionsDisplay.setMap(map);
-    
-//     calcRoute(currentLocation);
-    
-//     logStatus("Map Complete");
-// }
-
-// function calcRoute(start) {
-//     var end = getCallAddressForMap(currentCall);
-//     mapEndingLocation = getCallAddressForMapPassing(currentCall);
-//     log("Map directions");
-//     log("To: " + end);
-//     if (uCheck(end)) {
-//         var request = {
-//             origin:start,
-//             destination:end,
-//             travelMode: google.maps.DirectionsTravelMode.DRIVING
-//         };
-//         directionsService.route(request, function(response, status) {
-//             if (status == google.maps.DirectionsStatus.OK) {
-//                 directionsDisplay.setDirections(response);
-//                 log("Map directions ok");
-//             }
-//         });
-//     }
-// }
 
 function getCallAddressForMap(call) {
     var address = "";
@@ -172,12 +110,6 @@ function getCallAddressForMapPassing(call) {
     address = address.split(' ').join('+');
     return address.trim();
 }
-
-// function pushInTest() {
-//     var call = {_id: 12341234, IncidentNature: "FALL", RespondToAddress: "209 PATON STREET: EXTRA LONG INFO FOR CHECK", CityInfo: {City: "Cashmere"}, WhenCallWasOpened: "testing"};
-//     var activeHTML = parseCall(call, true);
-//     $("#activeCalls").html(activeHTML);
-// }
 
 function getCalls() {
     var jsonURL = "https://" + agency + ".ispyfire.com";
@@ -272,7 +204,6 @@ function getShowDetailsHTML(call) {
         htmlString += "<div id='tab-apparatus'>";
         if (uCheck(call.JoinedRespondersHistory)) {
             htmlString += "<table border=0 cellpadding=5>";
-            // work backwards through the list
             for(var i = call.JoinedRespondersHistory.length - 1; i>-1; i--) {
                 if(uCheck(call.JoinedRespondersHistory[i])) {
                     htmlString += "<tr><td>" + call.JoinedRespondersHistory[i].TimeDateOfEntry + "</td>";
@@ -308,7 +239,6 @@ function checkCADCallForLocal(call) {
                     return true;
         }
     }
-        
     return false;
 }
 
@@ -471,14 +401,12 @@ function getShiftCalendar() {
     log("Shift Calendar...");
     if (uCheck(window.localStorage.getItem("userID"))) {
         var hourAgo = new Date();
-        hourAgo = hourAgo.setMinutes(-30); // half hour, not an hour.
+        hourAgo = hourAgo.setMinutes(-30);
         log("HOUR AGO: " + hourAgo);
         if (!uCheck(lastShiftCheck) || (lastShiftCheck < hourAgo)) {
             log("userid stored: " + window.localStorage.getItem("userID"));
             var startDate = new Date();
             $("#shiftDisplay").html("Checking shifts...");
-            // if (uCheck(currentSystemSettings.shiftLookBack))
-            //     startDate.setHours(startDate.getHours() - currentSystemSettings.shiftLookBack);
             startDate.setHours(startDate.getHours() - 12);
             log("SD: " + startDate);
             var endDate = new Date();
@@ -490,9 +418,6 @@ function getShiftCalendar() {
             log("EDE: " + lastEpoch);
             
             var jsonURL = "https://" + agency + ".ispyfire.com";
-            // jsonURL += '/firecad/@@DB@@/cadcalls/';
-            
-            // var jsonURL = window.location.protocol + '//' + window.location.host;
             jsonURL += '/firedb/@@DB@@/shiftcalendar/?criteria={"date":{"$gte":"'+firstEpoch+'","$lt":"'+lastEpoch+'"},"isActive": true}&sort={"date":1}';
             $.getJSON(jsonURL)
                 .done(function(data) {
