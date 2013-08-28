@@ -45,7 +45,8 @@ function mapItNew(callID) {
             if (uCheck(currentCall)) {
                 logStatus("Opening Map");
                 showLoader();
-                navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
+                onInitGeoSuccessNew(null);
+                //navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
             }
         }else{
             alert("no call id");
@@ -57,8 +58,8 @@ function mapItNew(callID) {
 
 function onInitGeoSuccessNew(position) {
     logStatus("Location obtained");
-    mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
-    log("lat.lng: " + mapStartingLocation);
+    //mapStartingLocation = position.coords.latitude + "," + position.coords.longitude;
+    //log("lat.lng: " + mapStartingLocation);
     mapEndingLocation = getCallAddressForMapPassing(currentCall);
     hideLoader();
     
