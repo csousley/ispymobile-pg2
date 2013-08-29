@@ -141,6 +141,8 @@ function parseCalls() {
     if (uCheck(calls)) {
         var activeHTML = "";
         var completeHTML = "";
+        var activeNotUsHTML = "";
+        var completeNotUsHTML = "";
         for(var i = 0; i<calls.length; i++) {
             if (checkCADCallForLocal(calls[i])) {
                 if (calls[i].iSpyStatus.toLowerCase() != "completed") {
@@ -148,10 +150,18 @@ function parseCalls() {
                 }else{
                     completeHTML += parseCall(calls[i], false);
                 }
+            }else{
+                if (calls[i].iSpyStatus.toLowerCase() != "completed") {
+                    activeNotUsHTML += parseCall(calls[i], true);
+                }else{
+                    completeNotUsHTML += parseCall(calls[i], false);
+                }
             }
         }
         $("#activeCalls").html(activeHTML);
         $("#completeCalls").html(completeHTML);
+        $("#activeCallsNotUs").html(activeNotUsHTML);
+        $("#completeCallsNotUs").html(completeNotUsHTML);
         
         $(".callClick").click(function() {
             var productId = $(this).attr('id');

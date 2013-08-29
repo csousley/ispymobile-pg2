@@ -115,7 +115,15 @@ a {
 #action {
     background-color: black;
     color: white;
-    min-height: 100px;
+    text-align: left;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #555;
+}
+
+#actionNotUs {
+    margin-top: -1px;
+    color: white;
     text-align: left;
     padding: 5px;
     border-radius: 5px;
