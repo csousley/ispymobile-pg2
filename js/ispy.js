@@ -9,6 +9,7 @@ var shiftCalendar = null;
 var lastShiftCheck = null;
 var shiftExpanded = false;
 var shiftColor = "yellow";
+var clickedCallID = null;
 
 function showIt(callID) {
     logStatus("Show It: " + callID);
@@ -32,6 +33,8 @@ function showIt(callID) {
 }
 
 function mapItNew(callID) {
+    if (!uCheck(callID))
+        callID = clickedCallID;
     logStatus("Map It: " + callID);
     if (!debug) {
         if (uCheck(callID)) {
@@ -165,12 +168,14 @@ function parseCalls() {
         
         $(".callClick").click(function() {
             var productId = $(this).attr('id');
+            clickedCallID = productId;
             showIt(productId);
         });
         
         $(".mapover").click(function() {
             var productId = $(this).attr('id');
             productId = productId.replace("_map", "");
+            clickedCallID = productId;
             mapItNew(productId);
         });
     }else{
@@ -230,6 +235,7 @@ function getShowDetailsHTML(call) {
         htmlString += "</div>";
         htmlString += "</div>";
     }
+    htmlString += "<div style='margin: 20px 5px; float: right;'><input type=\"button\" onclick=\"showHide();\" value=\"Hide ShowInfo\" style=\"padding: 5px 10px; font-size: 12px;\"></div>";
     htmlString += "</div>";
     return htmlString;
 }
