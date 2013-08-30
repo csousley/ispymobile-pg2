@@ -32,6 +32,8 @@ function documentReady() {
         deviceType = window.localStorage.getItem("devicetype");
         cadsettings = window.localStorage.getItem("cadsettings");
         
+        setHeaderTexts();
+        
         if (uCheck(cadsettings))
             cadsettings = $.parseJSON(cadsettings);
     }else{
@@ -58,8 +60,7 @@ function documentReady() {
             }else{
                 getPersonIDForUser(window.localStorage.getItem("user"));
             }
-            $("#activeCallsHeader").html(agency.toUpperCase() + " Active");
-            $("#completeCallsHeader").html(agency.toUpperCase() + " Complete");
+            setHeaderTexts();
         }
     }else{
         var debugCalls = "{\"results\": [{\"AgencyCode\": \"CFD\",\"CallNumber\": \"31\",\"CallPriority\": \"1\",\"CallTypeLawFireEMS\": \"f\",\"CallZoneCode\": \"CFD1\",\"CityCode\": \"CAS\",\"CityInfo\": {\"City\": \"CASHMERE\",\"CityCode\": \"CAS\",\"StateAbbreviation\": \"WA\",\"ZIPCode\": \"98815\",\"MileageToCity\": \"0\"},\"ClearanceCodeLawOnly\": \"NA\",\"DispatchLevelStatus\": \"0\",\"Disposition\": \"ACT\",\"GeobaseAddressID\": \"534\",\"HighBitsOfXCoordinate\": \"-240\",\"HowManyTimesTextChanged\": \"4\",\"IncidentNature\": \"BREATHING PROB\",\"JoinedComments\": \"ELDERLY FEMALE CANT BREATH\",\"JoinedResponders\": \"BALL CFD A21\",\"JoinedRespondersDetail\": [{\"UnitNumber\": \"BALL\",\"UnitTypeLawFireEMS\": \"e\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"e\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"BALL\",\"AgencyCode\": \"BALL\",\"LastRadioLogComments\": \"incid#=13BAL2020Pagedcall=31e\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"MutualAidCall\": \"Y\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:06 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"AMB\",\"iSpyIsNew\": false},{\"UnitNumber\": \"CFD\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"PAGED\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Pagedcall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"0\",\"CurrentUnitStatus\": \"28\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:13:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false},{\"UnitNumber\": \"A21\",\"UnitTypeLawFireEMS\": \"f\",\"LongTermCallID\": \"1308-3707\",\"CallTypeAssignedTo\": \"f\",\"StatusDisplayCode\": \"ARRVD\",\"UnitZoneCode\": \"CFD\",\"AgencyCode\": \"CFD\",\"LastRadioLogComments\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"LastAddressRespondedTo\": \"115 EAST PLEASANT ST;#110\",\"TimeoutHasExpired\": \"1\",\"CurrentUnitStatus\": \"9\",\"DisplayFlag\": \"1\",\"TimeOfStatusChange\": \"09:07:1408/13/2013\",\"WhenTimeoutWillExpire\": \"09:37:1408/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"HighBitsOfXCoordinate\": \"0\",\"OperationCost\": \"0\",\"GpsHeadingOfUnit\": \"0\",\"GpsSpeedOfUnit\": \"0\",\"Station\": \"CFD1\",\"UnitKind\": \"ENG\",\"iSpyIsNew\": false}],\"JoinedRespondersHistory\": [{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:32 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13BAL2020Completedcallcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:17:27 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"CMPLT\",\"Description\": \"incid#=13CAS1647Completedcallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:07:14 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ARRVD\",\"Description\": \"incid#=13CAS1647Arrivedonscenecall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:55 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"A21\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"ENRT\",\"Description\": \"incid#=13CAS1647Enroutetoacallcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:10 08/13/2013\",\"GeoXCoordinateOfUnit\": \"0\",\"GeoYCoordinateOfUnit\": \"0\",\"UnitNumber\": \"CFD\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"CFD1\",\"AgencyCode\": \"CFD\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13CAS1647Pagedcall=31f\",\"SequenceNumber\": \"1\",\"CallType\": \"f\"},{\"UserWhoLoggedCall\": \"CONNER KRIS\",\"TimeDateOfEntry\": \"09:03:06 08/13/2013\",\"GeoXCoordinateOfUnit\": \"-29434\",\"GeoYCoordinateOfUnit\": \"-43658\",\"UnitNumber\": \"BALL\",\"LongTermCallID\": \"1308-3707\",\"UnitZoneCode\": \"ACFD1\",\"AgencyCode\": \"BALL\",\"TenCode\": \"PAGED\",\"Description\": \"incid#=13BAL2020Pagedcall=31e\",\"SequenceNumber\": \"1\",\"CallType\": \"e\"}],\"LongTermCallID\": \"1308-3707\",\"RelatedRecordNumber\": \"13CAS1647\",\"RespondToAddress\": \"115 EAST PLEASANT ST;#110\",\"ResponsibleUnitNumber\": \"CFD\",\"StatusCodeOfCall\": \"PAGED\",\"TimeDateReported\": \"09:01:58 08/13/2013\",\"TimeoutHasExpired\": \"1\",\"WhenCallWasOpened\": \"09:02:34 08/13/2013\",\"WhenStatusDeclared\": \"09:03:10 08/13/2013\",\"WhenTimeoutWillExpire\": \"09:04:34 08/13/2013\",\"XCoordinateGeobase\": \"-30694\",\"YCoordinateGeobase\": \"-37987\",\"_id\": \"520a58a047a018020000004c\",\"iSpyStatus\": \"Completed\",\"iSpyTimestamp\": 1376410658}]}";
@@ -78,8 +79,7 @@ function setClicks() {
         if (uCheck(val)) {
             agency = val;
             window.localStorage.setItem("agency", val);
-            $("#activeCallsHeader").html(agency.toUpperCase() + " Active");
-            $("#completeCallsHeader").html(agency.toUpperCase() + " Complete");
+            setHeaderTexts();
         }else{
             agency = null;
             $("#regOptions").css("display", "none");
@@ -104,6 +104,126 @@ function setClicks() {
     $("#shiftAction").click(function() {
         shiftAction();
     });
+    
+    setHeaderClicks();
+}
+
+function setHeaderClicks() {
+    $("#activeCallsHeader").click(function() {
+        if (uCheck(window.localStorage.getItem("usActive"))) {
+            if (window.localStorage.getItem("usActive") === "true") {
+                window.localStorage.setItem("usActive", "false");
+            }else{
+                window.localStorage.setItem("usActive", "true");
+            }
+        }else{
+            // just for us active, it's default is shown, so unshow
+            window.localStorage.setItem("usActive", "false");
+        }
+        setHeaderTexts();
+    });
+    
+    $("#completeCallsHeader").click(function() {
+        if (uCheck(window.localStorage.getItem("usComplete"))) {
+            if (window.localStorage.getItem("usComplete") === "true") {
+                window.localStorage.setItem("usComplete", "false");
+            }else{
+                window.localStorage.setItem("usComplete", "true");
+            }
+        }else{
+            window.localStorage.setItem("usComplete", "true");
+        }
+        setHeaderTexts();
+    });
+    
+    $("#activeCallsHeaderNotUs").click(function() {
+        if (uCheck(window.localStorage.getItem("themActive"))) {
+            if (window.localStorage.getItem("themActive") === "true") {
+                window.localStorage.setItem("themActive", "false");
+            }else{
+                window.localStorage.setItem("themActive", "true");
+            }
+        }else{
+            window.localStorage.setItem("themActive", "true");
+        }
+        setHeaderTexts();
+    });
+    
+    $("#completeCallsHeaderNotUs").click(function() {
+        if (uCheck(window.localStorage.getItem("themComplete"))) {
+            if (window.localStorage.getItem("themComplete") === "true") {
+                window.localStorage.setItem("themComplete", "false");
+            }else{
+                window.localStorage.setItem("themComplete", "true");
+            }
+        }else{
+            window.localStorage.setItem("themComplete", "true");
+        }
+        setHeaderTexts();
+    });
+}
+
+function setHeaderTexts() {
+    var usActive = false;
+    var usComplete = false;
+    var themActive = false; 
+    var themComplete = false;
+    
+    if (uCheck(window.localStorage.getItem("usActive"))) {
+        if (window.localStorage.getItem("usActive") === "true") {
+            usActive = true;
+        }
+    }else{
+        // us active is not set, make it true
+        usActive = true;
+    }
+    if (uCheck(window.localStorage.getItem("usComplete"))) {
+        if (window.localStorage.getItem("usComplete") === "true") {
+            usComplete = true;
+        }
+    }
+    if (uCheck(window.localStorage.getItem("themActive"))) {
+        if (window.localStorage.getItem("themActive") === "true") {
+            themActive = true;
+        }
+    }
+    if (uCheck(window.localStorage.getItem("themComplete"))) {
+        if (window.localStorage.getItem("themComplete") === "true") {
+            themComplete = true;
+        }
+    }
+
+    if (usActive) {
+        $("#activeCallsHeader").html(agency.toUpperCase() + " Active -");
+        $("#activeCalls").show();
+    }else{
+        $("#activeCallsHeader").html(agency.toUpperCase() + " Active +");
+        $("#activeCalls").hide();
+    }
+    
+    if (usComplete) {
+        $("#completeCallsHeader").html(agency.toUpperCase() + " Complete -");
+        $("#completeCalls").show();
+    }else{
+        $("#completeCallsHeader").html(agency.toUpperCase() + " Complete +");
+        $("#completeCalls").hide();
+    }
+    
+    if (themActive) {
+        $("#activeCallsHeaderNotUs").html("Other Active -");
+        $("#activeCallsNotUs").show();
+    }else{
+        $("#activeCallsHeaderNotUs").html("Other Active +");
+        $("#activeCallsNotUs").hide();
+    }
+    
+    if (themComplete) {
+        $("#completeCallsHeaderNotUs").html("Other Complete -");
+        $("#completeCallsNotUs").show();
+    }else{
+        $("#completeCallsHeaderNotUs").html("Other Complete +");
+        $("#completeCallsNotUs").hide();
+    }
 }
 
 function initialize() {
