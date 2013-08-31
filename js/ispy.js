@@ -24,6 +24,7 @@ function showIt(callID) {
         if (uCheck(currentCall)) {
             logStatus("Show Call Details");
             $("#show").show();
+            $("#app").hide();
             $("#show-canvas").html(getShowDetailsHTML(currentCall));
             $("#callTabs").tabs();
         }
@@ -48,6 +49,7 @@ function mapItNew(callID) {
             if (uCheck(currentCall)) {
                 logStatus("Opening Map");
                 showLoader();
+                showHide();
                 onInitGeoSuccessNew(null);
                 //navigator.geolocation.getCurrentPosition(onInitGeoSuccessNew, onInitGeoError, {maximumAge:600000, timeout:5000, enableHighAccuracy: true});
             }
@@ -81,6 +83,7 @@ function onInitGeoError(error) {
 
 function showHide() {
     $("#show").hide();
+    $("#app").show();
 }
 
 function getCallAddressForMap(call) {
