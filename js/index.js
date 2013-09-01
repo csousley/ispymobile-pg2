@@ -392,6 +392,7 @@ function clearAll() {
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
     $("#menuOptions").html("Options");
+    $("#actionWrapper").hide();
     hideRegButtons();
     documentReady();
     setRegID(skipRegID);
