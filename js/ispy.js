@@ -106,8 +106,10 @@ function getCallAddressForMapPassing(call) {
     if (uCheck(call.RespondToAddress))
         address += call.RespondToAddress.split(/[\.,:;\n\f\r]+/)[0] + "+";
     if (uCheck(call.CityInfo) && uCheck(call.CityInfo.ZIPCode)) {
-        address += call.CityInfo.City + "+";
-        address += call.CityInfo.StateAbbreviation + "+";
+        if (uCheck(call.CityInfo.City) && uCheck(call.CityInfo.StateAbbreviation)) {
+            address += call.CityInfo.City + "+";
+            address += call.CityInfo.StateAbbreviation + "+";
+        }
         address += call.CityInfo.ZIPCode;
     }
     if (address.length === 0)
@@ -150,17 +152,19 @@ function parseCalls() {
         var activeNotUsHTML = "";
         var completeNotUsHTML = "";
         for(var i = 0; i<calls.length; i++) {
-            if (checkCADCallForLocal(calls[i])) {
-                if (calls[i].iSpyStatus.toLowerCase() != "completed") {
-                    activeHTML += parseCall(calls[i], true);
+            if (uCheck(calls[i].iSpyStatus)) {
+                if (checkCADCallForLocal(calls[i])) {
+                    if (calls[i].iSpyStatus.toLowerCase() != "completed") {
+                        activeHTML += parseCall(calls[i], true);
+                    }else{
+                        completeHTML += parseCall(calls[i], false);
+                    }
                 }else{
-                    completeHTML += parseCall(calls[i], false);
-                }
-            }else{
-                if (calls[i].iSpyStatus.toLowerCase() != "completed") {
-                    activeNotUsHTML += parseCall(calls[i], true);
-                }else{
-                    completeNotUsHTML += parseCall(calls[i], false);
+                    if (calls[i].iSpyStatus.toLowerCase() != "completed") {
+                        activeNotUsHTML += parseCall(calls[i], true);
+                    }else{
+                        completeNotUsHTML += parseCall(calls[i], false);
+                    }
                 }
             }
         }
@@ -195,13 +199,21 @@ function parseCall(call, isAcive) {
         
     var textWidth = $("#activeCalls").width() - 70;
     var htmlString = "<div class='callWrapper' style='"+style+"'>";
-    htmlString += "<div id='"+call._id+"' class='callClick textNoWrap' style='width: "+textWidth+"px;'>" + call.IncidentNature;
-    htmlString += "<br>" + call.RespondToAddress;
-    htmlString += "<br>" + call.CityInfo.City;
-    htmlString += "<br>" + call.WhenCallWasOpened;
-    htmlString += "</div>";
-    htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
-    htmlString += "</div>";
+    if (uCheck(call._id) && uCheck(call.IncidentNature) && uCheck(call.RespondToAddress) && uCheck(call.WhenCallWasOpened)) {
+        htmlString += "<div id='"+call._id+"' class='callClick textNoWrap' style='width: "+textWidth+"px;'>" + call.IncidentNature;
+        htmlString += "<br>" + call.RespondToAddress;
+        if (uCheck(call.CityInfo.City)) {
+            htmlString += "<br>" + call.CityInfo.City;
+        }else if (uCheck(call.CityCode)){
+            htmlString += "<br>" + call.CityCode;
+        }else{
+            htmlString += "<br> City Uknown";
+        }
+        htmlString += "<br>" + call.WhenCallWasOpened;
+        htmlString += "</div>";
+        htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
+        htmlString += "</div>";
+    }
     return htmlString;
 }
 
@@ -269,7 +281,8 @@ function getCallUnitsString(call) {
             units += call.JoinedRespondersDetail[i].UnitNumber + " ";
         }
     }else{
-        units = "Agency: " + call.AgencyCode;
+        if (uCheck(call.AgencyCode))
+            units = "Agency: " + call.AgencyCode;
     }
     if (units.length === 0) {
         units = "Unk";
