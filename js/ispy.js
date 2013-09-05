@@ -248,8 +248,19 @@ function getShowDetailsHTML(call) {
                 }
             }
             htmlString += "</table>";
+        }else if (uCheck(call.JoinedRespondersDetail)){
+            htmlString += "<table border=0 cellpadding=5>";
+            for(var i = call.JoinedRespondersDetail.length - 1; i>-1; i--) {
+                if(uCheck(call.JoinedRespondersDetail[i])) {
+                    htmlString += "<tr><td>" + call.JoinedRespondersDetail[i].TimeOfStatusChange + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersDetail[i].AgencyCode + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersDetail[i].UnitNumber + "</td>";
+                    htmlString += "<td>" + call.JoinedRespondersDetail[i].StatusDisplayCode + "</td></tr>";
+                }
+            }
+            htmlString += "</table>";
         }else{
-            htmlString += "<table><tr><td>Apparatus history not available untill call is complete.</td></tr></table>";
+            htmlString += "<table><tr><td>Apparatus history not available at this time.</td></tr></table>";
         }
         htmlString += "</div>";
         htmlString += "</div>";
