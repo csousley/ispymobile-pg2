@@ -50,16 +50,17 @@ function documentReady() {
     
     log("AGENCY: " + agency);
     log("DEVICETYPE: " + deviceType);
+    var userID = uCheck(window.localStorage.getItem("userID"));
     
     if (!debug) {
-        if (!uCheck(agency)) {
+        if (!uCheck(agency) && !uCheck(userID)) {
             log("No agency get customers");
             getCustomers();
         } else {
             log("Reg and Cad Settings");
             iSpyReg();
             getCadSettings();
-            if (uCheck(window.localStorage.getItem("userID"))) {
+            if (uCheck(userID)) {
                 getShiftCalendar();
             }else{
                 getPersonIDForUser(window.localStorage.getItem("user"));
