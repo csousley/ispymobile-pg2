@@ -53,7 +53,7 @@ function documentReady() {
     var userID = uCheck(window.localStorage.getItem("userID"));
     
     if (!debug) {
-        if (!uCheck(agency) && !uCheck(userID)) {
+        if (!uCheck(agency) || !uCheck(userID)) {
             log("No agency get customers");
             getCustomers();
         } else {
