@@ -211,7 +211,10 @@ function parseCall(call, isAcive) {
         }
         htmlString += "<br>" + call.WhenCallWasOpened;
         htmlString += "</div>";
-        htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
+        if (isActive)
+            htmlString += "<div id='"+call._id+"_map' class='mapover'></div>";
+        else
+            htmlString += "<div id='"+call._id+"_map' class='mapover' style='opacity: 0.5;'></div>";
     }else if (uCheck(call._id) && uCheck(call.IncidentNature)) {
         htmlString += "<div id='"+call._id+"' class='callClick textNoWrap' style='width: "+textWidth+"px;'>" + call.IncidentNature + "<br>Missing some call data...</div>";
     }else{
