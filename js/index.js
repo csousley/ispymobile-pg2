@@ -666,6 +666,8 @@ function submitLogin() {
                     setUser(user);
                     getCadSettings();
                     iSpyReg();
+                    $("#menu").show();
+                    moveShiftDiv();
                 }else{
                     logStatus("iSpy login incomplete");
                     $("#loading").css("display", "none");
