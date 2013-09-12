@@ -192,9 +192,9 @@ function parseCalls() {
     }
 }
 
-function parseCall(call, isAcive) {
+function parseCall(call, isActive) {
     var style = "";
-    if (isAcive)
+    if (isActive)
         style = "border: 1px solid white;";
         
     var textWidth = $("#activeCalls").width() - 70;
