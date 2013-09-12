@@ -46,8 +46,6 @@ function documentReady() {
         cadsettings = window.localStorage.getItem("cadsettings");
     }
     
-    moveShiftDiv();
-    
     log("AGENCY: " + agency);
     log("DEVICETYPE: " + deviceType);
     var userID = uCheck(window.localStorage.getItem("userID"));
@@ -77,6 +75,8 @@ function documentReady() {
         hideLoader();
         refreshTimer();
     }
+    
+    moveShiftDiv();
 }
 
 function setClicks() {
@@ -397,6 +397,8 @@ function clearAll() {
     $("#menuOptions").html("Options");
     $("#actionWrapper").hide();
     $("#menu").hide();
+    $("#shift").hide();
+    $("#shiftaction").hide();
     hideRegButtons();
     documentReady();
     setRegID(skipRegID);
