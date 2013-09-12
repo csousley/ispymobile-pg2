@@ -16,10 +16,6 @@ var debug = false;
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
-    // $(window).resize(function(){
-    //     var height = $(document).height();
-    //     $("#show").css("height", height);
-    // });
 });
 
 function documentReady() {
