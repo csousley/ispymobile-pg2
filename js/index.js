@@ -10,7 +10,6 @@ var cadsettings = null;
 var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
-
 var debug = false;
 
 
@@ -19,9 +18,15 @@ $(document).ready(function() {
 });
 
 function documentReady() {
+    try {
+        if (!uCheck(device))
+            debug = true;
+    } catch(err) {
+        debug = true;
+    }
+        
     log("debug status: " + debug);
     if (debug) {
-        alert("DEBUG ENABLED");
         window.localStorage.setItem("agency", "CFD");
         window.localStorage.setItem("devicetype", "IOS");
         window.localStorage.setItem("user", "cy@cyzer.com");
