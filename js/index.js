@@ -415,7 +415,7 @@ function setMenuAppRegStatus(color){
 }
 
 function setRegID(id) {
-    logStatus("Checking IDs");
+    log("Checking IDs");
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
