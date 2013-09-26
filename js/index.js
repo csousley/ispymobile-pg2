@@ -52,10 +52,9 @@ function documentReady() {
     
     log("AGENCY: " + agency);
     log("DEVICETYPE: " + deviceType);
-    var userID = uCheck(window.localStorage.getItem("userID"));
     
     if (!debug) {
-        if (!uCheck(agency) || !uCheck(userID)) {
+        if (!uCheck(agency) || !uCheck(window.localStorage.getItem("userID"))) {
             log("No agency get customers");
             getCustomers();
         } else {
@@ -63,7 +62,7 @@ function documentReady() {
             $("#menu").show();
             iSpyReg();
             getCadSettings();
-            if (uCheck(userID)) {
+            if (uCheck(window.localStorage.getItem("userID"))) {
                 getShiftCalendar();
             }else{
                 getPersonIDForUser(window.localStorage.getItem("user"));
@@ -262,7 +261,7 @@ function onDeviceReady() {
 
 function onResume() {
     logStatus("Device Resume");
-    if (!uCheck(agency) || !uCheck(userID)) {
+    if (!uCheck(agency) || !uCheck(window.localStorage.getItem("userID"))) {
         log("resume A");
         clearAll();
         getCustomers();
