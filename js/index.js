@@ -12,6 +12,7 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var debug = false;
 
+var version = "1.0.2";
 var longLogAvailable = true;
 
 
@@ -387,6 +388,7 @@ function getAppOptionsHTML() {
     var htmlString = "";
     htmlString += "<div class='textNoWrap'>Agency: " + window.localStorage.getItem("agency") + "</div>";
     htmlString += "<div class='textNoWrap'>User: " + window.localStorage.getItem("user") + "</div>";
+    htmlString += "<div class='textNoWrap'>Version: " + version + "</div>";
     //htmlString += "<div class='textNoWrap'>DeviceID: " + window.localStorage.getItem("deviceid") + "</div>";
     //htmlString += "<div class='textNoWrap'>" + keyname + ": " + window.localStorage.getItem(keyname) + "</div>";
     //htmlString += "<div class='textNoWrap' style='margin-bottom: 85px;'>DBID: " + window.localStorage.getItem("dbid") + "</div>";
