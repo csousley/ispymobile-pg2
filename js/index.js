@@ -10,6 +10,7 @@ var cadsettings = null;
 var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
+var loginExpired = false;
 
 var version = "1.0.2";
 var longLogAvailable = true;
@@ -268,7 +269,7 @@ function onResume() {
     logStatus("Device Resume");
     if (!uCheck(agency) || !uCheck(window.localStorage.getItem("userID"))) {
         log("resume A");
-        clearAll();
+        clearAll(false);
         getCustomers();
     }else{
         log("resume B");
@@ -603,7 +604,12 @@ function getCadSettings() {
 }
 
 function showLogin() {
-    logStatus("Show Login");
+    if (loginExpired) {
+        logStatus("Login Expired");
+        loginExpired = false;
+    }else{
+        logStatus("Please Login");    
+    }
     if (uCheck(customers)) {
             $('#agencySelect').empty();
             $('#agencySelect').append($("<option></option>").attr("value", "").text("Select your agency")); 
@@ -726,6 +732,7 @@ function checkRegStatusOnServer(keyname, id) {
                 // like we added user, so check for it, if not, clearall and show login to capture user
                 if (!uCheck(data.results[0].user)) {
                     log("reg back but no user, old login");
+                    loginExpired = true;
                     clearAll();
                 }
             }else{
