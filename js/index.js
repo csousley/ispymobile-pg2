@@ -394,6 +394,7 @@ function getAppOptionsHTML() {
 }
 
 function clearAll() {
+    iSpyUnReg(false);
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
