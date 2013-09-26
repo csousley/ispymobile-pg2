@@ -10,10 +10,10 @@ var cadsettings = null;
 var agency = null;
 var deviceType = null;
 var isiSpyRegistered = false;
-var debug = false;
 
 var version = "1.0.2";
 var longLogAvailable = true;
+var debug = false;
 
 
 $(document).ready(function() {
@@ -21,12 +21,12 @@ $(document).ready(function() {
 });
 
 function documentReady() {
-    try {
-        if (!uCheck(device))
-            debug = true;
-    } catch(err) {
-        debug = true;
-    }
+    // try {
+    //     if (!uCheck(device))
+    //         debug = true;
+    // } catch(err) {
+    //     debug = true;
+    // }
         
     log("debug status: " + debug);
     if (debug) {
