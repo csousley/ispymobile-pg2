@@ -263,12 +263,18 @@ function onDeviceReady() {
 function onResume() {
     logStatus("Device Resume");
     if (!uCheck(agency) || !uCheck(userID)) {
-        log("No agency get customers");
+        log("resume A");
         clearAll();
         getCustomers();
     }else{
+        log("resume B");
         getCalls();
         getShiftCalendar();
+        
+        var keyname = "token";
+        if (isAndroid())
+            keyname = "regid";
+        checkRegStatusOnServer(keyname, window.localStorage.getItem(keyname));
     }
 }
 
@@ -451,8 +457,6 @@ function setRegID(id) {
     if (needSet) {
         window.localStorage.setItem(keyname, id);
         iSpyReg();
-    }else{
-        checkRegStatusOnServer(keyname, id);
     }
     
     log(keyname + ": " + window.localStorage.getItem(keyname));
