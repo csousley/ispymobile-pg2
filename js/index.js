@@ -709,6 +709,12 @@ function checkRegStatusOnServer(keyname, id) {
     jsonURL += '/firedb/@@DB@@/' + lastURL + '/?criteria={"regID": "'+id+'","isActive":true}';
     $.getJSON(jsonURL)
         .done(function(data) {
+            if (uCheck(data)) {
+                log("data found: " + JSON.stringify(data));
+            }
+            if (uCheck(data.results[0])) {
+                log("data results found: " + JSON.stringify(data));
+            }
             if (uCheck(data.results[0]._id)) {
                 log("reg check back, have data");
                 // do any checks that we require of a valid registered device
