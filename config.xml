@@ -23,6 +23,9 @@
     
     <gap:plugin name="com.adobe.plugins.pushplugin" />
     
+    <gap:platform name="ios" />
+    <gap:platform name="android" />
+    
     <access origin="*" /> 
     
     <icon src="res/icon/android/iSpyLogo_android36.png" gap:platform="android" gap:density="ldpi"  />
