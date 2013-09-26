@@ -413,7 +413,7 @@ function clearAll() {
     $("#actionWrapper").hide();
     $("#menu").hide();
     $("#shift").hide();
-    $("#shiftaction").hide();
+    $("#shiftAction").hide();
     hideRegButtons();
     documentReady();
     setRegID(skipRegID);
@@ -721,6 +721,7 @@ function checkRegStatusOnServer(keyname, id) {
                 // like we added user, so check for it, if not, clearall and show login to capture user
                 if (!uCheck(data.results[0].user)) {
                     log("reg back but no user, old login");
+                    clearAll();
                 }
             }else{
                 log("id not found: " + JSON.stringify(data));
