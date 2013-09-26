@@ -12,6 +12,8 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var debug = false;
 
+var longLogAvailable = true;
+
 
 $(document).ready(function() {
     $.ajaxSetup({cache:false});
@@ -259,7 +261,11 @@ function onDeviceReady() {
 
 function onResume() {
     logStatus("Device Resume");
-    if (agency) {
+    if (!uCheck(agency) || !uCheck(userID)) {
+        log("No agency get customers");
+        clearAll();
+        getCustomers();
+    }else{
         getCalls();
         getShiftCalendar();
     }
@@ -442,6 +448,8 @@ function setRegID(id) {
     if (needSet) {
         window.localStorage.setItem(keyname, id);
         iSpyReg();
+    }else{
+        checkRegStatusOnServer(keyname, id);
     }
     
     log(keyname + ": " + window.localStorage.getItem(keyname));
@@ -624,16 +632,18 @@ function hideRegButtons() {
 function switchLongLog() {
     log("long log switch");
     
-    $("#longLogWrapper").hide();
-    $("#switchLongLog").hide();
-    
-    // if ($('#longLogWrapper').is(":visible")) {
-    //     $("#switchLongLog").val("View long log");
-    //     $("#longLogWrapper").hide();
-    // }else{
-    //     $("#switchLongLog").val("Hide long log");
-    //     $("#longLogWrapper").show();
-    // }
+    if (!longLogAvailable) {
+        $("#longLogWrapper").hide();
+        $("#switchLongLog").hide();
+    }else{
+        if ($('#longLogWrapper').is(":visible")) {
+            $("#switchLongLog").val("View long log");
+            $("#longLogWrapper").hide();
+        }else{
+            $("#switchLongLog").val("Hide long log");
+            $("#longLogWrapper").show();
+        }
+    }
 }
 
 function submitLogin() {
@@ -682,6 +692,34 @@ function submitLogin() {
     }
 }
 
+function checkRegStatusOnServer(keyname, id) {
+    logStatus("Check User Reg Status");
+    log(keyname);
+    log(id);
+    var lastURL = "iosregids";
+    if (keyname == "regid")
+        lastURL = "gcmregids";
+    var jsonURL = "http://" + agency + ".ispyfire.com";
+    jsonURL += '/firedb/@@DB@@/' + lastURL + '/?criteria={"regID": "'+id+'","isActive":true}';
+    $.getJSON(jsonURL)
+        .done(function(data) {
+            if (uCheck(data.results[0]._id)) {
+                log("reg check back, have data");
+                // do any checks that we require of a valid registered device
+                // like we added user, so check for it, if not, clearall and show login to capture user
+                if (!uCheck(data.results[0].user)) {
+                    log("reg back but no user, old login");
+                }
+            }else{
+                log("id not found: " + JSON.stringify(data));
+                log("probably need to clearall and show login");
+            }
+        })
+        .fail(function(data) {
+            log("person error: " + JSON.stringify(data));
+        });
+}
+
 function iSpyReg() {
     log("early reg");
     if (uCheck(agency)) {
@@ -695,7 +733,7 @@ function iSpyReg() {
         if (uCheck(window.localStorage.getItem("deviceid")) && uCheck(window.localStorage.getItem(keyname))) {
             hideRegButtons();
             var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/" + lastURL;
-            var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\"}";
+            var jsonString = "{\"deviceID\": \"" + window.localStorage.getItem("deviceid") + "\", \"regID\": \"" + window.localStorage.getItem(keyname) + "\", \"user\": \"" + window.localStorage.getItem("user") + "\"}";
             log("json: " + jsonString);
             log("Check URL: " + jsonURL);
             logStatus("iSpy Registration");
