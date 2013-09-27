@@ -12,8 +12,8 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.2";
-var longLogAvailable = false;
+var version = "1.0.3";
+var longLogAvailable = true;
 var debug = false;
 
 
@@ -506,7 +506,8 @@ function logStatus(logMessage) {
 
 function log(logMessage) {
     console.log(logMessage);
-    $("#ol").append("<li>" + logMessage + "</li>");
+    if (longLogAvailable)
+        $("#ol").append("<li>" + logMessage + "</li>");
 }
 
 function isAndroid() {
