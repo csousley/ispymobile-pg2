@@ -13,7 +13,7 @@ var isiSpyRegistered = false;
 var loginExpired = false;
 
 var version = "1.0.2";
-var longLogAvailable = true;
+var longLogAvailable = false;
 var debug = false;
 
 
