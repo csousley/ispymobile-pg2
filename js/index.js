@@ -61,7 +61,7 @@ function documentReady() {
         } else {
             log("Reg and Cad Settings");
             $("#menu").show();
-            
+            iSpyReg();
             getCadSettings();
             if (uCheck(window.localStorage.getItem("userID"))) {
                 getShiftCalendar();
@@ -69,11 +69,6 @@ function documentReady() {
                 getPersonIDForUser(window.localStorage.getItem("user"));
             }
             setHeaderTexts();
-            
-            var keyname = "token";
-            if (isAndroid())
-                keyname = "regid";
-            checkRegStatusOnServer(keyname, window.localStorage.getItem(keyname));
         }
     }else{
         $("#menu").show();
@@ -783,6 +778,7 @@ function iSpyReg() {
                 if(uCheck(data.regids.results[0]._id)) {
                     setDBID(data.regids.results[0]._id);
                 }
+                checkRegStatusOnServer(keyname, window.localStorage.getItem(keyname));
                 getCalls();
             });
         }else{
