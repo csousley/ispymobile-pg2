@@ -12,7 +12,7 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.3";
+var version = "1.0.2";
 var longLogAvailable = false;
 var debug = false;
 
