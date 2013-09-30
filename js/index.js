@@ -12,23 +12,21 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.2";
+var version = "1.0.3";
 var longLogAvailable = false;
 var debug = false;
 
-
-$(document).ready(function() {
+function initialize() {
     $.ajaxSetup({cache:false});
-});
+    documentReady();
+    if (!debug) {
+        document.addEventListener('deviceready', onDeviceReady, false);
+        document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
+        document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
+    }
+}
 
 function documentReady() {
-    // try {
-    //     if (!uCheck(device))
-    //         debug = true;
-    // } catch(err) {
-    //     debug = true;
-    // }
-        
     log("debug status: " + debug);
     if (debug) {
         window.localStorage.setItem("agency", "CFD");
@@ -234,15 +232,6 @@ function setHeaderTexts() {
     }else{
         $("#completeCallsHeaderNotUs").html("Other Complete +");
         $("#completeCallsNotUs").hide();
-    }
-}
-
-function initialize() {
-    documentReady();
-    if (!debug) {
-        document.addEventListener('deviceready', onDeviceReady, false);
-        document.getElementById('menuOptions').addEventListener('touchstart', onTouch_menuOptions, false);
-        document.getElementById('menuOptions').addEventListener('touchend', onStopTouch_menuOptions, false);
     }
 }
 
