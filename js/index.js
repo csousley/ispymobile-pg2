@@ -407,9 +407,6 @@ function clearAll() {
         keyname = "regid";
     var saveagency = window.localStorage.getItem("agency");
     var saveuser = window.localStorage.getItem("user");
-    window.localStorage.setItem("saveagency", saveagency);
-    window.localStorage.setItem("saveuser", saveuser);
-    log("setting save items ("+saveagency+", "+saveuser+")");
     //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
@@ -418,6 +415,9 @@ function clearAll() {
     $("#menu").hide();
     $("#shift").hide();
     $("#shiftAction").hide();
+    window.localStorage.setItem("saveagency", saveagency);
+    window.localStorage.setItem("saveuser", saveuser);
+    log("setting save items ("+saveagency+", "+saveuser+")");
     register();
     hideRegButtons();
     documentReady();
