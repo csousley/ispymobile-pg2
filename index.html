@@ -43,15 +43,13 @@
                 <img src="img/loading.gif">
             </div>
             <div id="login" style="display: none;">
-                <form onSubmit="submitLogin();">
-                    Agency: <br>
-                    <select id="agencySelect"></select><br>
-                    Username: <br>
-                    <input type="email" id="username" name="username" placeholder="email" autocapitalize="off" autocorrect="off" /><br>
-                    Password: <br>
-                    <input type="password" id="password" name="password" placeholder="password" autocapitalize="off" autocorrect="off" /><br>
-                    <input type='submit' id="loginButton" value='Login'>
-                </form>
+                Agency: <br>
+                <select id="agencySelect"></select><br>
+                Username: <br>
+                <input type="email" id="username" name="username" placeholder="email" autocapitalize="off" autocorrect="off" /><br>
+                Password: <br>
+                <input type="password" id="password" name="password" placeholder="password" autocapitalize="off" autocorrect="off" /><br>
+                <input type='button' id="loginButton" value='Login' onClick='submitLogin();'>
             </div>
             <div id="actionWrapper" style="display: none; position: relative;">
                 <div id="actionRefresh" style="display: none;"><input type="button" onClick="getCalls();" value="refresh" style="padding: 5px 10px; font-size: 12px;"></div>
