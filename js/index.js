@@ -716,7 +716,6 @@ function submitLogin() {
     }else{
         logStatus("Missing Something!");
     }
-    return false;
 }
 
 function checkRegStatusOnServer(keyname, id) {
