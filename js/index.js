@@ -632,10 +632,8 @@ function showLogin() {
         if (uCheck(window.localStorage.getItem("saveagency"))) {
             log("saveagency: " + window.localStorage.getItem("saveagency"));
             $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
-            if (uCheck($("#agencySelect").val())) {
-                agency = $("#agencySelect").val();
-                window.localStorage.setItem("agency", val);
-            }
+            agency = window.localStorage.getItem("saveagency");
+            window.localStorage.setItem("agency", window.localStorage.getItem("saveagency"));
         }else{
             log("saveagency not set!");
         }
