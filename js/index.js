@@ -408,6 +408,7 @@ function clearAll() {
     
     window.localStorage.setItem("saveagency", window.localStorage.getItem("agency"));
     window.localStorage.setItem("saveuser", window.localStorage.getItem("user"));
+    log("setting save items (agency, user)");
     //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
@@ -623,10 +624,14 @@ function showLogin() {
         if (uCheck(window.localStorage.getItem("saveuser"))) {
             log("saveuser: " + window.localStorage.getItem("saveuser"));
             $("#username").val(window.localStorage.getItem("saveuser"));
+        }else{
+            log("saveuser not set!");
         }
         if (uCheck(window.localStorage.getItem("saveagency"))) {
             log("saveagency: " + window.localStorage.getItem("saveagency"));
             $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
+        }else{
+            log("saveagency not set!");
         }
     }else{
         log("No Customer List!?");
