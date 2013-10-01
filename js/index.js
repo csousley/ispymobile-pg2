@@ -178,6 +178,12 @@ function setHeaderTexts() {
     var themActive = false; 
     var themComplete = false;
     
+    if (!uCheck(agency)) {
+        if (uCheck(window.localStorage.getItem("saveagency"))) {
+            agency = window.localStorage.getItem("saveagency");
+        }
+    }
+    
     if (uCheck(window.localStorage.getItem("usActive"))) {
         if (window.localStorage.getItem("usActive") === "true") {
             usActive = true;
