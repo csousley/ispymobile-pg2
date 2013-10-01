@@ -407,6 +407,7 @@ function clearAll() {
         keyname = "regid";
     var saveagency = window.localStorage.getItem("agency");
     var saveuser = window.localStorage.getItem("user");
+    agency = null;
     //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
@@ -613,8 +614,9 @@ function showLogin() {
     }
     //var saveagency = window.localStorage.getItem("saveagency");
     if (uCheck(customers)) {
-            $('#agencySelect').empty();
-            $('#agencySelect').append($("<option></option>").attr("value", "").text("Select your agency")); 
+        $('#password').val("");
+        $('#agencySelect').empty();
+        $('#agencySelect').append($("<option></option>").attr("value", "").text("Select your agency")); 
         for(var i = 0; i<customers.length; i++) {
             $('#agencySelect').append($("<option></option>").attr("value", customers[i].subdomain).text(customers[i].name)); 
         }
@@ -631,6 +633,10 @@ function showLogin() {
         if (uCheck(window.localStorage.getItem("saveagency"))) {
             log("saveagency: " + window.localStorage.getItem("saveagency"));
             $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
+            if (uCheck($("#agencySelect").val())) {
+                agency = $("#agencySelect").val();
+                window.localStorage.setItem("agency", val);
+            }
         }else{
             log("saveagency not set!");
         }
