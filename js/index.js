@@ -12,7 +12,7 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.4";
+var version = "1.0.4b";
 var longLogAvailable = false;
 var debug = false;
 
@@ -263,7 +263,7 @@ function onResume() {
     logStatus("Device Resume");
     if (!uCheck(agency) || !uCheck(window.localStorage.getItem("userID"))) {
         log("resume A");
-        clearAll(false);
+        clearAll();
         getCustomers();
     }else{
         log("resume B");
@@ -405,8 +405,10 @@ function clearAll() {
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
-        
-    var skipRegID = window.localStorage.getItem(keyname);
+    
+    window.localStorage.setItem("saveagency", window.localStorage.getItem("agency"));
+    window.localStorage.setItem("saveuser", window.localStorage.getItem("user"));
+    //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
     $("#menuOptions").html("Options");
@@ -416,7 +418,7 @@ function clearAll() {
     $("#shiftAction").hide();
     hideRegButtons();
     documentReady();
-    setRegID(skipRegID);
+    //setRegID(skipRegID);
 }
 
 function clearList() {
@@ -605,6 +607,7 @@ function showLogin() {
     }else{
         logStatus("Please Login");    
     }
+    //var saveagency = window.localStorage.getItem("saveagency");
     if (uCheck(customers)) {
             $('#agencySelect').empty();
             $('#agencySelect').append($("<option></option>").attr("value", "").text("Select your agency")); 
@@ -614,6 +617,13 @@ function showLogin() {
         $("#login").css("display", "block");
         $("#agencySelect").css("display", "block");
         $("#loading").css("display", "none");
+        
+        if (uCheck(window.localStorage.getItem("saveuser"))) {
+            $("#username").val(window.localStorage.getItem("saveuser"));
+        }
+        if (uCheck(window.localStorage.getItem("saveagency"))) {
+            $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
+        }
     }else{
         log("No Customer List!?");
     }
