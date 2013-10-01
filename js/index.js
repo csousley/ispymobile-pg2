@@ -407,7 +407,6 @@ function clearAll() {
         keyname = "regid";
     var saveagency = window.localStorage.getItem("agency");
     var saveuser = window.localStorage.getItem("user");
-    agency = null;
     //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
