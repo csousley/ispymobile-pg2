@@ -416,6 +416,7 @@ function clearAll() {
     $("#menu").hide();
     $("#shift").hide();
     $("#shiftAction").hide();
+    register();
     hideRegButtons();
     documentReady();
     //setRegID(skipRegID);
