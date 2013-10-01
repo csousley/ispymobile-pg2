@@ -445,21 +445,22 @@ function setRegID(id) {
     if (!uCheck(window.localStorage.getItem("deviceid")))
         setDeviceID();
     
-    var needSet = false;
-    if (uCheck(window.localStorage.getItem(keyname))) {
-        var key = window.localStorage.getItem(keyname);
-        if (key != id) {
-            needSet = true;
-        }else{
-            log("matching new id and old");
-        }
-    }else{
-        needSet = true;
-    }
-    if (needSet) {
-        window.localStorage.setItem(keyname, id);
-        iSpyReg();
-    }
+    window.localStorage.setItem(keyname, id);
+    // var needSet = false;
+    // if (uCheck(window.localStorage.getItem(keyname))) {
+    //     var key = window.localStorage.getItem(keyname);
+    //     if (key != id) {
+    //         needSet = true;
+    //     }else{
+    //         log("matching new id and old");
+    //     }
+    // }else{
+    //     needSet = true;
+    // }
+    // if (needSet) {
+    //     window.localStorage.setItem(keyname, id);
+    //     iSpyReg();
+    // }
     
     log(keyname + ": " + window.localStorage.getItem(keyname));
     log("device: " + window.localStorage.getItem("deviceid"));
