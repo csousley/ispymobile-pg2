@@ -621,9 +621,11 @@ function showLogin() {
         $("#loading").css("display", "none");
         
         if (uCheck(window.localStorage.getItem("saveuser"))) {
+            log("saveuser: " + window.localStorage.getItem("saveuser"));
             $("#username").val(window.localStorage.getItem("saveuser"));
         }
         if (uCheck(window.localStorage.getItem("saveagency"))) {
+            log("saveagency: " + window.localStorage.getItem("saveagency"));
             $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
         }
     }else{
