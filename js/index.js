@@ -633,6 +633,7 @@ function showLogin() {
             log("saveagency: " + window.localStorage.getItem("saveagency"));
             $('#agencySelect option[value="'+window.localStorage.getItem("saveagency")+'"]').prop('selected', true);
             agency = window.localStorage.getItem("saveagency");
+            log("agency set from saveagency");
             window.localStorage.setItem("agency", window.localStorage.getItem("saveagency"));
         }else{
             log("saveagency not set!");
