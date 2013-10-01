@@ -13,7 +13,7 @@ var isiSpyRegistered = false;
 var loginExpired = false;
 
 var version = "1.0.4b";
-var longLogAvailable = true;
+var longLogAvailable = false;
 var debug = false;
 
 function initialize() {
@@ -258,8 +258,9 @@ function onDeviceReady() {
 
 function onAndroidBack() {
     if($("#show").is(":visible")){
-        //navigator.app.backHistory();
         showHide();
+    } else if ($("#appOptions").is(":visible")) {
+        $("#appOptions").slideUp(500);
     } else {
         navigator.app.exitApp();
     }
