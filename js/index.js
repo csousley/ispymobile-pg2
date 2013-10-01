@@ -12,7 +12,7 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.3";
+var version = "1.0.4";
 var longLogAvailable = false;
 var debug = false;
 
@@ -246,7 +246,17 @@ function onStopTouch_menuOptions() {
 function onDeviceReady() {
     logStatus("Device Ready");
     document.addEventListener("resume", onResume, false);
+    document.addEventListener("backbutton", onAndroidBack, false);
     register();
+}
+
+function onAndroidBack() {
+    if($("#show").is(":visible")){
+        //navigator.app.backHistory();
+        showHide();
+    } else {
+        navigator.app.exitApp();
+    }
 }
 
 function onResume() {
