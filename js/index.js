@@ -405,10 +405,11 @@ function clearAll() {
     var keyname = "token";
     if (isAndroid())
         keyname = "regid";
-    
-    window.localStorage.setItem("saveagency", window.localStorage.getItem("agency"));
-    window.localStorage.setItem("saveuser", window.localStorage.getItem("user"));
-    log("setting save items (agency, user)");
+    var saveagency = window.localStorage.getItem("agency");
+    var saveuser = window.localStorage.getItem("user");
+    window.localStorage.setItem("saveagency", saveagency);
+    window.localStorage.setItem("saveuser", saveuser);
+    log("setting save items ("+saveagency+", "+saveuser+")");
     //var skipRegID = window.localStorage.getItem(keyname);
     window.localStorage.clear();
     $("#appOptions").slideUp(500);
