@@ -12,7 +12,7 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.4b";
+var version = "1.0.5";
 var longLogAvailable = false;
 var debug = false;
 
@@ -746,12 +746,6 @@ function checkRegStatusOnServer(keyname, id) {
     jsonURL += '/firedb/@@DB@@/' + lastURL + '/?criteria={"regID": "'+id+'","isActive":true}';
     $.getJSON(jsonURL)
         .done(function(data) {
-            // if (uCheck(data)) {
-            //     log("data found: " + JSON.stringify(data));
-            // }
-            // if (uCheck(data.results[0])) {
-            //     log("data results found: " + JSON.stringify(data));
-            // }
             if (uCheck(data.results[0]._id)) {
                 log("reg check back, have data");
                 // do any checks that we require of a valid registered device
@@ -760,10 +754,9 @@ function checkRegStatusOnServer(keyname, id) {
                     log("reg back but no user, old login");
                     loginExpired = true;
                     clearAll();
+                }else{
+                    updateLastAccess();
                 }
-            }else{
-                log("id not found: " + JSON.stringify(data));
-                log("probably need to clearall and show login");
             }
         })
         .fail(function(data) {
@@ -859,4 +852,18 @@ function iSpyUnReg(isReregister) {
     }else{
         log("Can't test reg, no agency");
     }    
+}
+
+function updateLastAccess() {
+    // currentLIUserID comes from header.jade
+    if (uCheck(window.localStorage.getItem("user"))) {
+        var jsonURL = window.location.protocol + '//' + window.location.host + "/fireapp/lastaccess";
+        var json = "{\"email\": \"" + window.localStorage.getItem("user") + "\",\"accessType\": \"iSpyMobile\"}";
+        $.ajax({
+            type: "PUT",
+            url: jsonURL,
+            contentType: "application/json",
+            data: json
+        });
+    }
 }
