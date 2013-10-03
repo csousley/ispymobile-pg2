@@ -167,6 +167,10 @@ a {
     height: 100%;
 }
 
+.room {
+    padding: 7px 0;
+}
+
 .callTabs {
     overflow-x: hidden;
     overflow-y: auto;

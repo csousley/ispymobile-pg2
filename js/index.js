@@ -14,7 +14,7 @@ var loginExpired = false;
 
 var version = "1.0.5";
 var longLogAvailable = false;
-var debug = false;
+var debug = true;
 
 function initialize() {
     $.ajaxSetup({cache:false});
@@ -855,7 +855,7 @@ function iSpyUnReg(isReregister) {
 }
 
 function updateLastAccess() {
-    if (uCheck(window.localStorage.getItem("user"))) {
+    if (uCheck(window.localStorage.getItem("user")) && uCheck(agency)) {
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/lastaccess";
         var json = "{\"email\": \"" + window.localStorage.getItem("user") + "\",\"accessType\": \"iSpyMobile\"}";
         $.ajax({
