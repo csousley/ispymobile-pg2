@@ -855,9 +855,8 @@ function iSpyUnReg(isReregister) {
 }
 
 function updateLastAccess() {
-    // currentLIUserID comes from header.jade
     if (uCheck(window.localStorage.getItem("user"))) {
-        var jsonURL = window.location.protocol + '//' + window.location.host + "/fireapp/lastaccess";
+        var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/lastaccess";
         var json = "{\"email\": \"" + window.localStorage.getItem("user") + "\",\"accessType\": \"iSpyMobile\"}";
         $.ajax({
             type: "PUT",
