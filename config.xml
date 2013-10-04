@@ -13,15 +13,16 @@
         Cy Sousley
     </author>
 
-    <feature name="http://api.phonegap.com/1.0/device" />
-    <feature name="http://api.phonegap.com/1.0/network"/>
-    <feature name="http://api.phonegap.com/1.0/notification"/>
-
-    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="phonegap-version" value="3.0.0" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="false" />
     
-    <gap:plugin name="com.adobe.plugins.pushplugin" />
+    <gap:plugin name="org.apache.cordova.core.device" />
+    <gap:plugin name="org.apache.cordova.core.inappbrowser" />
+    <gap:plugin name="org.apache.cordova.core.network-information" />
+    <gap:plugin name="org.apache.cordova.core.dialogs" />
+    
+    <gap:plugin name="com.phonegap.plugins.pushplugin" />
     
     <gap:platform name="ios" />
     <gap:platform name="android" />
