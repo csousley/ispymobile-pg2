@@ -16,6 +16,10 @@ var version = "1.0.5";
 var longLogAvailable = false;
 var debug = false;
 
+// /////////////////////////// //
+// update version history file //
+// /////////////////////////// //
+
 function initialize() {
     $.ajaxSetup({cache:false});
     documentReady();
