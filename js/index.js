@@ -429,6 +429,7 @@ function clearAll() {
     window.localStorage.setItem("saveagency", saveagency);
     window.localStorage.setItem("saveuser", saveuser);
     log("setting save items ("+saveagency+", "+saveuser+")");
+    lastShiftCheck = null;
     register();
     hideRegButtons();
     documentReady();
