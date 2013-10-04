@@ -1,0 +1,7 @@
+hashed lines are notes for internal use
+unhashed lines are notes for public use
+
+1.0.5
+    // start using updateLastAccess
+    // clean up login issues
+    Added padding to call area headers for easier expanding and collapsing. 
