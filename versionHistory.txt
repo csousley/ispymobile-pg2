@@ -1,7 +1,10 @@
-hashed lines are notes for internal use
-unhashed lines are notes for public use
+//hashed lines are notes for internal use
+//unhashed lines are notes for public use
+//
+//change categories are: Design, Bug Fix, New, Update
 
 1.0.5
     // start using updateLastAccess
     // clean up login issues
-    Added padding to call area headers for easier expanding and collapsing. 
+    Design: Added padding to call area headers for easier expanding and collapsing. 
+    Bug Fix: Shift calendar not getting checked after an app reset.
