@@ -6,5 +6,6 @@
 1.0.5
     // start using updateLastAccess
     // clean up login issues
+    // phonegap build version 3.0.0
     Design: Added padding to call area headers for easier expanding and collapsing. 
     Bug Fix: Shift calendar not getting checked after an app reset.
