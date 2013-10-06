@@ -10,4 +10,4 @@
     // use new phonegap plugins for device etc...
     // hide actionWrapper on show login
     Design: Added padding to call area headers for easier expanding and collapsing. 
-    Bug Fix: Shift calendar not getting checked after an app reset.
+    Bug Fix: Shift calendar not getting checked after an app reset. 
