@@ -3,10 +3,11 @@
 //
 //change categories are: Design, Bug Fix, New, Update
 
-1.0.5
+1.0.5 - 10.06.13
     // start using updateLastAccess
     // clean up login issues
     // phonegap build version 3.0.0
     // use new phonegap plugins for device etc...
+    // hide actionWrapper on show login
     Design: Added padding to call area headers for easier expanding and collapsing. 
     Bug Fix: Shift calendar not getting checked after an app reset.

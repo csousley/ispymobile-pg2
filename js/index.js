@@ -634,6 +634,7 @@ function showLogin() {
         $("#login").css("display", "block");
         $("#agencySelect").css("display", "block");
         $("#loading").css("display", "none");
+        $("#actionWrapper").hide();
         
         if (uCheck(window.localStorage.getItem("saveuser"))) {
             log("saveuser: " + window.localStorage.getItem("saveuser"));
