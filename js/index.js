@@ -12,8 +12,8 @@ var deviceType = null;
 var isiSpyRegistered = false;
 var loginExpired = false;
 
-var version = "1.0.5";
-var longLogAvailable = false;
+var version = "1.0.6";
+var longLogAvailable = true;
 var debug = false;
 
 // /////////////////////////// //
@@ -321,6 +321,7 @@ function unregister(isReregister) {
     pushNotification.unregister(
             function(data){
                 logStatus("unreg ok");
+                window.localStorage.setItem("regComplete", "false");
                 iSpyUnReg(isReregister);
             },
             function(data){
@@ -332,16 +333,20 @@ function unregister(isReregister) {
 }
 
 function register() {
-    logStatus("Do Reg");
+    logStatus("Check Reg");
     pushNotification = window.plugins.pushNotification;
-    if (isAndroid()) {
-        log(">>Android");
-        pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
-    } else {
-        log(">>IOS");
-        pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
-    }    
-    log("Reg Complete");
+    if(uCheck(window.localStorage.getItem("regComplete")) && window.localStorage.getItem("regComplete") == "true") {
+        logStatus("Already Registered");
+    }else{
+        if (isAndroid()) {
+            log(">>Android");
+            pushNotification.register(this.regHandler, this.errorHandler,{"senderID":"648816449509","ecb":"onNotificationGCM"});
+        } else {
+            log(">>IOS");
+            pushNotification.register(this.tokenHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"onNotificationAPN"});
+        }  
+        logStatus("Registered New");
+    }
 }
 
 function onNotificationAPN(event) {
@@ -460,6 +465,7 @@ function setRegID(id) {
         setDeviceID();
     
     window.localStorage.setItem(keyname, id);
+    window.localStorage.setItem("regComplete", "true");
     // var needSet = false;
     // if (uCheck(window.localStorage.getItem(keyname))) {
     //     var key = window.localStorage.getItem(keyname);
@@ -863,7 +869,7 @@ function iSpyUnReg(isReregister) {
 function updateLastAccess() {
     if (uCheck(window.localStorage.getItem("user")) && uCheck(agency)) {
         var jsonURL = "http://" + agency + ".ispyfire.com/fireapp/lastaccess";
-        var json = "{\"email\": \"" + window.localStorage.getItem("user") + "\",\"accessType\": \"iSpyMobile\"}";
+        var json = "{\"email\": \"" + window.localStorage.getItem("user") + "\",\"version\": \"" + version + "\",\"accessType\": \"iSpyMobile\"}";
         $.ajax({
             type: "PUT",
             url: jsonURL,

@@ -11,3 +11,9 @@
     // hide actionWrapper on show login
     Design: Added padding to call area headers for easier expanding and collapsing. 
     Bug Fix: Shift calendar not getting checked after an app reset. 
+    
+1.0.6 - 10.18.13
+    // send version number with updateLastAccess
+    Custom sound for push notifications // (/res/raw/sound7.mp3) https://github.com/phonegap-build/PushPlugin/pull/20
+    Fix duplicate GCM reg issue
+    
